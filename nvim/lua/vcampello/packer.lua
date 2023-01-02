@@ -28,7 +28,6 @@ return require('packer').startup(function(use)
 	  end
   })
 
-
   -- Syntax higlighting
   use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate'})
 
@@ -36,6 +35,7 @@ return require('packer').startup(function(use)
   use('nvim-treesitter/playground')
   use('tpope/vim-fugitive')
   use('mbbill/undotree')
+  use('mhinz/vim-signify')
 
   -- LSP
   use {
