@@ -30,6 +30,10 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
     ["<C-Space>"] = cmp.mapping.complete(),
 })
 
+-- disable completion with tab it's annoying)
+cmp_mappings['<Tab>'] = nil
+cmp_mappings['<S-Tab>'] = nil
+
 lsp.setup_nvim_cmp({
     mapping = cmp_mappings
 })
@@ -54,6 +58,6 @@ lsp.on_attach(function(_client, bufnr)
     vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
 end)
 
--- lsp.nvim_workspace()
+lsp.nvim_workspace()
 
 lsp.setup()
