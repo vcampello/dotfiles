@@ -12,6 +12,7 @@ return require('packer').startup(function(use)
 	  requires = { {'nvim-lua/plenary.nvim'} }
   }
 
+  -- Themes
   use({
 	  'LunarVim/Onedarker.nvim',
 	  as = 'onedarker',
@@ -20,13 +21,6 @@ return require('packer').startup(function(use)
 	  end
   })
 
-  use({
-	  'rose-pine/neovim',
-	  as = 'rose-pine',
-	  config = function()
-		  vim.cmd('colorscheme rose-pine')
-	  end
-  })
 
   -- Syntax higlighting
   use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate'})
