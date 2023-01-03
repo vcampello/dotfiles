@@ -21,6 +21,13 @@ return require('packer').startup(function(use)
 	  end
   })
 
+  use({
+      'Shatur/neovim-ayu',
+      as = 'ayu',
+      config = function()
+          vim.cmd('colorscheme ayu-dark')
+      end
+  })
 
   -- Syntax higlighting
   use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate'})

@@ -21,7 +21,9 @@ vim.keymap.set("x", "<leader>p", [["_dP]])
 -- vim.keymap.set({"n", "v"}, "<leader>d", [["_d]])
 
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
-vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
+
+-- Format code. Lowercase f conflicts with the telescope mapping if typed slow enough
+vim.keymap.set("n", "<leader>F", vim.lsp.buf.format)
 
 vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
 vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
