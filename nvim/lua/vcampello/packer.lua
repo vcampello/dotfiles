@@ -14,8 +14,7 @@ return require('packer').startup(function(use)
     -- Themes
     use('Shatur/neovim-ayu')
     use('EdenEast/nightfox.nvim')
-    use('navarasu/onedark.nvim')
-
+    use("olimorris/onedarkpro.nvim")
     -- Tools
     use('nvim-treesitter/playground')
     use('tpope/vim-fugitive')

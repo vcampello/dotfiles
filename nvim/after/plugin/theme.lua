@@ -1,16 +1,5 @@
-require('onedark').setup({
-    transparent = true,
-    style = 'dark',
-    code_styles = {
-        comments = "italic",
-        keywords = "bold",
-        functions = "bold",
-        types = "italic,bold",
-    }
-})
-
 function ResetTheme()
-    color = color or "onedark"
+    color = color or "onedark_dark"
     vim.cmd.colorscheme(color)
 
     -- Transparent background
