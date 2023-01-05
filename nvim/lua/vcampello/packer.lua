@@ -12,9 +12,9 @@ return require('packer').startup(function(use)
     }
 
     -- Themes
-    use('LunarVim/Onedarker.nvim')
     use('Shatur/neovim-ayu')
     use('EdenEast/nightfox.nvim')
+    use('navarasu/onedark.nvim')
 
     -- Tools
     use('nvim-treesitter/playground')
