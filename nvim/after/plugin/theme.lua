@@ -1,5 +1,5 @@
 function ResetTheme()
-    color = color or "onedark_dark"
+    color = color or "ayu"
     vim.cmd.colorscheme(color)
 
     -- Transparent background
