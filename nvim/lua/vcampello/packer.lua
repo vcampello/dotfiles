@@ -8,7 +8,8 @@ return require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
 
     -- Themes
-    use('Shatur/neovim-ayu')
+    use { 'Shatur/neovim-ayu' }
+    use { "catppuccin/nvim", as = "catppuccin" }
     --
     -- Tools
     -- use('nvim-treesitter/playground')
@@ -31,7 +32,15 @@ return require('packer').startup(function(use)
         requires = { 'kyazdani42/nvim-web-devicons', opt = true }
     }
     use { 'echasnovski/mini.nvim' }
-    --
+    use { "folke/which-key.nvim" }
+    -- use {
+    --     'ggandor/leap.nvim',
+    --     requires = {
+    --         'tpope/vim-repeat'
+    --     },
+    -- }
+    use { 'NvChad/nvim-colorizer.lua' }
+
     -- Syntax higlighting
     use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
 

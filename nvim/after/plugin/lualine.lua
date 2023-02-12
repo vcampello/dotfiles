@@ -45,7 +45,10 @@ local config = {
             -- We are going to use lualine_c an lualine_x as left and
             -- right section. Both are highlighted by c theme .  So we
             -- are just setting default looks o statusline
-            normal = { c = { fg = colors.fg, bg = colors.bg } },
+            normal = {
+                a = { fg = colors.fg, bg = colors.bg },
+                c = { fg = colors.fg, bg = colors.bg }
+            },
             inactive = { c = { fg = colors.fg, bg = colors.bg } },
         },
     },
@@ -78,7 +81,8 @@ local config = {
                 hide_filename_extension = false, -- Hide filename extension when set to true.
                 show_modified_status = true, -- Shows indicator when the buffer is modified.
 
-                mode = 0, -- 0: Shows buffer name
+                mode = 2,
+                -- 0: Shows buffer name
                 -- 1: Shows buffer index
                 -- 2: Shows buffer name + buffer index
                 -- 3: Shows buffer number
@@ -97,8 +101,8 @@ local config = {
 
                 buffers_color = {
                     -- Same values as the general color option can be used here.
-                    -- active = 'lualine_c_normal', -- Color for active buffer.
-                    -- inactive = 'lualine_c_inactive', -- Color for inactive buffer.
+                    active = 'red', --'lualine_c_normal', -- Color for active buffer.
+                    inactive = 'lualine_c_inactive', -- Color for inactive buffer.
                 },
 
                 symbols = {
@@ -108,27 +112,45 @@ local config = {
                 },
             }
         },
-
         lualine_x = { 'tabs' },
         lualine_y = {},
-        lualine_z = {
-            -- Insert navic in the top right
-            { navic.get_location, cond = navic.is_available },
+        lualine_z = {},
+    },
+    winbar = {
+        lualine_a = {},
+        lualine_b = {},
+        lualine_c = {
+            {
+                function()
+                    -- Use a placeholder to prevent it from snapping up and down
+                    if navic.get_location():len() > 0 then
+                        return navic.get_location()
+                    else
+                        return 'Not available...'
+                    end
+                end,
+                cond = navic.is_available,
+                icon = '❯❯',
+                color = { fg = colors.green, bg = '', gui = 'bold' },
+            }
         },
+        lualine_x = {},
+        lualine_y = {},
+        lualine_z = {},
     }
 }
 
 -- Inserts a component in lualine_c at left section
-local function ins_left(component)
+local function ins_left_c(component)
     table.insert(config.sections.lualine_c, component)
 end
 
--- Inserts a component in lualine_x ot right section
-local function ins_right(component)
+-- Inserts a component in lualine_x at right section
+local function ins_right_x(component)
     table.insert(config.sections.lualine_x, component)
 end
 
-ins_left {
+ins_left_c {
     function()
         return '▊'
     end,
@@ -136,7 +158,7 @@ ins_left {
     padding = { left = 0, right = 1 }, -- We don't need space before this
 }
 
-ins_left {
+ins_left_c {
     -- mode component
     function()
         return ''
@@ -170,23 +192,23 @@ ins_left {
     padding = { right = 1 },
 }
 
-ins_left {
+ins_left_c {
     -- filesize component
     'filesize',
     cond = conditions.buffer_not_empty,
 }
 
-ins_left {
+ins_left_c {
     'filename',
     cond = conditions.buffer_not_empty,
     color = { fg = colors.magenta, gui = 'bold' },
 }
 
-ins_left { 'location' }
+ins_left_c { 'location' }
 
-ins_left { 'progress', color = { fg = colors.fg, gui = 'bold' } }
+ins_left_c { 'progress', color = { fg = colors.fg, gui = 'bold' } }
 
-ins_left {
+ins_left_c {
     'diagnostics',
     sources = { 'nvim_diagnostic' },
     symbols = { error = ' ', warn = ' ', info = ' ' },
@@ -199,13 +221,13 @@ ins_left {
 
 -- Insert mid section. You can make any number of sections in neovim :)
 -- for lualine it's any number greater then 2
-ins_left {
+ins_left_c {
     function()
         return '%='
     end,
 }
 
-ins_left {
+ins_left_c {
     -- Lsp server name .
     function()
         local msg = 'No Active Lsp'
@@ -227,27 +249,27 @@ ins_left {
 }
 
 -- Add components to right sections
-ins_right {
+ins_right_x {
     'o:encoding', -- option component same as &encoding in viml
     fmt = string.upper, -- I'm not sure why it's upper case either ;)
     cond = conditions.hide_in_width,
     color = { fg = colors.green, gui = 'bold' },
 }
 
-ins_right {
+ins_right_x {
     'fileformat',
     fmt = string.upper,
     icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
     color = { fg = colors.green, gui = 'bold' },
 }
 
-ins_right {
+ins_right_x {
     'branch',
     icon = '',
     color = { fg = colors.violet, gui = 'bold' },
 }
 
-ins_right {
+ins_right_x {
     'diff',
     -- Is it me or the symbol for modified us really weird
     symbols = { added = ' ', modified = '柳 ', removed = ' ' },
@@ -259,7 +281,7 @@ ins_right {
     cond = conditions.hide_in_width,
 }
 
-ins_right {
+ins_right_x {
     function()
         return '▊'
     end,
