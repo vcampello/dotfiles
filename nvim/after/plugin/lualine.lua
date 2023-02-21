@@ -126,12 +126,12 @@ local config = {
                     if navic.get_location():len() > 0 then
                         return navic.get_location()
                     else
-                        return 'Not available...'
+                        return ' '
                     end
                 end,
                 cond = navic.is_available,
-                icon = '❯❯',
-                color = { fg = colors.green, bg = '', gui = 'bold' },
+                icon = '❯',
+                color = { fg = colors.orange, bg = '', gui = 'bold' },
             }
         },
         lualine_x = {},

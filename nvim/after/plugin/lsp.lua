@@ -7,11 +7,11 @@ lsp.preset('recommended')
 local cmp = require('cmp')
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
 local cmp_mappings = lsp.defaults.cmp_mappings({
-        ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-        ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-        ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-        ["<C-Space>"] = cmp.mapping.complete(),
-    })
+    ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
+    ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
+    ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+    ["<C-Space>"] = cmp.mapping.complete(),
+})
 
 -- disable completion with tab it's annoying)
 cmp_mappings['<Tab>'] = nil
@@ -23,6 +23,7 @@ lsp.setup_nvim_cmp({
 
 -- The below setup comes from https://github.com/neovim/nvim-lspconfig
 local on_attach = function(client, bufnr)
+
     -- Enable completion triggered by <c-x><c-o>
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
@@ -45,7 +46,9 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
     vim.keymap.set('n', '<leader>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 
-    if client.server_capabilities.documentSymbolProvider then
+    local caps = client.server_capabilities
+
+    if caps.documentSymbolProvider then
         navic.attach(client, bufnr)
     end
 end
@@ -55,8 +58,7 @@ end
 lsp.ensure_installed({
     'tsserver',
     'eslint',
-    -- This stopped working
-    -- 'sumneko_lua',
+    'lua_ls',
     'rust_analyzer',
 })
 

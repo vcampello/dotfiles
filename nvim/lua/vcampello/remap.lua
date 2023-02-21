@@ -31,6 +31,6 @@ vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><
 -- Make the current file executable
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
--- Navigate buffers the same way as tabs
-vim.keymap.set("n", "<leader>bt", vim.cmd.bnext)
-vim.keymap.set("n", "<leader>bT", vim.cmd.bprevious)
+-- Navigate buffers the same way as tab. N is used becuase it's closer than t
+vim.keymap.set("n", "<leader>bn", vim.cmd.bnext)
+vim.keymap.set("n", "<leader>bN", vim.cmd.bprevious)
