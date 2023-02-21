@@ -4,77 +4,78 @@
 vim.cmd [[packadd packer.nvim]]
 
 return require('packer').startup(function(use)
-        -- Packer can manage itself
-        use 'wbthomason/packer.nvim'
+    -- Packer can manage itself
+    use 'wbthomason/packer.nvim'
 
-        -- Themes
-        use { 'Shatur/neovim-ayu' }
-        use { "catppuccin/nvim", as = "catppuccin" }
-        --
-        -- Tools
-        -- use('nvim-treesitter/playground')
-        use {
-            'nvim-telescope/telescope.nvim', tag = '0.1.0',
-            requires = { { 'nvim-lua/plenary.nvim' } }
-        }
-        use('tpope/vim-fugitive')
-        use('mbbill/undotree')
-        use('mhinz/vim-signify')
-        use {
-            'nvim-tree/nvim-tree.lua',
-            requires = {
-                'nvim-tree/nvim-web-devicons', -- optional, for file icons
-            },
-            tag = 'nightly' -- optional, updated every week. (see issue #1193)
-        }
-        use {
-            'nvim-lualine/lualine.nvim',
-            requires = { 'kyazdani42/nvim-web-devicons', opt = true }
-        }
-        use { 'echasnovski/mini.nvim' }
-        use { "folke/which-key.nvim" }
-        -- use {
-        --     'ggandor/leap.nvim',
-        --     requires = {
-        --         'tpope/vim-repeat'
-        --     },
-        -- }
-        use { 'NvChad/nvim-colorizer.lua' }
-        use { 'rcarriga/nvim-notify' }
-        -- Lua
-        use {
-            "folke/trouble.nvim",
-            requires = "nvim-tree/nvim-web-devicons",
-        }
+    -- Themes
+    use { 'Shatur/neovim-ayu' }
+    use { "catppuccin/nvim", as = "catppuccin" }
+    --
+    -- Tools
+    -- use('nvim-treesitter/playground')
+    use {
+        'nvim-telescope/telescope.nvim', tag = '0.1.0',
+        requires = { { 'nvim-lua/plenary.nvim' } }
+    }
+    use('tpope/vim-fugitive')
+    use('mbbill/undotree')
+    use('mhinz/vim-signify')
+    use {
+        'nvim-tree/nvim-tree.lua',
+        requires = {
+            'nvim-tree/nvim-web-devicons', -- optional, for file icons
+        },
+        tag = 'nightly' -- optional, updated every week. (see issue #1193)
+    }
+    use {
+        'nvim-lualine/lualine.nvim',
+        requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+    }
+    use { 'echasnovski/mini.nvim' }
+    use { "folke/which-key.nvim" }
+    -- use {
+    --     'ggandor/leap.nvim',
+    --     requires = {
+    --         'tpope/vim-repeat'
+    --     },
+    -- }
+    use { 'NvChad/nvim-colorizer.lua' }
+    use { 'rcarriga/nvim-notify' }
+    -- Lua
+    use {
+        "folke/trouble.nvim",
+        requires = "nvim-tree/nvim-web-devicons",
+    }
 
-        -- Syntax higlighting
-        use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
+    -- Syntax higlighting
+    use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
 
-        -- LSP
-        use {
-            'VonHeikemen/lsp-zero.nvim',
-            requires = {
-                -- LSP Support
-                { 'neovim/nvim-lspconfig' },
-                { 'williamboman/mason.nvim' },
-                { 'williamboman/mason-lspconfig.nvim' },
+    -- LSP
+    use {
+        'VonHeikemen/lsp-zero.nvim',
+        requires = {
+            -- LSP Support
+            { 'neovim/nvim-lspconfig' },
+            { 'williamboman/mason.nvim' },
+            { 'williamboman/mason-lspconfig.nvim' },
 
-                -- Autocompletion
-                { 'hrsh7th/nvim-cmp' },
-                { 'hrsh7th/cmp-buffer' },
-                { 'hrsh7th/cmp-path' },
-                { 'saadparwaiz1/cmp_luasnip' },
-                { 'hrsh7th/cmp-nvim-lsp' },
-                { 'hrsh7th/cmp-nvim-lua' },
+            -- Autocompletion
+            { 'hrsh7th/nvim-cmp' },
+            { 'hrsh7th/cmp-buffer' },
+            { 'hrsh7th/cmp-path' },
+            { 'saadparwaiz1/cmp_luasnip' },
+            { 'hrsh7th/cmp-nvim-lsp' },
+            { 'hrsh7th/cmp-nvim-lua' },
 
-                -- Snippets
-                { 'L3MON4D3/LuaSnip' },
-                { 'rafamadriz/friendly-snippets' },
-            }
+            -- Snippets
+            { 'L3MON4D3/LuaSnip' },
+            { 'rafamadriz/friendly-snippets' },
         }
+    }
 
-        use {
-            "SmiteshP/nvim-navic",
-            requires = "neovim/nvim-lspconfig"
-        }
-    end)
+    use {
+        "SmiteshP/nvim-navic",
+        requires = "neovim/nvim-lspconfig"
+    }
+    use { 'simrat39/rust-tools.nvim' }
+end)

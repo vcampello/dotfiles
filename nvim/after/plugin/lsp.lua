@@ -23,7 +23,6 @@ lsp.setup_nvim_cmp({
 
 -- The below setup comes from https://github.com/neovim/nvim-lspconfig
 local on_attach = function(client, bufnr)
-
     -- Enable completion triggered by <c-x><c-o>
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
@@ -60,10 +59,11 @@ lsp.ensure_installed({
     'eslint',
     'lua_ls',
     'rust_analyzer',
+    'jsonls'
 })
 
 -- Fix Undefined global 'vim'
-lsp.configure('sumneko_lua', {
+lsp.configure('lua_ls', {
     on_attach = on_attach,
     settings = {
         Lua = {
@@ -84,6 +84,53 @@ lsp.configure('rust_analyzer', {
     settings = {
         ["rust-analyzer"] = {}
     }
+})
+
+lsp.configure('jsonls', {
+    on_attach = on_attach,
+    settings = {
+        json = {
+            -- Schemas https://www.schemastore.org
+            schemas = {
+                {
+                    fileMatch = { "package.json" },
+                    url = "https://json.schemastore.org/package.json"
+                },
+                {
+                    fileMatch = { "tsconfig*.json" },
+                    url = "https://json.schemastore.org/tsconfig.json"
+                },
+                {
+                    fileMatch = {
+                        ".prettierrc",
+                        ".prettierrc.json",
+                        "prettier.config.json"
+                    },
+                    url = "https://json.schemastore.org/prettierrc.json"
+                },
+                {
+                    fileMatch = { ".eslintrc", ".eslintrc.json" },
+                    url = "https://json.schemastore.org/eslintrc.json"
+                },
+                {
+                    fileMatch = { "lerna.json" },
+                    url = "https://json.schemastore.org/lerna.json"
+                },
+                {
+                    fileMatch = { "now.json", "vercel.json" },
+                    url = "https://json.schemastore.org/now.json"
+                },
+                {
+                    fileMatch = {
+                        ".stylelintrc",
+                        ".stylelintrc.json",
+                        "stylelint.config.json"
+                    },
+                    url = "http://json.schemastore.org/stylelintrc.json"
+                }
+            }
+        }
+    },
 })
 
 
