@@ -20,7 +20,7 @@ vim.opt.scrolloff = 8
 vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
 vim.opt.list = true
-vim.opt.listchars = 'eol:⏎,tab:▶ ,trail:·,leadmultispace:·'
+vim.opt.listchars = "eol:⏎,tab:▶ ,trail:·,leadmultispace:·"
 --vim.opt.listchars = ''
 
 -- Tools

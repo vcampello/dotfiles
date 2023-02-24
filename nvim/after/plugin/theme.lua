@@ -8,8 +8,8 @@ function ResetTheme()
     vim.api.nvim_set_hl(0, "EndOfBuffer", {})
 
     -- Whitespace/eol foreground
-    vim.api.nvim_set_hl(0, "NonText", { fg = '#555555' })
-    vim.api.nvim_set_hl(0, "Whitespace", { fg = '#555555' })
+    vim.api.nvim_set_hl(0, "NonText", { fg = "#555555" })
+    vim.api.nvim_set_hl(0, "Whitespace", { fg = "#555555" })
 end
 
 -- ResetTheme()
@@ -58,4 +58,4 @@ require("catppuccin").setup({
 })
 
 -- setup must be called before loading
-vim.cmd.colorscheme "catppuccin"
+vim.cmd.colorscheme("catppuccin")

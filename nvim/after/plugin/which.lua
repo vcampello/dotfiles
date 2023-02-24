@@ -2,4 +2,4 @@
 vim.o.timeout = true
 vim.o.timeoutlen = 300
 -- TODO: setup all keybindings
-require("which-key").setup { }
+require("which-key").setup({})
