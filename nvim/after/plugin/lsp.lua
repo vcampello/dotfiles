@@ -56,7 +56,7 @@ end
 -- ----------------------------------------------------
 lsp.ensure_installed({
     'tsserver',
-    'eslint',
+    -- 'eslint',
     'lua_ls',
     'rust_analyzer',
     'jsonls'

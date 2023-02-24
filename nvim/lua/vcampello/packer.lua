@@ -33,15 +33,8 @@ return require('packer').startup(function(use)
     }
     use { 'echasnovski/mini.nvim' }
     use { "folke/which-key.nvim" }
-    -- use {
-    --     'ggandor/leap.nvim',
-    --     requires = {
-    --         'tpope/vim-repeat'
-    --     },
-    -- }
     use { 'NvChad/nvim-colorizer.lua' }
-    use { 'rcarriga/nvim-notify' }
-    -- Lua
+
     use {
         "folke/trouble.nvim",
         requires = "nvim-tree/nvim-web-devicons",
