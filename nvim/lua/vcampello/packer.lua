@@ -20,7 +20,7 @@ return require("packer").startup(function(use)
     })
     use("tpope/vim-fugitive")
     use("mbbill/undotree")
-    use("mhinz/vim-signify")
+    use("lewis6991/gitsigns.nvim")
     use({
         "nvim-tree/nvim-tree.lua",
         requires = {
