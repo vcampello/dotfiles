@@ -8,12 +8,12 @@ vim.opt.termguicolors = true
 -- empty setup using defaults
 require("nvim-tree").setup()
 
-vim.keymap.set("n", "<leader>e", vim.cmd.NvimTreeToggle)
-vim.keymap.set("n", "<leader>ef", vim.cmd.NvimTreeFocus)
+vim.keymap.set("n", "<leader>p", vim.cmd.NvimTreeToggle)
+vim.keymap.set("n", "<leader>P", vim.cmd.NvimTreeFocus)
 
 -- Close nvim when it's the last buffer open
 -- https://github.com/nvim-tree/nvim-tree.lua/wiki/Auto-Close
--- https://github.com/nvim-tree/nvim-tree.lua/pull/1698#issuecomment-1312440956
+-- https://github.com/nvim-treffe/nvim-tree.lua/pull/1698#issuecomment-1312440956
 local function tab_win_closed(winnr)
     local api = require("nvim-tree.api")
     local tabnr = vim.api.nvim_win_get_tabpage(winnr)

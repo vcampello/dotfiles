@@ -2,9 +2,16 @@ vim.opt.signcolumn = "yes" -- Reserve space for diagnostic icons
 
 local lsp = require("lsp-zero")
 local navic = require("nvim-navic")
-lsp.preset("recommended")
-
 local cmp = require("cmp")
+
+-- Mappings.
+-- See `:help vim.diagnostic.*` for documentation on any of the below functions
+local opts = { noremap = true, silent = true }
+vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, opts)
+vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
+vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
+vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, opts)
+
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
 local cmp_mappings = lsp.defaults.cmp_mappings({
     ["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
@@ -17,6 +24,7 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
 cmp_mappings["<Tab>"] = nil
 cmp_mappings["<S-Tab>"] = nil
 
+lsp.preset("recommended")
 lsp.setup_nvim_cmp({
     mapping = cmp_mappings,
 })
@@ -136,5 +144,4 @@ lsp.configure("jsonls", {
 })
 
 lsp.nvim_workspace()
-
 lsp.setup()

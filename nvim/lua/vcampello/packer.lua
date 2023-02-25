@@ -43,7 +43,10 @@ return require("packer").startup(function(use)
 
     -- Syntax higlighting
     use("nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" })
-
+    use({
+        "windwp/nvim-ts-autotag",
+        after = "nvim-treesitter",
+    })
     -- LSP
     use({
         "VonHeikemen/lsp-zero.nvim",
