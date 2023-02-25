@@ -32,26 +32,27 @@ local on_attach = function(client, bufnr)
     --
     -- Mappings.
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
-    vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, bufopts)
-    vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, bufopts)
-    vim.keymap.set("n", "]d", vim.diagnostic.goto_next, bufopts)
-    vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, bufopts)
-    vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
-    vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
-    vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
-    vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
-    vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
-    vim.keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, bufopts)
-    vim.keymap.set("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
-    vim.keymap.set("n", "<leader>wl", function()
+    local bind = vim.keymap.set
+    bind("n", "<space>e", vim.diagnostic.open_float, bufopts)
+    bind("n", "[d", vim.diagnostic.goto_prev, bufopts)
+    bind("n", "]d", vim.diagnostic.goto_next, bufopts)
+    bind("n", "<space>q", vim.diagnostic.setloclist, bufopts)
+    bind("n", "gD", vim.lsp.buf.declaration, bufopts)
+    bind("n", "gd", vim.lsp.buf.definition, bufopts)
+    bind("n", "K", vim.lsp.buf.hover, bufopts)
+    bind("n", "gi", vim.lsp.buf.implementation, bufopts)
+    bind("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
+    bind("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, bufopts)
+    bind("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
+    bind("n", "<leader>wl", function()
         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
     end, bufopts)
-    vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, bufopts)
-    vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, bufopts)
-    vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, bufopts)
-    vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
+    bind("n", "<leader>D", vim.lsp.buf.type_definition, bufopts)
+    bind("n", "<leader>rn", vim.lsp.buf.rename, bufopts)
+    bind("n", "<leader>ca", vim.lsp.buf.code_action, bufopts)
+    bind("n", "gr", vim.lsp.buf.references, bufopts)
     -- Format code. Lowercase f conflicts with the telescope mapping if typed slow enough
-    vim.keymap.set("n", "<leader>F", function()
+    bind("n", "<leader>F", function()
         vim.lsp.buf.format({ async = true })
     end, bufopts)
 
@@ -102,13 +103,23 @@ lsp.configure("marksman", {
     on_attach = on_attach,
 })
 
-lsp.configure("rust_analyzer", {
-    on_attach = on_attach,
-    -- Server-specific settings...
-    settings = {
-        ["rust-analyzer"] = {},
-    },
+-- lsp.configure("rust_analyzer", {
+--     on_attach = on_attach,
+-- })
+
+local rt = require("rust-tools")
+
+rt.setup({
+  server = {
+    on_attach = function(_, bufnr)
+      -- Hover actions
+      vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
+      -- Code action groups
+      vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+    end,
+  },
 })
+rt.inlay_hints.enable()
 
 lsp.configure("jsonls", {
     on_attach = on_attach,
