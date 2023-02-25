@@ -18,15 +18,28 @@ return require("packer").startup(function(use)
         tag = "0.1.0",
         requires = { { "nvim-lua/plenary.nvim" } },
     })
-    use("tpope/vim-fugitive")
-    use("mbbill/undotree")
-    use("lewis6991/gitsigns.nvim")
+    use({ "tpope/vim-fugitive" })
+    use({ "mbbill/undotree" })
+    use({ "lewis6991/gitsigns.nvim" })
+    -- use({
+    --     "nvim-tree/nvim-tree.lua",
+    --     requires = {
+    --         "nvim-tree/nvim-web-devicons", -- optional, for file icons
+    --     },
+    --     tag = "nightly", -- optional, updated every week. (see issue #1193)
+    -- })
     use({
-        "nvim-tree/nvim-tree.lua",
+        "nvim-neo-tree/neo-tree.nvim",
+        branch = "v2.x",
         requires = {
-            "nvim-tree/nvim-web-devicons", -- optional, for file icons
+            "nvim-lua/plenary.nvim",
+            "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+            "MunifTanjim/nui.nvim",
+            {
+                "s1n7ax/nvim-window-picker",
+                tag = "v1.*",
+            },
         },
-        tag = "nightly", -- optional, updated every week. (see issue #1193)
     })
     use({
         "nvim-lualine/lualine.nvim",
@@ -69,7 +82,7 @@ return require("packer").startup(function(use)
             { "rafamadriz/friendly-snippets" },
 
             -- Custom stuff
-            { "b0o/schemastore.nvim" }
+            { "b0o/schemastore.nvim" },
         },
     })
 

@@ -100,7 +100,7 @@ lsp.configure("jsonls", {
     on_attach = on_attach,
     settings = {
         json = {
-            schemas = require('schemastore').json.schemas(),
+            schemas = require("schemastore").json.schemas(),
             validate = { enable = true },
         },
     },
