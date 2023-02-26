@@ -8,6 +8,7 @@ local lsp = require("lsp-zero").preset({
     manage_nvim_cmp = true,
     suggest_lsp_servers = true,
 })
+local rt = require("rust-tools")
 
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -26,17 +27,14 @@ lsp.setup_nvim_cmp({
     mapping = cmp_mappings,
 })
 
--- The below setup comes from https://github.com/neovim/nvim-lspconfig
 local on_attach = function(client, bufnr)
-    -- print('running on_attach')
-    --
     -- Mappings.
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
     local bind = vim.keymap.set
-    bind("n", "<space>e", vim.diagnostic.open_float, bufopts)
+    bind("n", "<leader>e", vim.diagnostic.open_float, bufopts)
     bind("n", "[d", vim.diagnostic.goto_prev, bufopts)
     bind("n", "]d", vim.diagnostic.goto_next, bufopts)
-    bind("n", "<space>q", vim.diagnostic.setloclist, bufopts)
+    bind("n", "<leader>q", vim.diagnostic.setloclist, bufopts)
     bind("n", "gD", vim.lsp.buf.declaration, bufopts)
     bind("n", "gd", vim.lsp.buf.definition, bufopts)
     bind("n", "K", vim.lsp.buf.hover, bufopts)
@@ -56,6 +54,7 @@ local on_attach = function(client, bufnr)
         vim.lsp.buf.format({ async = true })
     end, bufopts)
 
+    -- Capabilities
     local caps = client.server_capabilities
 
     if caps.documentSymbolProvider then
@@ -63,6 +62,7 @@ local on_attach = function(client, bufnr)
     end
 
     -- Server specific
+    -- print('client.name: ' .. client.name)
     if client.name == "eslint" then
         -- Auto lint on save
         vim.api.nvim_create_autocmd("BufWritePre", {
@@ -103,23 +103,11 @@ lsp.configure("marksman", {
     on_attach = on_attach,
 })
 
+-- Replaced by rust-tools (see config at the bottom)
 -- lsp.configure("rust_analyzer", {
 --     on_attach = on_attach,
 -- })
 
-local rt = require("rust-tools")
-
-rt.setup({
-  server = {
-    on_attach = function(_, bufnr)
-      -- Hover actions
-      vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
-      -- Code action groups
-      vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
-    end,
-  },
-})
-rt.inlay_hints.enable()
 
 lsp.configure("jsonls", {
     on_attach = on_attach,
@@ -132,3 +120,10 @@ lsp.configure("jsonls", {
 })
 
 lsp.setup()
+
+-- Needs to be setup after lsp.setup() or the on_attach won't work as expected
+rt.setup({
+    server = {
+        on_attach = on_attach
+    },
+})
