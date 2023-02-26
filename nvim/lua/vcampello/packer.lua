@@ -41,6 +41,7 @@ return require("packer").startup(function(use)
     use({ "echasnovski/mini.nvim" })
     use({ "folke/which-key.nvim" })
     use({ "NvChad/nvim-colorizer.lua" })
+    use({ "famiu/bufdelete.nvim" })
 
     use({
         "folke/trouble.nvim",

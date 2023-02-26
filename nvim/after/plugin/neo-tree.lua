@@ -64,7 +64,6 @@ require("neo-tree").setup({
         {
             event = "file_opened",
             handler = function(_file_path)
-                print(_file_path)
                 --auto close
                 require("neo-tree").close_all()
             end,

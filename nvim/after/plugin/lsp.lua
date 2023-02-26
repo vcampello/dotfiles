@@ -108,7 +108,6 @@ lsp.configure("marksman", {
 --     on_attach = on_attach,
 -- })
 
-
 lsp.configure("jsonls", {
     on_attach = on_attach,
     settings = {
@@ -124,6 +123,6 @@ lsp.setup()
 -- Needs to be setup after lsp.setup() or the on_attach won't work as expected
 rt.setup({
     server = {
-        on_attach = on_attach
+        on_attach = on_attach,
     },
 })
