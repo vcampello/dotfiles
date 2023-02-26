@@ -8,7 +8,7 @@ local lsp = require("lsp-zero").preset({
     manage_nvim_cmp = true,
     suggest_lsp_servers = true,
 })
-local lspkind = require('lspkind')
+local lspkind = require("lspkind")
 local rt = require("rust-tools")
 
 -- Mappings.
@@ -21,8 +21,8 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
     ["<C-Space>"] = cmp.mapping.complete(),
 
     -- Better popup scrolling
-    ['<C-k>'] = cmp.mapping.scroll_docs( -4),
-    ['<C-j>'] = cmp.mapping.scroll_docs(4),
+    ["<C-k>"] = cmp.mapping.scroll_docs(-4),
+    ["<C-j>"] = cmp.mapping.scroll_docs(4),
 
     -- disable completion with tab it's annoying)
     ["<Tab>"] = vim.NIL,
@@ -33,9 +33,9 @@ lsp.setup_nvim_cmp({
     mapping = cmp_mappings,
     formatting = {
         format = lspkind.cmp_format({
-            mode = 'symbol_text',
-        })
-    }
+            mode = "symbol_text",
+        }),
+    },
 })
 
 local on_attach = function(client, bufnr)

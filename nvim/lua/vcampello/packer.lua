@@ -47,6 +47,10 @@ return require("packer").startup(function(use)
         "folke/trouble.nvim",
         requires = "nvim-tree/nvim-web-devicons",
     })
+    use({
+        "akinsho/toggleterm.nvim",
+        tag = "*",
+    })
 
     -- Syntax higlighting
     use("nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" })
@@ -77,7 +81,7 @@ return require("packer").startup(function(use)
 
             -- Custom stuff
             { "b0o/schemastore.nvim" },
-            { "onsails/lspkind.nvim" }
+            { "onsails/lspkind.nvim" },
         },
     })
 
