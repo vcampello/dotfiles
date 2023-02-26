@@ -5,6 +5,7 @@
 ## TODO
 - [x] File tree
 - [x] Git signs
+- [x] BufDelete
 - [ ] Telescope
 - [ ] LSP
     - [ ] Shortcuts that make sense
@@ -13,8 +14,8 @@
         - [ ] Typescript
         - [ ] JSX
         - [ ] Prettier
-        - [ ] Rust
-        - [ ] Inlay hints
+        - [x] Rust
+        - [x] Inlay hints
         - [ ] Markdown
 - [ ] Terminal
 - [ ] Mini
@@ -32,3 +33,5 @@
 - [ ] Which key
     - [ ] ...
 - [ ] Tidy up
+    - [ ] Restructure settings
+    - [ ] Migrate from lsp-zero
