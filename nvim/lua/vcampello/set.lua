@@ -34,3 +34,4 @@ vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.updatetime = 50
 vim.opt.colorcolumn = "100"
+vim.opt.autoread = true
