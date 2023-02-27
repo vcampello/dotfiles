@@ -1,4 +1,10 @@
-require("mini.comment").setup()
+require("mini.comment").setup({
+    mappings = {
+        text_object = '<leader>/',
+        comment = '<leader>/',
+        comment_line = '<leader>//',
+    }
+})
 require("mini.cursorword").setup()
 require("mini.indentscope").setup()
 -- require("mini.animate").setup();
