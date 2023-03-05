@@ -13,6 +13,10 @@ vim.opt.expandtab = true
 -- Layout
 vim.opt.showtabline = 2 -- Always show tabline
 
+-- More natural buffer splitting
+vim.opt.splitbelow = true
+vim.opt.splitright = true
+
 -- Editor behiavour
 vim.opt.smartindent = true
 vim.opt.wrap = true
