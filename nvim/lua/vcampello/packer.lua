@@ -82,6 +82,7 @@ return require("packer").startup(function(use)
             -- Custom stuff
             { "b0o/schemastore.nvim" },
             { "onsails/lspkind.nvim" },
+            { "jose-elias-alvarez/null-ls.nvim" },
         },
     })
 

@@ -1,5 +1,5 @@
 require("toggleterm").setup({
-    open_mapping = [[<c-j>]],
+    open_mapping = "<F3>",
     shading_factor = 2,
     direction = "float",
     float_opts = {

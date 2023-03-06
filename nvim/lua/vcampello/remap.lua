@@ -23,7 +23,7 @@ vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
 vim.keymap.set(
-    "n",
+    { "n" },
     "<leader>s",
     [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
     { desc = "Copy current word into replace" }
@@ -37,3 +37,9 @@ vim.keymap.set({ "n", "i" }, "<C-h>", "<C-w>h", { desc = "Move to buffer on the 
 vim.keymap.set({ "n", "i" }, "<C-j>", "<C-w>j", { desc = "Move to buffer on the bottom" })
 vim.keymap.set({ "n", "i" }, "<C-k>", "<C-w>k", { desc = "Move to buffer on the top" })
 vim.keymap.set({ "n", "i" }, "<C-l>", "<C-w>l", { desc = "Move to buffer on the right" })
+
+-- Misc
+vim.keymap.set({ "n" }, "<ESC>", ":nohlsearch<CR>", {
+    desc = "Clear search highlight on escape",
+    silent = true,
+})

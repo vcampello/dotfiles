@@ -113,12 +113,8 @@ local config = {
             },
         },
         lualine_x = { "tabs" },
-        lualine_y = {},
-        lualine_z = {},
     },
     winbar = {
-        lualine_a = {},
-        lualine_b = {},
         lualine_c = {
             {
                 function()
@@ -130,13 +126,21 @@ local config = {
                     end
                 end,
                 cond = navic.is_available,
-                icon = "❯",
                 color = { fg = colors.orange, bg = "", gui = "bold" },
             },
         },
-        lualine_x = {},
-        lualine_y = {},
-        lualine_z = {},
+    },
+    inactive_winbar = {
+        lualine_a = {
+            {
+                -- Prevent buffer from resizing when inactive
+                function()
+                    return " "
+                end,
+                cond = navic.is_available,
+                color = { fg = colors.red, bg = "", gui = "bold" },
+            },
+        },
     },
 }
 

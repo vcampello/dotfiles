@@ -22,13 +22,15 @@ vim.opt.smartindent = true
 vim.opt.wrap = true
 vim.opt.scrolloff = 8
 vim.opt.signcolumn = "yes"
-vim.opt.isfname:append("@-@")
-vim.opt.list = true
-vim.opt.listchars = "eol:⏎,tab:▶ ,trail:·,leadmultispace:·"
+-- vim.opt.isfname:append("@-@") -- What does this do?
+
+-- Show invisible characters
+-- vim.opt.list = true
+-- vim.opt.listchars = "eol:⏎,tab:▶ ,trail:·,leadmultispace:·"
 --vim.opt.listchars = ''
 
 -- Tools
-vim.opt.hlsearch = false
+vim.opt.hlsearch = true
 vim.opt.incsearch = true
 
 vim.opt.termguicolors = true

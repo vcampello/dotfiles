@@ -1,5 +1,5 @@
 local bufdelete = require("bufdelete")
-vim.keymap.set("n", "<c-c>", function()
+vim.keymap.set({ "n" }, "<C-c>", function()
     -- Wipeout current buffer
     bufdelete.bufwipeout()
 end, {

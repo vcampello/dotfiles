@@ -19,11 +19,9 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
     ["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
     ["<C-y>"] = cmp.mapping.confirm({ select = true }),
     ["<C-Space>"] = cmp.mapping.complete(),
-
     -- Better popup scrolling
     ["<C-k>"] = cmp.mapping.scroll_docs(-4),
     ["<C-j>"] = cmp.mapping.scroll_docs(4),
-
     -- disable completion with tab it's annoying)
     ["<Tab>"] = vim.NIL,
     ["<S-Tab>"] = vim.NIL,
@@ -63,6 +61,7 @@ local on_attach = function(client, bufnr)
     -- Format code. Lowercase f conflicts with the telescope mapping if typed slow enough
     bind("n", "<leader>F", function()
         vim.lsp.buf.format({ async = true })
+        -- TODO: auto lint if it's javascript
     end, bufopts)
 
     -- Capabilities
@@ -135,5 +134,19 @@ lsp.setup()
 rt.setup({
     server = {
         on_attach = on_attach,
+    },
+})
+
+local null_ls = require("null-ls")
+
+null_ls.setup({
+    sources = {
+        null_ls.builtins.formatting.stylua,
+        null_ls.builtins.diagnostics.eslint_d,
+        null_ls.builtins.completion.spell,
+        null_ls.builtins.code_actions.gitsigns,
+        null_ls.builtins.diagnostics.cfn_lint,
+        -- Might be missing dependencies
+        -- null_ls.builtins.diagnostics.codespell,
     },
 })
