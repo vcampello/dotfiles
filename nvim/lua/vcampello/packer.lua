@@ -39,18 +39,20 @@ return require("packer").startup(function(use)
         requires = { "kyazdani42/nvim-web-devicons", opt = true },
     })
     use({ "echasnovski/mini.nvim" })
+    use({ "numToStr/Comment.nvim" }) -- mini.comment doesn't support block comments
     use({ "folke/which-key.nvim" })
     use({ "NvChad/nvim-colorizer.lua" })
-    use({ "famiu/bufdelete.nvim" })
 
     use({
         "folke/trouble.nvim",
         requires = "nvim-tree/nvim-web-devicons",
     })
+
     use({
         "akinsho/toggleterm.nvim",
         tag = "*",
     })
+    use({ "dstein64/vim-startuptime" })
 
     -- Syntax higlighting
     use("nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" })
@@ -83,6 +85,7 @@ return require("packer").startup(function(use)
             { "b0o/schemastore.nvim" },
             { "onsails/lspkind.nvim" },
             { "jose-elias-alvarez/null-ls.nvim" },
+            { "JoosepAlviste/nvim-ts-context-commentstring" },
         },
     })
 

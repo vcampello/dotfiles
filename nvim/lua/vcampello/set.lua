@@ -42,7 +42,7 @@ vim.opt.cursorline = true -- Highlight current line
 vim.opt.linebreak = true -- Wrap long lines at 'breakat' (if 'wrap' is set)
 
 vim.opt.ruler = false -- Don't show cursor position in command line
-vim.opt.showmode = true -- Don't show mode in command line
+vim.opt.showmode = false -- Don't show mode in command line
 vim.opt.wrap = false -- Display long lines as just one line
 
 -- Editing
@@ -62,5 +62,5 @@ vim.opt.expandtab = true
 
 -- Enable syntax highlighing if it wasn't already (as it is time consuming)
 if vim.fn.exists("syntax_on") ~= 1 then
-    vim.cmd([[syntax enable]])
+    vim.cmd("syntax enable")
 end

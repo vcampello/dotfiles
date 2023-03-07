@@ -16,12 +16,6 @@ vim.keymap.set("x", "<leader>p", [["_dP]], { desc = "Delete into the void and pa
 -- Not currently using tmux
 -- vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 
--- TODO: figure out what exactly is the point of these. It's <something> centralise
-vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
-vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
-vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
-vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
-
 vim.keymap.set(
     { "n" },
     "<leader>s",
@@ -29,14 +23,15 @@ vim.keymap.set(
     { desc = "Copy current word into replace" }
 )
 
--- Better buffer navigaction
--- gb/gB complement gt/gT
-vim.keymap.set("n", "gb", vim.cmd.bnext, { desc = "Next buffer" })
-vim.keymap.set("n", "gB", vim.cmd.bprevious, { desc = "Previous buffer" })
-vim.keymap.set({ "n", "i" }, "<C-h>", "<C-w>h", { desc = "Move to buffer on the left" })
-vim.keymap.set({ "n", "i" }, "<C-j>", "<C-w>j", { desc = "Move to buffer on the bottom" })
-vim.keymap.set({ "n", "i" }, "<C-k>", "<C-w>k", { desc = "Move to buffer on the top" })
-vim.keymap.set({ "n", "i" }, "<C-l>", "<C-w>l", { desc = "Move to buffer on the right" })
+-- Buffer navigaction
+-- gb/gB complement gt/gT however it conflicts with Comments
+vim.keymap.set("n", "<leader>b", vim.cmd.bnext, { desc = "Next buffer" })
+vim.keymap.set("n", "<leader>B", vim.cmd.bprevious, { desc = "Previous buffer" })
+-- Window navigation
+vim.keymap.set("n", "<C-H>", "<C-w>h", { desc = "Focus on left window" })
+vim.keymap.set("n", "<C-J>", "<C-w>j", { desc = "Focus on below window" })
+vim.keymap.set("n", "<C-K>", "<C-w>k", { desc = "Focus on above window" })
+vim.keymap.set("n", "<C-L>", "<C-w>l", { desc = "Focus on right window" })
 
 -- Misc
 vim.keymap.set({ "n" }, "<ESC>", ":nohlsearch<CR>", {

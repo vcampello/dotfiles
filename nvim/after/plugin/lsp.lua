@@ -1,4 +1,5 @@
 vim.opt.signcolumn = "yes" -- Reserve space for diagnostic icons
+vim.lsp.set_log_level("debug")
 
 local navic = require("nvim-navic")
 local cmp = require("cmp")
@@ -20,8 +21,8 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
     ["<C-y>"] = cmp.mapping.confirm({ select = true }),
     ["<C-Space>"] = cmp.mapping.complete(),
     -- Better popup scrolling
-    ["<C-k>"] = cmp.mapping.scroll_docs(-4),
-    ["<C-j>"] = cmp.mapping.scroll_docs(4),
+    ["<C-u>"] = cmp.mapping.scroll_docs(-4),
+    ["<C-d>"] = cmp.mapping.scroll_docs(4),
     -- disable completion with tab it's annoying)
     ["<Tab>"] = vim.NIL,
     ["<S-Tab>"] = vim.NIL,
@@ -70,16 +71,6 @@ local on_attach = function(client, bufnr)
     if caps.documentSymbolProvider then
         navic.attach(client, bufnr)
     end
-
-    -- Server specific
-    -- print('client.name: ' .. client.name)
-    if client.name == "eslint" then
-        -- Auto lint on save
-        vim.api.nvim_create_autocmd("BufWritePre", {
-            buffer = bufnr,
-            command = "EslintFixAll",
-        })
-    end
 end
 -- ----------------------------------------------------
 -- Languages
@@ -91,6 +82,7 @@ lsp.ensure_installed({
     "rust_analyzer",
     "jsonls",
     "marksman",
+    "taplo",
 })
 
 lsp.configure("lua_ls", {
@@ -112,11 +104,6 @@ lsp.configure("tsserver", {
 lsp.configure("marksman", {
     on_attach = on_attach,
 })
-
--- Replaced by rust-tools (see config at the bottom)
--- lsp.configure("rust_analyzer", {
---     on_attach = on_attach,
--- })
 
 lsp.configure("jsonls", {
     on_attach = on_attach,
@@ -142,10 +129,34 @@ local null_ls = require("null-ls")
 null_ls.setup({
     sources = {
         null_ls.builtins.formatting.stylua,
-        null_ls.builtins.diagnostics.eslint_d,
+
+        -- Typing
         null_ls.builtins.completion.spell,
+        null_ls.builtins.code_actions.cspell,
+        null_ls.builtins.diagnostics.cspell.with({
+            diagnostic_config = {
+                signs = false,
+                underline = true,
+            },
+        }),
+
+        -- Utils
         null_ls.builtins.code_actions.gitsigns,
+        null_ls.builtins.diagnostics.todo_comments,
         null_ls.builtins.diagnostics.cfn_lint,
+
+        -- Node
+        null_ls.builtins.diagnostics.tsc.with({
+            diagnostic_config = {
+                virtual_text = true,
+            },
+        }),
+        null_ls.builtins.diagnostics.eslint.with({
+            prefer_local = "node_modules/.bin",
+        }),
+        -- null_ls.builtins.formatting.prettier.with({
+        --     prefer_local = "node_modules/.bin",
+        -- }),
         -- Might be missing dependencies
         -- null_ls.builtins.diagnostics.codespell,
     },
