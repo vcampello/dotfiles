@@ -38,6 +38,7 @@ lsp.setup_nvim_cmp({
 })
 
 local on_attach = function(client, bufnr)
+    -- print("LSP attached: " .. client.name)
     -- Mappings.
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
     local bind = vim.keymap.set
@@ -62,7 +63,6 @@ local on_attach = function(client, bufnr)
     -- Format code. Lowercase f conflicts with the telescope mapping if typed slow enough
     bind("n", "<leader>F", function()
         vim.lsp.buf.format({ async = true })
-        -- TODO: auto lint if it's javascript
     end, bufopts)
 
     -- Capabilities
@@ -77,7 +77,7 @@ end
 -- ----------------------------------------------------
 lsp.ensure_installed({
     "tsserver",
-    "eslint",
+    -- "eslint", -- Don't install if using it through null-ls or there will be duplicate entries
     "lua_ls",
     "rust_analyzer",
     "jsonls",
@@ -135,6 +135,7 @@ null_ls.setup({
         null_ls.builtins.code_actions.cspell,
         null_ls.builtins.diagnostics.cspell.with({
             diagnostic_config = {
+                -- disable gutter errors or there will be errors everywhere in some codebases
                 signs = false,
                 underline = true,
             },
@@ -154,10 +155,10 @@ null_ls.setup({
         null_ls.builtins.diagnostics.eslint.with({
             prefer_local = "node_modules/.bin",
         }),
+        -- TODO: setup prettier_d
         -- null_ls.builtins.formatting.prettier.with({
         --     prefer_local = "node_modules/.bin",
         -- }),
         -- Might be missing dependencies
-        -- null_ls.builtins.diagnostics.codespell,
     },
 })
