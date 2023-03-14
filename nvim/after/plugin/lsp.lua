@@ -39,6 +39,14 @@ lsp.setup_nvim_cmp({
 
 local on_attach = function(client, bufnr)
     -- print("LSP attached: " .. client.name)
+
+    -- Capabilities
+    local caps = client.server_capabilities
+
+    if caps.documentSymbolProvider then
+        navic.attach(client, bufnr)
+    end
+
     -- Mappings.
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
     local bind = vim.keymap.set
@@ -50,6 +58,7 @@ local on_attach = function(client, bufnr)
     bind("n", "gd", vim.lsp.buf.definition, bufopts)
     bind("n", "K", vim.lsp.buf.hover, bufopts)
     bind("n", "gi", vim.lsp.buf.implementation, bufopts)
+    -- FIXME: conflicts with buffer navigation
     bind("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
     bind("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, bufopts)
     bind("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
@@ -62,15 +71,9 @@ local on_attach = function(client, bufnr)
     bind("n", "gr", vim.lsp.buf.references, bufopts)
     -- Format code. Lowercase f conflicts with the telescope mapping if typed slow enough
     bind("n", "<leader>F", function()
+        print("Formatting with " .. client.name)
         vim.lsp.buf.format({ async = true })
     end, bufopts)
-
-    -- Capabilities
-    local caps = client.server_capabilities
-
-    if caps.documentSymbolProvider then
-        navic.attach(client, bufnr)
-    end
 end
 -- ----------------------------------------------------
 -- Languages
@@ -89,9 +92,23 @@ lsp.configure("lua_ls", {
     on_attach = on_attach,
     settings = {
         Lua = {
+            runtime = {
+                -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+                version = "LuaJIT",
+            },
             diagnostics = {
-                -- Fix Undefined global 'vim'
+                -- Get the language server to recognize the `vim` global
                 globals = { "vim" },
+            },
+            workspace = {
+                -- Make the server aware of Neovim runtime files
+                -- considerably increases lsp loading time
+                library = vim.api.nvim_get_runtime_file("", true),
+                checkThirdParty = false,
+            },
+            -- Do not send telemetry data containing a randomized but unique identifier
+            telemetry = {
+                enable = false,
             },
         },
     },
@@ -107,6 +124,10 @@ lsp.configure("marksman", {
 
 lsp.configure("jsonls", {
     on_attach = on_attach,
+    init_options = {
+        -- Disable this formatter and use prettier instead
+        provideFormatter = false,
+    },
     settings = {
         json = {
             schemas = require("schemastore").json.schemas(),
@@ -127,6 +148,7 @@ rt.setup({
 local null_ls = require("null-ls")
 
 null_ls.setup({
+    on_attach = on_attach,
     sources = {
         null_ls.builtins.formatting.stylua,
 
@@ -139,6 +161,11 @@ null_ls.setup({
                 signs = false,
                 underline = true,
             },
+            -- Force the severity to be warn
+            -- I don't want to deal with every single word that makes sense but isn't in the dictionary
+            diagnostics_postprocess = function(diagnostic)
+                diagnostic.severity = vim.diagnostic.severity.WARN
+            end,
         }),
 
         -- Utils
@@ -152,13 +179,11 @@ null_ls.setup({
                 virtual_text = true,
             },
         }),
-        null_ls.builtins.diagnostics.eslint.with({
+        null_ls.builtins.diagnostics.eslint_d.with({
             prefer_local = "node_modules/.bin",
         }),
-        -- TODO: setup prettier_d
-        -- null_ls.builtins.formatting.prettier.with({
-        --     prefer_local = "node_modules/.bin",
-        -- }),
-        -- Might be missing dependencies
+        null_ls.builtins.formatting.prettierd.with({
+            prefer_local = "node_modules/.bin",
+        }),
     },
 })
