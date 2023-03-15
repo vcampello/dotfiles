@@ -37,6 +37,13 @@ lsp.setup_nvim_cmp({
     },
 })
 
+local bind = vim.keymap.set
+
+-- Utils
+bind("n", "<leader>lm", vim.cmd.Mason, { noremap = true, silent = true, desc = "Mason" })
+bind("n", "<leader>li", vim.cmd.LspInfo, { noremap = true, silent = true, desc = "LspInfo" })
+-- TODO: add a shortcut for git blame
+
 local on_attach = function(client, bufnr)
     -- print("LSP attached: " .. client.name)
 
@@ -49,7 +56,6 @@ local on_attach = function(client, bufnr)
 
     -- Mappings.
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
-    local bind = vim.keymap.set
     bind("n", "<leader>e", vim.diagnostic.open_float, bufopts)
     bind("n", "[d", vim.diagnostic.goto_prev, bufopts)
     bind("n", "]d", vim.diagnostic.goto_next, bufopts)
@@ -58,8 +64,8 @@ local on_attach = function(client, bufnr)
     bind("n", "gd", vim.lsp.buf.definition, bufopts)
     bind("n", "K", vim.lsp.buf.hover, bufopts)
     bind("n", "gi", vim.lsp.buf.implementation, bufopts)
-    -- FIXME: conflicts with buffer navigation
-    bind("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
+    -- Also figure out how to actually use this
+    -- bind("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
     bind("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, bufopts)
     bind("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
     bind("n", "<leader>wl", function()
@@ -125,7 +131,7 @@ lsp.configure("marksman", {
 lsp.configure("jsonls", {
     on_attach = on_attach,
     init_options = {
-        -- Disable this formatter and use prettier instead
+        -- Disable this formatter and use null-ls instead
         provideFormatter = false,
     },
     settings = {
@@ -146,7 +152,6 @@ rt.setup({
 })
 
 local null_ls = require("null-ls")
-
 null_ls.setup({
     on_attach = on_attach,
     sources = {
@@ -159,6 +164,7 @@ null_ls.setup({
             diagnostic_config = {
                 -- disable gutter errors or there will be errors everywhere in some codebases
                 signs = false,
+                virtual_text = false,
                 underline = true,
             },
             -- Force the severity to be warn
@@ -170,14 +176,16 @@ null_ls.setup({
 
         -- Utils
         null_ls.builtins.code_actions.gitsigns,
-        null_ls.builtins.diagnostics.todo_comments,
+        null_ls.builtins.diagnostics.todo_comments.with({
+            diagnostic_config = {
+                virtual_text = false,
+            },
+        }),
         null_ls.builtins.diagnostics.cfn_lint,
 
         -- Node
         null_ls.builtins.diagnostics.tsc.with({
-            diagnostic_config = {
-                virtual_text = true,
-            },
+            prefer_local = "node_modules/.bin",
         }),
         null_ls.builtins.diagnostics.eslint_d.with({
             prefer_local = "node_modules/.bin",
@@ -186,4 +194,9 @@ null_ls.setup({
             prefer_local = "node_modules/.bin",
         }),
     },
+})
+
+-- Enable virtual_text for all diagnostics (override on specific configs)
+vim.diagnostic.config({
+    virtual_text = true,
 })
