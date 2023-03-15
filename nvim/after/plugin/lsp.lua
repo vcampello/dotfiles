@@ -154,6 +154,7 @@ rt.setup({
 local null_ls = require("null-ls")
 null_ls.setup({
     on_attach = on_attach,
+    diagnostics_format = "[#{s}] #{m}",
     sources = {
         null_ls.builtins.formatting.stylua,
 
@@ -182,16 +183,17 @@ null_ls.setup({
             },
         }),
         null_ls.builtins.diagnostics.cfn_lint,
+        null_ls.builtins.diagnostics.dotenv_linter,
 
         -- Node
         null_ls.builtins.diagnostics.tsc.with({
             prefer_local = "node_modules/.bin",
         }),
         null_ls.builtins.diagnostics.eslint_d.with({
-            prefer_local = "node_modules/.bin",
+            only_local = "node_modules/.bin",
         }),
         null_ls.builtins.formatting.prettierd.with({
-            prefer_local = "node_modules/.bin",
+            only_local = "node_modules/.bin",
         }),
     },
 })
