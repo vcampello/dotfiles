@@ -1,5 +1,4 @@
 vim.opt.signcolumn = "yes" -- Reserve space for diagnostic icons
-vim.lsp.set_log_level("debug")
 
 local navic = require("nvim-navic")
 local cmp = require("cmp")
@@ -81,6 +80,7 @@ local on_attach = function(client, bufnr)
         vim.lsp.buf.format({ async = true })
     end, bufopts)
 end
+
 -- ----------------------------------------------------
 -- Languages
 -- ----------------------------------------------------
@@ -128,12 +128,10 @@ lsp.configure("marksman", {
     on_attach = on_attach,
 })
 
+-- TODO: figure out how to to format JSON properly
+
 lsp.configure("jsonls", {
     on_attach = on_attach,
-    init_options = {
-        -- Disable this formatter and use null-ls instead
-        provideFormatter = false,
-    },
     settings = {
         json = {
             schemas = require("schemastore").json.schemas(),
@@ -154,8 +152,16 @@ rt.setup({
 local null_ls = require("null-ls")
 null_ls.setup({
     on_attach = on_attach,
-    diagnostics_format = "[#{s}] #{m}",
     sources = {
+        -- Utils
+        null_ls.builtins.code_actions.gitsigns,
+        null_ls.builtins.diagnostics.todo_comments.with({
+            diagnostic_config = {
+                virtual_text = false,
+            },
+        }),
+
+        -- Lua
         null_ls.builtins.formatting.stylua,
 
         -- Typing
@@ -168,33 +174,31 @@ null_ls.setup({
                 virtual_text = false,
                 underline = true,
             },
-            -- Force the severity to be warn
-            -- I don't want to deal with every single word that makes sense but isn't in the dictionary
+            -- TODO: find a way to skip these when moving between diagnostics
             diagnostics_postprocess = function(diagnostic)
-                diagnostic.severity = vim.diagnostic.severity.WARN
+                -- I don't want to deal with every single word that makes sense but isn't in the dictionary
+                diagnostic.severity = vim.diagnostic.severity.INFO
             end,
         }),
-
-        -- Utils
-        null_ls.builtins.code_actions.gitsigns,
-        null_ls.builtins.diagnostics.todo_comments.with({
-            diagnostic_config = {
-                virtual_text = false,
-            },
-        }),
-        null_ls.builtins.diagnostics.cfn_lint,
-        null_ls.builtins.diagnostics.dotenv_linter,
 
         -- Node
         null_ls.builtins.diagnostics.tsc.with({
             prefer_local = "node_modules/.bin",
         }),
-        null_ls.builtins.diagnostics.eslint_d.with({
-            only_local = "node_modules/.bin",
-        }),
+
+        -- eslint & prettier (will default to local if found in node_modules)
+        null_ls.builtins.diagnostics.eslint_d,
+        null_ls.builtins.code_actions.eslint_d,
         null_ls.builtins.formatting.prettierd.with({
-            only_local = "node_modules/.bin",
+            env = {
+                -- Use this config as a fallback
+                PRETTIERD_DEFAULT_CONFIG = vim.fn.stdpath("config") .. "/external-configs/prettierrc.json",
+            },
         }),
+
+        -- Other linters
+        null_ls.builtins.diagnostics.cfn_lint,
+        null_ls.builtins.diagnostics.dotenv_linter,
     },
 })
 
