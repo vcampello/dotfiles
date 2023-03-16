@@ -23,7 +23,7 @@ vim.keymap.set(
     { desc = "Copy current word into replace" }
 )
 
--- Buffer navigaction
+-- Buffer navigation
 -- gb/gB complement gt/gT however it conflicts with Comments
 vim.keymap.set("n", "<leader>b", vim.cmd.bnext, { desc = "Next buffer" })
 vim.keymap.set("n", "<leader>B", vim.cmd.bprevious, { desc = "Previous buffer" })
@@ -38,3 +38,6 @@ vim.keymap.set({ "n" }, "<ESC>", ":nohlsearch<CR>", {
     desc = "Clear search highlight on escape",
     silent = true,
 })
+
+-- Enable saving with CTRL-S in insert mode
+vim.keymap.set({ "i" }, "<C-S>", vim.cmd.write)
