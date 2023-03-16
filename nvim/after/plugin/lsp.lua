@@ -38,7 +38,9 @@ local bind = vim.keymap.set
 
 -- Utils
 bind("n", "<leader>lm", vim.cmd.Mason, { noremap = true, silent = true, desc = "Mason" })
-bind("n", "<leader>li", vim.cmd.LspInfo, { noremap = true, silent = true, desc = "LspInfo" })
+bind("n", "<leader>li", vim.cmd.LspInfo, { noremap = true, silent = true, desc = "LSP Info" })
+bind("n", "<leader>ln", vim.cmd.NullLsInfo, { noremap = true, silent = true, desc = "Null-LS Info" })
+bind("n", "<leader>lr", vim.cmd.LspRestart, { noremap = true, silent = true, desc = "Restart LSP" })
 -- TODO: add a shortcut for git blame and hunk cmds
 
 local on_attach = function(client, bufnr)
