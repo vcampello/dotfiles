@@ -16,7 +16,10 @@ require("mini.animate").setup({
 -- mini.bufremove setup
 local MiniBufRemove = require("mini.bufremove")
 MiniBufRemove.setup()
-vim.keymap.set({ "n", "i" }, "<C-c>", require("mini.bufremove").wipeout, { desc = "Wipeout current buffer" })
+vim.keymap.set({ "n", "i" }, "<C-c>", MiniBufRemove.wipeout, { desc = "Wipeout current buffer" })
+vim.keymap.set({ "n", "i" }, "<F4>", function()
+    MiniBufRemove.wipeout(0, true)
+end, { desc = "Wipeout current buffer (force)" })
 
 -- mini.session
 require("mini.sessions").setup(
