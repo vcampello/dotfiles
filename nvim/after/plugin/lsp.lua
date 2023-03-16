@@ -8,8 +8,6 @@ local lsp = require("lsp-zero").preset({
     manage_nvim_cmp = true,
     suggest_lsp_servers = true,
 })
-local lspkind = require("lspkind")
-local rt = require("rust-tools")
 
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -30,7 +28,7 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
 lsp.setup_nvim_cmp({
     mapping = cmp_mappings,
     formatting = {
-        format = lspkind.cmp_format({
+        format = require("lspkind").cmp_format({
             mode = "symbol_text",
         }),
     },
@@ -57,7 +55,12 @@ local on_attach = function(client, bufnr)
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
     bind("n", "<leader>e", vim.diagnostic.open_float, bufopts)
     bind("n", "[d", vim.diagnostic.goto_prev, bufopts)
-    bind("n", "]d", vim.diagnostic.goto_next, bufopts)
+    -- bind("n", "]d", vim.diagnostic.goto_next, bufopts)
+    bind("n", "]d", function()
+        print("running function")
+        -- TODO: custom function to skip cspell diagnostics
+        vim.diagnostic.goto_next()
+    end, bufopts)
     bind("n", "<leader>q", vim.diagnostic.setloclist, bufopts)
     bind("n", "gD", vim.lsp.buf.declaration, bufopts)
     bind("n", "gd", vim.lsp.buf.definition, bufopts)
@@ -76,7 +79,7 @@ local on_attach = function(client, bufnr)
     bind("n", "gr", vim.lsp.buf.references, bufopts)
     -- Format code. Lowercase f conflicts with the telescope mapping if typed slow enough
     bind("n", "<leader>F", function()
-        print("Formatting with " .. client.name)
+        -- print("Formatting with " .. client.name)
         vim.lsp.buf.format({ async = true })
     end, bufopts)
 end
@@ -143,13 +146,15 @@ lsp.configure("jsonls", {
 lsp.setup()
 
 -- Needs to be setup after lsp.setup() or the on_attach won't work as expected
-rt.setup({
+require("rust-tools").setup({
     server = {
         on_attach = on_attach,
     },
 })
 
 local null_ls = require("null-ls")
+local null_ls_utils = require("null-ls.utils")
+
 null_ls.setup({
     on_attach = on_attach,
     sources = {
@@ -187,8 +192,24 @@ null_ls.setup({
         }),
 
         -- eslint & prettier (will default to local if found in node_modules)
-        null_ls.builtins.diagnostics.eslint_d,
-        null_ls.builtins.code_actions.eslint_d,
+        null_ls.builtins.diagnostics.eslint_d.with({
+            extra_args = function()
+                -- TODO: figure out how to pass this arg conditionally because it leads to all sort of issues
+                -- print(null_ls_utils.make_conditional_utils:root_has_file({ ".eslintrc.*" }))
+                return {
+                    -- Use this config as a fallback (will be merged with other configs)
+                    -- "--config",
+                    -- vim.fn.stdpath("config") .. "/external-configs/eslintrc.json",
+                }
+            end,
+        }),
+        null_ls.builtins.code_actions.eslint_d.with({
+            extra_args = {
+                -- Use this config as a fallback (will be merged with other configs)
+                -- "--config",
+                -- vim.fn.stdpath("config") .. "/external-configs/eslintrc.json",
+            },
+        }),
         null_ls.builtins.formatting.prettierd.with({
             env = {
                 -- Use this config as a fallback

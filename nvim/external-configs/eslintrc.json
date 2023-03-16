@@ -1,0 +1,13 @@
+{
+    "extends": "eslint:recommended",
+    "rules": {
+        "indent": [
+            "warn",
+            4
+        ],
+        "semi": [
+            "error",
+            "always"
+        ]
+    }
+}
