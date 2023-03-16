@@ -51,37 +51,41 @@ local on_attach = function(client, bufnr)
         navic.attach(client, bufnr)
     end
 
-    -- Mappings.
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
-    bind("n", "<leader>e", vim.diagnostic.open_float, bufopts)
-    bind("n", "[d", vim.diagnostic.goto_prev, bufopts)
-    -- bind("n", "]d", vim.diagnostic.goto_next, bufopts)
+    local make_bufopts = function(extra_opts)
+        return vim.tbl_deep_extend("force", bufopts, extra_opts or {})
+    end
+
+    -- Mappings.
+    bind("n", "<leader>e", vim.diagnostic.open_float, make_bufopts({ desc = "Open floating diagnostic" }))
+    bind("n", "[d", vim.diagnostic.goto_prev, make_bufopts({ desc = "Previous diagnostic" }))
+    -- bind("n", "]d", vim.diagnostic.goto_next, make_bufopts({desc = ""}))
     bind("n", "]d", function()
         print("running function")
         -- TODO: custom function to skip cspell diagnostics
         vim.diagnostic.goto_next()
-    end, bufopts)
-    bind("n", "<leader>q", vim.diagnostic.setloclist, bufopts)
-    bind("n", "gD", vim.lsp.buf.declaration, bufopts)
-    bind("n", "gd", vim.lsp.buf.definition, bufopts)
-    bind("n", "K", vim.lsp.buf.hover, bufopts)
-    bind("n", "gi", vim.lsp.buf.implementation, bufopts)
+    end, make_bufopts({ desc = "Next diagnostic" }))
+    bind("n", "<leader>q", vim.diagnostic.setloclist, make_bufopts({ desc = "Set location list" }))
+    bind("n", "gD", vim.lsp.buf.declaration, make_bufopts({ desc = "Go to declaration" }))
+    bind("n", "gd", vim.lsp.buf.definition, make_bufopts({ desc = "Go to definition" }))
+    bind("n", "K", vim.lsp.buf.hover, make_bufopts({ desc = "" }))
+    bind("n", "gi", vim.lsp.buf.implementation, make_bufopts({ desc = "Go to implementation" }))
     -- Also figure out how to actually use this
-    -- bind("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
-    bind("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, bufopts)
-    bind("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
+    -- bind("n", "<C-k>", vim.lsp.buf.signature_help, make_bufopts({desc = ""}))
+    bind("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, make_bufopts({ desc = "Add workspace folder" }))
+    bind("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, make_bufopts({ desc = "Remove workspace folder" }))
     bind("n", "<leader>wl", function()
         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-    end, bufopts)
-    bind("n", "<leader>D", vim.lsp.buf.type_definition, bufopts)
-    bind("n", "<leader>rn", vim.lsp.buf.rename, bufopts)
-    bind("n", "<leader>ca", vim.lsp.buf.code_action, bufopts)
-    bind("n", "gr", vim.lsp.buf.references, bufopts)
+    end, make_bufopts({ desc = "List workspace folders" }))
+    bind("n", "<leader>D", vim.lsp.buf.type_definition, make_bufopts({ desc = "Go to type definition" }))
+    bind("n", "<leader>rn", vim.lsp.buf.rename, make_bufopts({ desc = "Rename symbol" }))
+    bind("n", "<leader>ca", vim.lsp.buf.code_action, make_bufopts({ desc = "Code actions" }))
+    bind("n", "gr", vim.lsp.buf.references, make_bufopts({ desc = "Find references" }))
     -- Format code. Lowercase f conflicts with the telescope mapping if typed slow enough
     bind("n", "<leader>F", function()
         -- print("Formatting with " .. client.name)
         vim.lsp.buf.format({ async = true })
-    end, bufopts)
+    end, make_bufopts({ desc = "Format buffer" }))
 end
 
 -- ----------------------------------------------------
