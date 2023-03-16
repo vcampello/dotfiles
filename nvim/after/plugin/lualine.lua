@@ -80,7 +80,6 @@ local config = {
                 show_filename_only = true, -- Shows shortened relative path when set to false.
                 hide_filename_extension = false, -- Hide filename extension when set to true.
                 show_modified_status = true, -- Shows indicator when the buffer is modified.
-
                 mode = 2,
                 -- 0: Shows buffer name
                 -- 1: Shows buffer index
@@ -98,13 +97,11 @@ local config = {
                     fzf = "FZF",
                     alpha = "Alpha",
                 }, -- Shows specific buffer name for that filetype ( { `filetype` = `buffer_name`, ... } )
-
                 buffers_color = {
                     -- Same values as the general color option can be used here.
                     active = "red", --'lualine_c_normal', -- Color for active buffer.
                     inactive = "lualine_c_inactive", -- Color for inactive buffer.
                 },
-
                 symbols = {
                     modified = " ●", -- Text to show when the buffer is modified
                     alternate_file = "#", -- Text to show to identify the alternate file
@@ -127,6 +124,17 @@ local config = {
                 end,
                 cond = navic.is_available,
                 color = { fg = colors.orange, bg = "", gui = "bold" },
+            },
+        },
+        lualine_z = {
+            {
+                function()
+                    local first_workspace = vim.lsp.buf.list_workspace_folders()[1]
+                    if first_workspace ~= nil then
+                        return "Workkspace: " .. first_workspace
+                    end
+                end,
+                color = { fg = colors.cyan, bg = "", gui = "bold" },
             },
         },
     },
