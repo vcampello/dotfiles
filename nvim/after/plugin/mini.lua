@@ -13,7 +13,7 @@ require("mini.animate").setup({
     },
 })
 
--- mini.bufremove setup
+-- mini.bufremove
 local MiniBufRemove = require("mini.bufremove")
 MiniBufRemove.setup()
 vim.keymap.set({ "n", "i" }, "<C-c>", MiniBufRemove.wipeout, { desc = "Wipeout current buffer" })

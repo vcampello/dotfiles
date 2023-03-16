@@ -1,7 +1,7 @@
 require("toggleterm").setup({
-    open_mapping = "<F3>",
+    open_mapping = "<F6>",
     shading_factor = 2,
-    direction = "float",
+    direction = "horizontal",
     float_opts = {
         border = "curved",
         highlights = {
