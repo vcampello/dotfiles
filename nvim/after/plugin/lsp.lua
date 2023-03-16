@@ -90,6 +90,7 @@ local on_attach = function(client, bufnr)
     end, make_bufopts({ desc = "Format buffer" }))
 end
 
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 -- ----------------------------------------------------
 -- Languages
 -- ----------------------------------------------------
@@ -105,6 +106,7 @@ lsp.ensure_installed({
 
 lsp.configure("lua_ls", {
     on_attach = on_attach,
+    capabilities = capabilities,
     settings = {
         Lua = {
             runtime = {
@@ -131,16 +133,18 @@ lsp.configure("lua_ls", {
 
 lsp.configure("tsserver", {
     on_attach = on_attach,
+    capabilities = capabilities,
 })
 
 lsp.configure("marksman", {
     on_attach = on_attach,
+    capabilities = capabilities,
 })
 
 -- TODO: figure out how to to format JSON properly
-
 lsp.configure("jsonls", {
     on_attach = on_attach,
+
     settings = {
         json = {
             schemas = require("schemastore").json.schemas(),
@@ -155,6 +159,7 @@ lsp.setup()
 require("rust-tools").setup({
     server = {
         on_attach = on_attach,
+        capabilities = capabilities,
     },
 })
 
@@ -163,6 +168,7 @@ local null_ls_utils = require("null-ls.utils")
 
 null_ls.setup({
     on_attach = on_attach,
+    capabilities = capabilities,
     sources = {
         -- Utils
         null_ls.builtins.code_actions.gitsigns,
