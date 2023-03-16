@@ -39,7 +39,7 @@ local bind = vim.keymap.set
 -- Utils
 bind("n", "<leader>lm", vim.cmd.Mason, { noremap = true, silent = true, desc = "Mason" })
 bind("n", "<leader>li", vim.cmd.LspInfo, { noremap = true, silent = true, desc = "LspInfo" })
--- TODO: add a shortcut for git blame
+-- TODO: add a shortcut for git blame and hunk cmds
 
 local on_attach = function(client, bufnr)
     -- print("LSP attached: " .. client.name)

@@ -15,9 +15,10 @@ return require("packer").startup(function(use)
     -- use('nvim-treesitter/playground')
     use({
         "nvim-telescope/telescope.nvim",
-        tag = "0.1.0",
+        tag = "0.1.1",
         requires = { { "nvim-lua/plenary.nvim" } },
     })
+    use({ "stevearc/dressing.nvim" })
     use({ "tpope/vim-fugitive" })
     use({ "mbbill/undotree" })
     use({ "lewis6991/gitsigns.nvim" })
