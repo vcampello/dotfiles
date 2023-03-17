@@ -61,6 +61,8 @@ require("lazy").setup({
             )
         end,
     },
+    -- TODO: figure out what the shortcuts are on mac and see if I like it
+    -- { "mg979/vim-visual-multi" },
 
     -- Syntax higlighting
     { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
