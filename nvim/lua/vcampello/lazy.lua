@@ -1,4 +1,5 @@
 -- Make sure to set `mapleader` before lazy so your mappings are correct
+vim.keymap.set("n", "<leader>ll", vim.cmd.Lazy, { noremap = true, silent = true, desc = "Open Lazy" })
 require("lazy").setup({
 
     -- Themes
@@ -41,9 +42,17 @@ require("lazy").setup({
         "akinsho/toggleterm.nvim",
     },
     { "dstein64/vim-startuptime" },
+    {
+        "sindrets/diffview.nvim",
+        dependencies = "nvim-lua/plenary.nvim",
+        config = function()
+            vim.keymap.set("n", "<leader>gd", vim.cmd.DiffviewOpen, { noremap = true, silent = true, desc = "Open Git Diffview" })
+            vim.keymap.set("n", "<leader>gc", vim.cmd.DiffviewClose, { noremap = true, silent = true, desc = "Close Git Diffview" })
+        end,
+    },
 
     -- Syntax higlighting
-    { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate"  },
+    { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
     {
         "windwp/nvim-ts-autotag",
         dependencies = { "nvim-treesitter" },
@@ -53,28 +62,28 @@ require("lazy").setup({
         "VonHeikemen/lsp-zero.nvim",
         dependencies = {
             -- LSP Support
-             "neovim/nvim-lspconfig" ,
-             "williamboman/mason.nvim" ,
-             "williamboman/mason-lspconfig.nvim" ,
+            "neovim/nvim-lspconfig",
+            "williamboman/mason.nvim",
+            "williamboman/mason-lspconfig.nvim",
 
             -- Autocompletion
-             "hrsh7th/nvim-cmp" ,
-             "hrsh7th/cmp-buffer" ,
-             "hrsh7th/cmp-path" ,
-             "saadparwaiz1/cmp_luasnip" ,
-             "hrsh7th/cmp-nvim-lsp" ,
-             "hrsh7th/cmp-nvim-lua" ,
+            "hrsh7th/nvim-cmp",
+            "hrsh7th/cmp-buffer",
+            "hrsh7th/cmp-path",
+            "saadparwaiz1/cmp_luasnip",
+            "hrsh7th/cmp-nvim-lsp",
+            "hrsh7th/cmp-nvim-lua",
 
             -- Snippets
-             "L3MON4D3/LuaSnip" ,
-             "rafamadriz/friendly-snippets" ,
+            "L3MON4D3/LuaSnip",
+            "rafamadriz/friendly-snippets",
 
             -- Custom stuff
-             "b0o/schemastore.nvim" ,
-             "onsails/lspkind.nvim" ,
-             "jose-elias-alvarez/null-ls.nvim" ,
-             "JoosepAlviste/nvim-ts-context-commentstring" ,
-             "simrat39/rust-tools.nvim" ,
+            "b0o/schemastore.nvim",
+            "onsails/lspkind.nvim",
+            "jose-elias-alvarez/null-ls.nvim",
+            "JoosepAlviste/nvim-ts-context-commentstring",
+            "simrat39/rust-tools.nvim",
         },
     },
 
