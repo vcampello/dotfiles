@@ -82,7 +82,10 @@ local on_attach = function(client, bufnr)
     bind("n", "<leader>D", vim.lsp.buf.type_definition, make_bufopts({ desc = "Go to type definition" }))
     bind("n", "<leader>rn", vim.lsp.buf.rename, make_bufopts({ desc = "Rename symbol" }))
     bind("n", "<leader>ca", vim.lsp.buf.code_action, make_bufopts({ desc = "Code actions" }))
-    bind("n", "gr", vim.lsp.buf.references, make_bufopts({ desc = "Find references" }))
+    bind("n", "gr", function()
+        -- vim.lsp.buf.references()
+         require("telescope.builtin").lsp_references()
+    end, make_bufopts({ desc = "Find references" }))
     -- Format code. Lowercase f conflicts with the telescope mapping if typed slow enough
     bind("n", "<leader>F", function()
         -- print("Formatting with " .. client.name)
@@ -144,7 +147,6 @@ lsp.configure("marksman", {
 -- TODO: figure out how to to format JSON properly
 lsp.configure("jsonls", {
     on_attach = on_attach,
-
     settings = {
         json = {
             schemas = require("schemastore").json.schemas(),
