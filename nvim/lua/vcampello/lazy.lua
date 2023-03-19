@@ -5,6 +5,7 @@ require("lazy").setup({
     -- Themes
     { "Shatur/neovim-ayu", lazy = false },
     { "catppuccin/nvim", name = "catppuccin", lazy = false },
+    { "folke/tokyonight.nvim", lazy = false },
     --
     -- Tools
     -- use('nvim-treesitter/playground')
@@ -46,8 +47,18 @@ require("lazy").setup({
         "sindrets/diffview.nvim",
         dependencies = "nvim-lua/plenary.nvim",
         config = function()
-            vim.keymap.set("n", "<leader>gd", vim.cmd.DiffviewOpen, { noremap = true, silent = true, desc = "Open Git Diffview" })
-            vim.keymap.set("n", "<leader>gc", vim.cmd.DiffviewClose, { noremap = true, silent = true, desc = "Close Git Diffview" })
+            vim.keymap.set(
+                "n",
+                "<leader>gd",
+                vim.cmd.DiffviewOpen,
+                { noremap = true, silent = true, desc = "Open Git Diffview" }
+            )
+            vim.keymap.set(
+                "n",
+                "<leader>gc",
+                vim.cmd.DiffviewClose,
+                { noremap = true, silent = true, desc = "Close Git Diffview" }
+            )
         end,
     },
 
