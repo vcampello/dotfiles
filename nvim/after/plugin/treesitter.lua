@@ -12,6 +12,7 @@ require("nvim-treesitter.configs").setup({
         "markdown",
         "yaml",
         "json",
+        "vim",
     },
     auto_install = true,
     highlight = {
@@ -20,7 +21,6 @@ require("nvim-treesitter.configs").setup({
     },
     autotag = { enable = true },
     incremental_selection = { enable = true },
-
     -- Enable nvim-ts-context-commentstring
     context_commentstring = {
         enable = true,

@@ -43,7 +43,6 @@ vim.opt.linebreak = true -- Wrap long lines at 'breakat' (if 'wrap' is set)
 
 vim.opt.ruler = false -- Don't show cursor position in command line
 vim.opt.showmode = false -- Don't show mode in command line
-vim.opt.wrap = false -- Display long lines as just one line
 
 -- Editing
 vim.opt.ignorecase = true -- Ignore case when searching (use `\C` to force not doing that)

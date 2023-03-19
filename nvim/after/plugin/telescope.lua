@@ -1,7 +1,11 @@
 require("telescope").setup()
 local builtin = require("telescope.builtin")
 
-vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find files" })
+vim.keymap.set("n", "<leader>ff", function()
+    -- Show hidden files
+    -- https://github.com/skbolton/titan/blob/4d0d31cc6439a7565523b1018bec54e3e8bc502c/nvim/nvim/lua/mappings/filesystem.lua#L6
+    builtin.find_files({ find_command = { "rg", "--files", "--hidden", "-g", "!.git" } })
+end, { desc = "Find files" })
 vim.keymap.set("n", "<leader>fF", builtin.current_buffer_fuzzy_find, { desc = "Fuzzy find current buffer" })
 vim.keymap.set("n", "<leader>gf", builtin.git_files, { desc = "Git files" })
 vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Live grep" })
