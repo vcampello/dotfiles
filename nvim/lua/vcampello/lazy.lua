@@ -3,10 +3,10 @@ vim.keymap.set("n", "<leader>ll", vim.cmd.Lazy, { noremap = true, silent = true,
 require("lazy").setup({
 
     -- Themes
-    { "Shatur/neovim-ayu", lazy = false },
-    { "catppuccin/nvim", name = "catppuccin", lazy = false },
+    { "Shatur/neovim-ayu" },
+    { "catppuccin/nvim", name = "catppuccin" },
+
     { "folke/tokyonight.nvim", lazy = false },
-    --
     -- Tools
     -- use('nvim-treesitter/playground')
     {
@@ -14,7 +14,6 @@ require("lazy").setup({
         dependencies = { "nvim-lua/plenary.nvim" },
     },
     "stevearc/dressing.nvim",
-    "tpope/vim-fugitive",
     "mbbill/undotree",
     "lewis6991/gitsigns.nvim",
     {
@@ -34,32 +33,11 @@ require("lazy").setup({
     { "numToStr/Comment.nvim" }, -- mini.comment doesn't support block comments
     { "folke/which-key.nvim" },
     { "NvChad/nvim-colorizer.lua" },
-    {
-        "folke/trouble.nvim",
-        dependencies = "kyazdani42/nvim-web-devicons",
-    },
 
-    {
-        "akinsho/toggleterm.nvim",
-    },
     { "dstein64/vim-startuptime" },
     {
         "sindrets/diffview.nvim",
         dependencies = "nvim-lua/plenary.nvim",
-        config = function()
-            vim.keymap.set(
-                "n",
-                "<leader>gd",
-                vim.cmd.DiffviewOpen,
-                { noremap = true, silent = true, desc = "Open Git Diffview" }
-            )
-            vim.keymap.set(
-                "n",
-                "<leader>gc",
-                vim.cmd.DiffviewClose,
-                { noremap = true, silent = true, desc = "Close Git Diffview" }
-            )
-        end,
     },
     -- TODO: figure out what the shortcuts are on mac and see if I like it
     -- { "mg979/vim-visual-multi" },

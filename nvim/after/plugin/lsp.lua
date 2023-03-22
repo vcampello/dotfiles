@@ -227,7 +227,7 @@ null_ls.setup({
         null_ls.builtins.formatting.prettierd.with({
             env = {
                 -- Use this config as a fallback
-                PRETTIERD_DEFAULT_CONFIG = vim.fn.stdpath("config") .. "/external-configs/prettierrc.json",
+                -- PRETTIERD_DEFAULT_CONFIG = vim.fn.stdpath("config") .. "/external-configs/prettierrc.json",
             },
         }),
 

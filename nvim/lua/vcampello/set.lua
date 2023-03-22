@@ -21,8 +21,8 @@ vim.opt.signcolumn = "yes"
 -- vim.opt.isfname:append("@-@") -- What does this do?
 
 -- Show invisible characters
-vim.opt.listchars = "eol:⏎,tab:▶ ,trail:·,leadmultispace:·"
 vim.opt.list = false
+vim.opt.listchars = "eol:⏎,tab:▶ ,trail:·,leadmultispace:·"
 
 -- Looks
 vim.opt.termguicolors = true
