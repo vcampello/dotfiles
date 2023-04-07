@@ -97,6 +97,7 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 -- ----------------------------------------------------
 -- Languages
 -- ----------------------------------------------------
+--  lua print(vim.inspect(require("mason-registry").get_all_package_names()))
 lsp.ensure_installed({
     "tsserver",
     -- "eslint", -- Don't install if using it through null-ls or there will be duplicate entries

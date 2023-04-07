@@ -22,19 +22,3 @@ vim.keymap.set({ "n", "i" }, "<F4>", function()
     MiniBufRemove.wipeout(0, true)
 end, { desc = "Wipeout current buffer (force)" })
 
--- mini.session
-require("mini.sessions").setup(
-    -- No need to copy this inside `setup()`. Will be used automatically.
-    {
-        autoread = false,
-        autowrite = true,
-        directory = vim.fn.stdpath("state") .. "/sessions",
-    }
-)
-
--- mini.session
-local starter = require("mini.starter")
-starter.setup({
-    -- Use this if you set up 'mini.sessions'
-    starter.sections.sessions(5, true),
-})
