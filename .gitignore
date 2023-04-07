@@ -1,2 +1,1 @@
-# Ignore the compiled bundle as it's not reusable between machines
-**/packer_compiled.lua
+nvim/lazy-lock.json
