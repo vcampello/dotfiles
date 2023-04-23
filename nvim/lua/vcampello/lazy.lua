@@ -4,7 +4,6 @@ require("lazy").setup({
 
     -- Themes
     { "Shatur/neovim-ayu" },
-    { "catppuccin/nvim", name = "catppuccin" },
 
     { "folke/tokyonight.nvim", lazy = false },
     -- Tools
@@ -28,6 +27,10 @@ require("lazy").setup({
     {
         "nvim-lualine/lualine.nvim",
         dependencies = { "kyazdani42/nvim-web-devicons" },
+    },
+    {
+        "willothy/nvim-cokeline",
+        dependencies = "kyazdani42/nvim-web-devicons", -- If you want devicons
     },
     { "echasnovski/mini.nvim" },
     { "numToStr/Comment.nvim" }, -- mini.comment doesn't support block comments

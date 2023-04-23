@@ -106,6 +106,7 @@ lsp.ensure_installed({
     "jsonls",
     "marksman",
     "taplo",
+    "clangd",
 })
 
 lsp.configure("lua_ls", {
@@ -154,6 +155,11 @@ lsp.configure("jsonls", {
             validate = { enable = true },
         },
     },
+})
+
+lsp.configure("clangd", {
+    on_attach = on_attach,
+    capabilities = capabilities,
 })
 
 lsp.setup()
