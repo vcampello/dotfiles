@@ -47,7 +47,11 @@ require("lazy").setup({
 
       -- Additional lua configuration, makes nvim stuff amazing!
       "folke/neodev.nvim",
-      "b0o/schemastore.nvim"
+      "b0o/schemastore.nvim",
+      {
+        "ckipp01/stylua-nvim",
+        build = "cargo install stylua",
+      },
     },
   },
 
@@ -68,7 +72,7 @@ require("lazy").setup({
   },
 
   -- Useful plugin to show you pending keybinds.
-  { "folke/which-key.nvim",  opts = {} },
+  { "folke/which-key.nvim", opts = {} },
   {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
     "lewis6991/gitsigns.nvim",
@@ -91,18 +95,18 @@ require("lazy").setup({
 
         -- don't override the built-in and fugitive keymaps
         local gs = package.loaded.gitsigns
-        vim.keymap.set({ "n", "v" }, "gj", function()
+        vim.keymap.set({ "n", "v" }, "]g", function()
           if vim.wo.diff then
-            return "gj"
+            return "]g"
           end
           vim.schedule(function()
             gs.next_hunk()
           end)
           return "<Ignore>"
         end, { expr = true, buffer = bufnr, desc = "Jump to next hunk" })
-        vim.keymap.set({ "n", "v" }, "gk", function()
+        vim.keymap.set({ "n", "v" }, "[g", function()
           if vim.wo.diff then
-            return "gk"
+            return "[g"
           end
           vim.schedule(function()
             gs.prev_hunk()
@@ -120,8 +124,16 @@ require("lazy").setup({
       require("ayu").setup({
         overrides = {
           Normal = { bg = "None" },
+          NormalFloat = { bg = "None" },
           LineNr = { fg = "#bb7b00" },
           VertSplit = { fg = "#bb7b00" },
+          ColorColumn = { bg = "None" },
+          SignColumn = { bg = "None" },
+          Folded = { bg = "None" },
+          FoldColumn = { bg = "None" },
+          CursorLine = { bg = "None" },
+          CursorColumn = { bg = "None" },
+          WhichKeyFloat = { bg = "None" },
         },
       })
       vim.cmd.colorscheme("ayu")
@@ -130,7 +142,7 @@ require("lazy").setup({
   {
     "folke/todo-comments.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
-    opts = {}
+    opts = {},
   },
   {
     -- Set lualine as statusline
@@ -138,10 +150,7 @@ require("lazy").setup({
     -- See `:help lualine.txt`
     opts = {
       options = {
-        icons_enabled = false,
-        theme = "ayu_mirage",
-        component_separators = "|",
-        section_separators = "",
+        theme = "powerline",
       },
     },
   },
@@ -182,7 +191,7 @@ require("lazy").setup({
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
-  -- require 'kickstart.plugins.autoformat',
+  require("kickstart.plugins.autoformat"),
   -- require 'kickstart.plugins.debug',
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
@@ -249,7 +258,7 @@ vim.opt.splitright = true
 
 -- Misc
 vim.opt.swapfile = false
-vim.opt.backup = false      -- Don't store backup while overwriting the file
+vim.opt.backup = false -- Don't store backup while overwriting the file
 vim.opt.writebackup = false -- Don't store backup while overwriting the file
 vim.opt.colorcolumn = "100"
 vim.opt.autoread = true
@@ -262,7 +271,7 @@ vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 
 -- Editing
-vim.opt.smartindent = true           -- Make indenting smart
+vim.opt.smartindent = true -- Make indenting smart
 vim.cmd("filetype plugin indent on") -- Enable all filetype plugins
 vim.opt.smartindent = true
 vim.opt.wrap = true
@@ -287,10 +296,10 @@ vim.keymap.set("x", "<leader>p", [["_dP]], { desc = "Delete into the void and pa
 vim.keymap.set("n", "<leader>bt", vim.cmd.bnext, { desc = "Next buffer" })
 vim.keymap.set("n", "<leader>bT", vim.cmd.bprevious, { desc = "Previous buffer" })
 -- Window navigation
-vim.keymap.set("n", "<C-H>", "<C-w>h", { desc = "Focus on left window" })
-vim.keymap.set("n", "<C-J>", "<C-w>j", { desc = "Focus on below window" })
-vim.keymap.set("n", "<C-K>", "<C-w>k", { desc = "Focus on above window" })
-vim.keymap.set("n", "<C-L>", "<C-w>l", { desc = "Focus on right window" })
+-- vim.keymap.set("n", "<C-H>", "<C-w>h", { desc = "Focus on left window" })
+-- vim.keymap.set("n", "<C-J>", "<C-w>j", { desc = "Focus on below window" })
+-- vim.keymap.set("n", "<C-K>", "<C-w>k", { desc = "Focus on above window" })
+-- vim.keymap.set("n", "<C-L>", "<C-w>l", { desc = "Focus on right window" })
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
@@ -326,6 +335,15 @@ require("telescope").setup({
 
 -- Enable telescope fzf native, if installed
 pcall(require("telescope").load_extension, "fzf")
+
+-- Start telescope by default unless opening a file
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function()
+    if vim.fn.argv(0) == "" then
+      require("telescope.builtin").find_files()
+    end
+  end,
+})
 
 -- See `:help telescope.builtin`
 vim.keymap.set("n", "<leader>?", require("telescope.builtin").oldfiles, { desc = "[?] Find recently opened files" })
@@ -427,7 +445,7 @@ vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagn
 
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
-local on_attach = function(_, bufnr)
+local on_attach = function(client, bufnr)
   -- NOTE: Remember that lua is a real programming language, and as such it is possible
   -- to define small helper and utility functions so you don't have to repeat yourself
   -- many times.
@@ -466,10 +484,16 @@ local on_attach = function(_, bufnr)
 
   -- Create a command `:Format` local to the LSP buffer
   vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
-    vim.lsp.buf.format()
+    -- Use stylua to format instead of lua_ls. Also set in autoformat.luf
+    if client.name == "lua_ls" then
+      require("stylua-nvim").format_file()
+    else
+      vim.lsp.buf.format()
+    end
   end, { desc = "Format current buffer with LSP" })
 
-  nmap("<leader>f", vim.lsp.buf.format, "Format current buffer with LSP")
+  -- nmap("<leader>f", vim.lsp.buf.format, "Format current buffer with LSP")
+  nmap("<leader>f", "<Cmd>Format<CR>", "Format current buffer with LSP")
 end
 
 -- Enable the following language servers
@@ -491,6 +515,9 @@ local servers = {
 
   lua_ls = {
     Lua = {
+      format = {
+        enable = false,
+      },
       workspace = { checkThirdParty = false },
       telemetry = { enable = false },
     },
@@ -498,11 +525,11 @@ local servers = {
   jsonls = {
     settings = {
       json = {
-        schemas = require('schemastore').json.schemas(),
+        schemas = require("schemastore").json.schemas(),
         validate = { enable = true },
       },
     },
-  }
+  },
 }
 
 -- Setup neovim lua configuration
