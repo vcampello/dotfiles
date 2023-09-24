@@ -128,6 +128,8 @@ require("lazy").setup({
 			})
 			vim.cmd.colorscheme("carbonfox")
 			vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#4e3773" })
+			vim.api.nvim_set_hl(0, "NormalFloat", { bg = "None" })
+			vim.api.nvim_set_hl(0, "WhichKeyFloat", { bg = "None" })
 		end,
 	},
 	{
