@@ -63,6 +63,9 @@ return {
             -- Use stylua to format instead of lua_ls. Also set in autoformat.luf
             if client.name == "lua_ls" then
               vim.cmd("Format")
+            elseif client.name == "eslint" then
+              -- Use eslint to format instead of whatever it uses by default. Also set in autoformat.lua
+              vim.cmd("EslintFixAll")
             else
               vim.lsp.buf.format({
                 async = false,
