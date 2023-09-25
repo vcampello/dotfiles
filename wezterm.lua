@@ -14,14 +14,28 @@ end
 
 -- For example, changing the color scheme:
 config.color_scheme = "carbonfox"
-config.font = wezterm.font("Victor Mono SemiBold")
-config.font_size = 10.5
+config.font = wezterm.font("Victor Mono", {
+	weight = "DemiBold",
+})
+
+if wezterm.target_triple == "aarch64-apple-darwin" or wezterm.target_triple == "x86_64-apple-darwin" then
+	-- macOS detected
+	config.font_size = 13
+elseif wezterm.target_triple == "x86_64-unknown-linux-gnu" then
+	-- linux detected
+	config.font_size = 10.5
+	config.window_decorations = "RESIZE"
+elseif wezterm.target_triple == "x86_64-pc-windows-msvc" then
+	-- windows detected
+else
+	config.font_size = 10.5
+end
+
 -- config.cell_width = 1.1
 
 config.window_background_opacity = 0.9
 config.tab_bar_at_bottom = true
 
-config.window_decorations = "RESIZE"
 -- Terminal style rendering
 config.use_fancy_tab_bar = false
 config.audible_bell = "Disabled"
@@ -83,7 +97,7 @@ end)
 
 config.inactive_pane_hsb = {
 	saturation = 0.8,
-	brightness = 0.5,
+	-- brightness = 0.5,
 }
 
 -- timeout_milliseconds defaults to 1000 and can be omitted
@@ -140,6 +154,12 @@ config.keys = {
 		mods = "LEADER",
 		action = wezterm.action.ActivateKeyTable({ name = "resize_pane", one_shot = false }),
 	},
+
+	-- Shouldn't conflict with linux/windows
+	-- Make Option-Left equivalent to Alt-b which many line editors interpret as backward-word
+	{ key = "LeftArrow", mods = "OPT", action = wezterm.action({ SendString = "\x1bb" }) },
+	-- Make Option-Right equivalent to Alt-f; forward-word
+	{ key = "RightArrow", mods = "OPT", action = wezterm.action({ SendString = "\x1bf" }) },
 }
 
 config.key_tables = {
