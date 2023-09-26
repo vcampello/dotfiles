@@ -146,6 +146,11 @@ require("lazy").setup({
         theme = "powerline",
         globalstatus = true,
       },
+
+      winbar = {
+        lualine_c = { "buffers" },
+      },
+      extensions = { "neo-tree" },
     },
   },
 
