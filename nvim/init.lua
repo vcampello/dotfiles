@@ -148,7 +148,6 @@ require("lazy").setup({
       },
 
       -- winbar = {
-      --   lualine_c = { "buffers" },
       -- },
       extensions = { "neo-tree" },
     },
