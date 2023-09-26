@@ -144,12 +144,12 @@ require("lazy").setup({
     opts = {
       options = {
         theme = "powerline",
-        globalstatus = true,
+        globalstatus = false,
       },
 
-      winbar = {
-        lualine_c = { "buffers" },
-      },
+      -- winbar = {
+      --   lualine_c = { "buffers" },
+      -- },
       extensions = { "neo-tree" },
     },
   },
@@ -366,7 +366,7 @@ vim.keymap.set("n", "<leader>sd", require("telescope.builtin").diagnostics, { de
 vim.keymap.set("n", "<leader>sf", require("telescope.builtin").find_files, { desc = "[S]earch [F]iles" })
 vim.keymap.set("n", "<leader>sg", require("telescope.builtin").live_grep, { desc = "[S]earch by [G]rep" })
 vim.keymap.set("n", "<leader>sh", require("telescope.builtin").help_tags, { desc = "[S]earch [H]elp" })
-vim.keymap.set("n", "<leader>sm", require("telescope.builtin").marks, { desc = "[S]earch  [M]arks" })
+vim.keymap.set("n", "<leader>sm", require("telescope.builtin").marks, { desc = "[S]earch [M]arks" })
 vim.keymap.set("n", "<leader>sk", require("telescope.builtin").keymaps, { desc = "[S]earch [K]eymaps" })
 vim.keymap.set("n", "<leader>sr", require("telescope.builtin").resume, { desc = "[S]earch [R]resume" })
 vim.keymap.set("n", "<leader>sw", require("telescope.builtin").grep_string, { desc = "[S]earch current [W]ord" })
