@@ -100,36 +100,53 @@ local function get_stripped_current_working_dir(cwd_uri)
   end
 end
 
+function tab_title(tab_info)
+  local title = tab_info.tab_title
+  -- if the tab title is explicitly set, take that
+  if title and #title > 0 then
+    return title
+  end
+  -- Otherwise, use the title from the active pane
+  -- in that tab
+  return tab_info.active_pane.title
+end
+
+wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
+  local title = tab_title(tab)
+  local elements = {}
+
+  if tab.is_active then
+    table.insert(elements, { Foreground = { Color = "#000000" } })
+    table.insert(elements, { Background = { Color = "#ffbf00" } })
+  end
+
+  if hover then
+    table.insert(elements, { Foreground = { Color = "#000000" } })
+    table.insert(elements, { Background = { Color = "#ffffff" } })
+  end
+
+  table.insert(elements, { Text = string.format("  %d %s  %s  ", tostring(tab.tab_index), title, utf8.char(0xe612)) })
+
+  return elements
+end)
+
 wezterm.on("update-right-status", function(window, pane)
   -- Each element holds the text for a cell in a "powerline" style << fade
-  local cells = {}
 
   local cwd_uri = pane:get_current_working_dir()
   local stripped_cwd = get_stripped_current_working_dir(cwd_uri)
-  if stripped_cwd ~= nil then
-    table.insert(cells, stripped_cwd.cwd)
-    table.insert(cells, stripped_cwd.hostname)
-  end
-
-  -- Foreground color for the text across the fade
-  local text_fg = "#c0c0c0"
 
   -- The elements to be formatted
   local elements = {}
 
-  table.insert(elements, { Foreground = { Color = text_fg } })
   -- Translate a cell into elements
-  function push(text, is_last)
-    table.insert(elements, { Text = " " .. text .. " " })
-    if not is_last then
-      -- table.insert(elements, { Foreground = { Color = colors[cell_no + 1] } })
-      table.insert(elements, { Text = "|" })
-    end
-  end
+  table.insert(elements, { Foreground = { Color = "#000000" } })
+  table.insert(elements, { Background = { Color = "#ffbf00" } })
 
-  while #cells > 0 do
-    local cell = table.remove(cells, 1)
-    push(cell, #cells == 0)
+  if stripped_cwd ~= nil then
+    table.insert(elements, { Text = " " .. stripped_cwd.hostname })
+    table.insert(elements, { Text = " " .. utf8.char(0xeb2b) .. "  " })
+    table.insert(elements, { Text = stripped_cwd.cwd .. " " })
   end
 
   window:set_right_status(wezterm.format(elements))
