@@ -46,59 +46,98 @@ config.window_padding = {
   top = 0,
   bottom = 0,
 }
+config.tab_max_width = 60
 
--- The filled in variant of the < symbol
-local SOLID_LEFT_ARROW = "<-" -- wezterm.nerdfonts.pl_right_hard_divider
-
--- The filled in variant of the > symbol
-local SOLID_RIGHT_ARROW = wezterm.nerdfonts.pl_left_soft_divider
-
--- This function returns the suggested title for a tab.
--- It prefers the title that was set via `tab:set_title()`
--- or `wezterm cli set-tab-title`, but falls back to the
--- title of the active pane in that tab.
-function tab_title(tab_info)
-  local title = tab_info.tab_title
-  -- if the tab title is explicitly set, take that
-  if title and #title > 0 then
-    return title
-  end
-  -- Otherwise, use the title from the active pane
-  -- in that tab
-  return tab_info.active_pane.title
-end
-
-wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
-  local background = "#ffffff"
-  local foreground = "#000000"
-
-  if tab.is_active then
-    background = "#ffffff"
-    foreground = "#000000"
-  elseif hover then
-    background = "#909090"
-    foreground = "#ffffff"
-  end
-
-  local title = tab_title(tab)
-
-  -- ensure that the titles fit in the available space,
-  -- and that we have room for the edges.
-  title = wezterm.truncate_right(title, max_width - 2)
-
-  return {
-    { Background = { Color = background } },
-    { Foreground = { Color = foreground } },
-    { Text = "  " },
-    { Text = title },
-    { Text = " " .. SOLID_RIGHT_ARROW },
-  }
-end)
+config.colors = {
+  -- The color of the split lines between panes
+  split = "#4e3773",
+}
 
 config.inactive_pane_hsb = {
-  saturation = 0.8,
+  saturation = 0.9,
   -- brightness = 0.5,
 }
+
+-- Extract hostname and current working directory from wezterm uri
+-- Figure out the cwd and host of the current pane.
+-- This will pick up the hostname for the remote host if your
+-- shell is using OSC 7 on the remote host.
+local function get_stripped_current_working_dir(cwd_uri)
+  if cwd_uri then
+    local cwd = ""
+    local hostname = ""
+
+    if type(cwd_uri) == "userdata" then
+      -- Running on a newer version of wezterm and we have
+      -- a URL object here, making this simple!
+
+      cwd = cwd_uri.file_path
+      hostname = cwd_uri.host or wezterm.hostname()
+    else
+      -- an older version of wezterm, 20230712-072601-f4abf8fd or earlier,
+      -- which doesn't have the Url object
+      cwd_uri = cwd_uri:sub(8)
+      local slash = cwd_uri:find("/")
+      if slash then
+        hostname = cwd_uri:sub(1, slash - 1)
+        -- and extract the cwd from the uri, decoding %-encoding
+        cwd = cwd_uri:sub(slash):gsub("%%(%x%x)", function(hex)
+          return string.char(tonumber(hex, 16))
+        end)
+      end
+    end
+
+    -- Remove the domain name portion of the hostname
+    local dot = hostname:find("[.]")
+    if dot then
+      hostname = hostname:sub(1, dot - 1)
+    end
+    if hostname == "" then
+      hostname = wezterm.hostname()
+    end
+
+    return { hostname = hostname, cwd = cwd }
+  end
+end
+
+wezterm.on("update-right-status", function(window, pane)
+  -- Each element holds the text for a cell in a "powerline" style << fade
+  local cells = {}
+
+  local cwd_uri = pane:get_current_working_dir()
+  local stripped_cwd = get_stripped_current_working_dir(cwd_uri)
+  if stripped_cwd ~= nil then
+    table.insert(cells, stripped_cwd.cwd)
+    table.insert(cells, stripped_cwd.hostname)
+  end
+
+  -- Foreground color for the text across the fade
+  local text_fg = "#c0c0c0"
+
+  -- The elements to be formatted
+  local elements = {}
+
+  table.insert(elements, { Foreground = { Color = text_fg } })
+  -- Translate a cell into elements
+  function push(text, is_last)
+    table.insert(elements, { Text = " " .. text .. " " })
+    if not is_last then
+      -- table.insert(elements, { Foreground = { Color = colors[cell_no + 1] } })
+      table.insert(elements, { Text = "|" })
+    end
+  end
+
+  while #cells > 0 do
+    local cell = table.remove(cells, 1)
+    push(cell, #cells == 0)
+  end
+
+  window:set_right_status(wezterm.format(elements))
+end)
+
+--------------------------------------------------------
+-- Keymaps
+--------------------------------------------------------
 
 -- timeout_milliseconds defaults to 1000 and can be omitted
 config.leader = { key = "a", mods = "CTRL", timeout_milliseconds = 1000 }
@@ -177,8 +216,4 @@ config.key_tables = {
   },
 }
 
-config.colors = {
-  -- The color of the split lines between panes
-  split = "#4e3773",
-}
 return config
