@@ -112,7 +112,39 @@ require("lazy").setup({
       end,
     },
   },
-
+  {
+    "glepnir/dashboard-nvim",
+    event = "VimEnter",
+    config = function()
+      require("dashboard").setup({
+        theme = "hyper",
+        config = {
+          week_header = {
+            enable = true,
+          },
+          shortcut = {
+            { desc = "󰊳 Update", group = "@property", action = "Lazy update", key = "u" },
+            {
+              icon = " ",
+              icon_hl = "@variable",
+              desc = "Files",
+              group = "Label",
+              action = "Telescope find_files",
+              key = "f",
+            },
+            -- TODO: include this
+            -- {
+            --   desc = " dotfiles",
+            --   group = "Number",
+            --   action = "Telescope dotfiles",
+            --   key = "d",
+            -- },
+          },
+        },
+      })
+    end,
+    dependencies = { { "nvim-tree/nvim-web-devicons" } },
+  },
   {
     "EdenEast/nightfox.nvim",
     priority = 1000,
@@ -135,6 +167,10 @@ require("lazy").setup({
   {
     "folke/todo-comments.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      -- FIXME: this shouldn't be needed
+      require("todo-comments").setup()
+    end,
   },
   {
     -- Set lualine as statusline
