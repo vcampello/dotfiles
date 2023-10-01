@@ -116,8 +116,8 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
   local elements = {}
 
   if tab.is_active then
-    table.insert(elements, { Foreground = { Color = "#000000" } })
-    table.insert(elements, { Background = { Color = "#ffbf00" } })
+    table.insert(elements, { Foreground = { Color = "#ffffff" } })
+    table.insert(elements, { Background = { Color = "#4e3773" } })
   end
 
   if hover then
@@ -140,8 +140,8 @@ wezterm.on("update-right-status", function(window, pane)
   local elements = {}
 
   -- Translate a cell into elements
-  table.insert(elements, { Foreground = { Color = "#000000" } })
-  table.insert(elements, { Background = { Color = "#ffbf00" } })
+  table.insert(elements, { Foreground = { Color = "#ffffff" } })
+  table.insert(elements, { Background = { Color = "#4e3773" } })
 
   if stripped_cwd ~= nil then
     table.insert(elements, { Text = " " .. stripped_cwd.hostname })
