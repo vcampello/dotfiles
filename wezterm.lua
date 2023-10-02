@@ -27,6 +27,9 @@ elseif wezterm.target_triple == "x86_64-unknown-linux-gnu" then
   config.window_decorations = "RESIZE"
 elseif wezterm.target_triple == "x86_64-pc-windows-msvc" then
   -- windows detected
+  config.font_size = 10
+  config.cell_width = 1.1
+  config.default_domain = "WSL:Ubuntu"
 else
   config.font_size = 10.5
 end
