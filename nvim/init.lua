@@ -192,15 +192,6 @@ require("lazy").setup({
     },
   },
 
-  -- "gc" to comment visual regions/lines
-  {
-    "numToStr/Comment.nvim",
-    opts = {
-      -- ignores empty lines
-      ignore = "^$",
-    },
-  },
-
   -- Fuzzy Finder (files, lsp, etc)
   {
     "nvim-telescope/telescope.nvim",
