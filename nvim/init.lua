@@ -179,6 +179,9 @@ require("lazy").setup({
     opts = {
       path = 1, -- Relative path
       extensions = { "neo-tree" },
+      tabline = {
+        lualine_a = { "tabs" },
+      },
       sections = {
         lualine_c = {
           {
