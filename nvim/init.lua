@@ -155,10 +155,10 @@ require("lazy").setup({
         },
         groups = {
           all = {
-            WinSeparator = { fg = "#4e3773" },
+            WinSeparator = { fg = "#582372" },
             NormalFloat = { bg = "None" },
             WhichKeyFloat = { bg = "None" },
-            Visual = { bg = "#4e3773", fg = "#ffffff" },
+            Visual = { bg = "#582372", fg = "#ffffff" },
           },
         },
       })

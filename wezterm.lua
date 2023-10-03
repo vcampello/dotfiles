@@ -34,7 +34,8 @@ else
   config.font_size = 10.5
 end
 
--- config.cell_width = 1.1
+-- Can be overriden by editors and other applications
+config.default_cursor_style = "BlinkingBlock"
 
 config.window_background_opacity = 0.9
 config.tab_bar_at_bottom = true
@@ -53,7 +54,14 @@ config.tab_max_width = 60
 
 config.colors = {
   -- The color of the split lines between panes
-  split = "#4e3773",
+  split = "#582372",
+
+  cursor_bg = "#ffbf00",
+  cursor_fg = "#000000",
+  cursor_border = "#ff0000",
+
+  selection_fg = "#ffffff",
+  selection_bg = "#582372",
 }
 
 config.inactive_pane_hsb = {
@@ -120,7 +128,7 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 
   if tab.is_active then
     table.insert(elements, { Foreground = { Color = "#ffffff" } })
-    table.insert(elements, { Background = { Color = "#4e3773" } })
+    table.insert(elements, { Background = { Color = "#582372" } })
   end
 
   if hover then
@@ -144,7 +152,7 @@ wezterm.on("update-right-status", function(window, pane)
 
   -- Translate a cell into elements
   table.insert(elements, { Foreground = { Color = "#ffffff" } })
-  table.insert(elements, { Background = { Color = "#4e3773" } })
+  table.insert(elements, { Background = { Color = "#582372" } })
 
   if stripped_cwd ~= nil then
     table.insert(elements, { Text = " " .. stripped_cwd.hostname })
