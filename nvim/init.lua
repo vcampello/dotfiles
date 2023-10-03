@@ -158,6 +158,7 @@ require("lazy").setup({
             WinSeparator = { fg = "#4e3773" },
             NormalFloat = { bg = "None" },
             WhichKeyFloat = { bg = "None" },
+            Visual = { bg = "#4e3773", fg = "#ffffff" },
           },
         },
       })
@@ -175,24 +176,47 @@ require("lazy").setup({
   {
     -- Set lualine as statusline
     "nvim-lualine/lualine.nvim",
-    -- See `:help lualine.txt`
-    opts = {
-      path = 1, -- Relative path
-      extensions = { "neo-tree" },
-      tabline = {
-        lualine_a = { "tabs" },
-      },
-      sections = {
-        lualine_c = {
-          {
-            "filename",
-            file_status = true, -- Displays file status (readonly status, modified status)
-            newfile_status = false, -- Display new file status (new file means no write after created)
-            path = 1, -- 1: Relative path
+    config = function()
+      local theme = require("lualine.themes.auto")
+      theme.inactive.a.bg = "#222222"
+      theme.inactive.c.bg = "#222222"
+
+      require("lualine").setup({
+        options = {
+          theme = theme,
+        },
+        path = 1, -- Relative path
+        extensions = { "neo-tree" },
+        tabline = {
+          lualine_a = { "tabs" },
+        },
+        sections = {
+          lualine_c = {
+            {
+              "filename",
+              file_status = true, -- Displays file status (readonly status, modified status)
+              path = 1, -- 1: Relative path
+            },
           },
         },
-      },
-    },
+        inactive_sections = {
+          lualine_a = {
+            {
+              function()
+                return "INACTIVE"
+              end,
+            },
+          },
+          lualine_c = {
+            {
+              "filename",
+              file_status = true, -- Displays file status (readonly status, modified status)
+              path = 1, -- 1: Relative path
+            },
+          },
+        },
+      })
+    end,
   },
 
   -- Fuzzy Finder (files, lsp, etc)
