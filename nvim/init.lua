@@ -543,8 +543,8 @@ end
 local servers = {
   clangd = {},
   -- gopls = {},
-  -- pyright = {},
-  -- rust_analyzer = {},
+  pyright = {},
+  rust_analyzer = {},
   tsserver = {},
   eslint = {},
   -- html = { filetypes = { 'html', 'twig', 'hbs'} },
