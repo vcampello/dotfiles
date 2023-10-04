@@ -58,7 +58,7 @@ config.colors = {
 
   cursor_bg = "#ffbf00",
   cursor_fg = "#000000",
-  cursor_border = "#ff0000",
+  cursor_border = "#ffbf00",
 
   selection_fg = "#ffffff",
   selection_bg = "#582372",
@@ -136,7 +136,7 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
     table.insert(elements, { Background = { Color = "#ffffff" } })
   end
 
-  table.insert(elements, { Text = string.format("  %d %s  %s  ", tostring(tab.tab_index), title, utf8.char(0xe612)) })
+  table.insert(elements, { Text = string.format(" [%d] %s  %s  ", tostring(tab.tab_index), title, utf8.char(0xe612)) })
 
   return elements
 end)
