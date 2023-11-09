@@ -37,8 +37,6 @@ return {
         buftype = { "terminal", "quickfix" },
       },
     },
-    other_win_hl_color = "#e0af68",
-    fg_color = "#333333",
     close_if_last_window = true, -- Close Neo-tree if it is the last window left in the tab
     window = {
       position = "right",
@@ -48,7 +46,7 @@ return {
       },
     },
     filesystem = {
-      follow_current_file = true,
+      follow_current_file = { enabled = true },
       filtered_items = {
         visible = false, -- when true, they will just be displayed differently than normal items
         hide_dotfiles = false,
@@ -66,12 +64,15 @@ return {
         },
       },
     },
+    buffers = {
+      follow_current_file = { enabled = true },
+    },
   },
   config = function()
     -- Mappings
-    vim.keymap.set("n", "<leader>nf", "<cmd>:Neotree filesystem reveal right<cr>", { desc = "[N]eotree [F]ilesystem" })
-    vim.keymap.set("n", "<leader>nb", "<cmd>:Neotree buffers toggle right<cr>", { desc = "[N]eotree [B]uffers" })
-    vim.keymap.set("n", "<leader>ng", "<cmd>:Neotree git_status toggle right<cr>", { desc = "[N]eotree [G]it" })
-    vim.keymap.set("n", "<leader>nc", "<cmd>:Neotree close right<cr>", { desc = "[N]eotree [C]lose" })
+    vim.keymap.set("n", "<leader>nf", "<cmd>:Neotree filesystem reveal float<cr>", { desc = "Neotree Filesystem" })
+    vim.keymap.set("n", "<leader>nb", "<cmd>:Neotree buffers toggle float<cr>", { desc = "Neotree Buffers" })
+    vim.keymap.set("n", "<leader>ng", "<cmd>:Neotree git_status toggle float<cr>", { desc = "Neotree Git" })
+    vim.keymap.set("n", "<leader>nc", "<cmd>:Neotree close float<cr>", { desc = "Neotree Close" })
   end,
 }
