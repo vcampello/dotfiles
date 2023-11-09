@@ -113,39 +113,6 @@ require("lazy").setup({
     },
   },
   {
-    "glepnir/dashboard-nvim",
-    event = "VimEnter",
-    config = function()
-      require("dashboard").setup({
-        theme = "hyper",
-        config = {
-          week_header = {
-            enable = true,
-          },
-          shortcut = {
-            { desc = "󰊳 Update", group = "@property", action = "Lazy update", key = "u" },
-            {
-              icon = " ",
-              icon_hl = "@variable",
-              desc = "Files",
-              group = "Label",
-              action = "Telescope find_files",
-              key = "f",
-            },
-            -- TODO: include this
-            -- {
-            --   desc = " dotfiles",
-            --   group = "Number",
-            --   action = "Telescope dotfiles",
-            --   key = "d",
-            -- },
-          },
-        },
-      })
-    end,
-    dependencies = { { "nvim-tree/nvim-web-devicons" } },
-  },
-  {
     "EdenEast/nightfox.nvim",
     priority = 1000,
     config = function()
@@ -545,6 +512,7 @@ local servers = {
   -- gopls = {},
   pyright = {},
   rust_analyzer = {},
+  gopls = {},
   tsserver = {},
   eslint = {},
   -- html = { filetypes = { 'html', 'twig', 'hbs'} },
