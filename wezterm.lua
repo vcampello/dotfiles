@@ -231,10 +231,11 @@ config.keys = {
 
 config.key_tables = {
   resize_pane = {
-    { key = "h", action = wezterm.action.AdjustPaneSize({ "Left", 1 }) },
-    { key = "j", action = wezterm.action.AdjustPaneSize({ "Down", 1 }) },
-    { key = "k", action = wezterm.action.AdjustPaneSize({ "Up", 1 }) },
-    { key = "l", action = wezterm.action.AdjustPaneSize({ "Right", 1 }) },
+    -- TODO: is it possible to make this value dynamic based on resolution?
+    { key = "h", action = wezterm.action.AdjustPaneSize({ "Left", 2 }) },
+    { key = "j", action = wezterm.action.AdjustPaneSize({ "Down", 2 }) },
+    { key = "k", action = wezterm.action.AdjustPaneSize({ "Up", 2 }) },
+    { key = "l", action = wezterm.action.AdjustPaneSize({ "Right", 2 }) },
     {
       key = "r",
       action = wezterm.action.RotatePanes("Clockwise"),
