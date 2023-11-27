@@ -39,6 +39,14 @@ config.default_cursor_style = "BlinkingBlock"
 
 config.window_background_opacity = 0.9
 config.tab_bar_at_bottom = true
+config.background = {
+  {
+    source = {
+      File = wezterm.config_dir .. "/wallpapers/tronpunk-selfie.jpg",
+    },
+    hsb = { brightness = 0.1 },
+  },
+}
 
 -- Terminal style rendering
 config.use_fancy_tab_bar = false
@@ -246,24 +254,24 @@ config.key_tables = {
 }
 
 config.mouse_bindings = {
-    -- Disable the default click behavior
-    {
-      event = { Up = { streak = 1, button = "Left"} },
-      mods = "NONE",
-      action = wezterm.action.DisableDefaultAssignment,
-    },
-    -- Ctrl-click will open the link under the mouse cursor
-    {
-        event = { Up = { streak = 1, button = "Left" } },
-        mods = "CTRL",
-        action = wezterm.action.OpenLinkAtMouseCursor,
-    },
-    -- Disable the Ctrl-click down event to stop programs from seeing it when a URL is clicked
-    {
-        event = { Down = { streak = 1, button = "Left" } },
-        mods = "CTRL",
-        action = wezterm.action.Nop,
-    },
-};
+  -- Disable the default click behavior
+  {
+    event = { Up = { streak = 1, button = "Left" } },
+    mods = "NONE",
+    action = wezterm.action.DisableDefaultAssignment,
+  },
+  -- Ctrl-click will open the link under the mouse cursor
+  {
+    event = { Up = { streak = 1, button = "Left" } },
+    mods = "CTRL",
+    action = wezterm.action.OpenLinkAtMouseCursor,
+  },
+  -- Disable the Ctrl-click down event to stop programs from seeing it when a URL is clicked
+  {
+    event = { Down = { streak = 1, button = "Left" } },
+    mods = "CTRL",
+    action = wezterm.action.Nop,
+  },
+}
 
 return config
