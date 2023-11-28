@@ -479,23 +479,12 @@ local on_attach = function(client, bufnr)
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, "Workspace List Folders")
 
-  -- FIXME: find a better way to do this
-  -- Create a command `:Format` local to the LSP buffer
   local function format()
-    -- Use stylua to format instead of lua_ls. Also set in autoformat.lua
-    if client.name == "lua_ls" then
-      require("stylua-nvim").format_file()
-    elseif client.name == "eslint" then
-      -- Use eslint to format instead of whatever it uses by default. Also set in autoformat.lua
-      vim.cmd("EslintFixAll")
-    else
-      vim.lsp.buf.format()
-    end
+    require("conform").format({ async = true, lsp_fallback = true })
   end
 
   vim.api.nvim_buf_create_user_command(bufnr, "Format", format, { desc = "Format current buffer with LSP" })
 
-  -- nmap("<leader>f", vim.lsp.buf.format, "Format current buffer with LSP")
   nmap("<leader>lf", format, "Format current buffer with LSP")
 end
 
@@ -509,7 +498,6 @@ end
 --  define the property 'filetypes' to the map in question.
 local servers = {
   clangd = {},
-  -- gopls = {},
   pyright = {},
   rust_analyzer = {},
   gopls = {},
