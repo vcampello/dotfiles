@@ -50,7 +50,6 @@ require("lazy").setup({
       },
     },
   },
-
   {
     -- Autocompletion
     "hrsh7th/nvim-cmp",
@@ -66,9 +65,6 @@ require("lazy").setup({
       "rafamadriz/friendly-snippets",
     },
   },
-
-  -- Useful plugin to show you pending keybinds.
-  { "folke/which-key.nvim", opts = {} },
   {
     "EdenEast/nightfox.nvim",
     priority = 1000,
