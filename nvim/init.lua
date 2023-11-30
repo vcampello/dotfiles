@@ -210,6 +210,7 @@ vim.keymap.set("x", "<leader>p", [["_dP]], { desc = "Delete into the void and pa
 -- Buffer navigation
 vim.keymap.set("n", "<leader>bt", vim.cmd.bnext, { desc = "Next buffer" })
 vim.keymap.set("n", "<leader>bT", vim.cmd.bprevious, { desc = "Previous buffer" })
+
 -- Window navigation
 vim.keymap.set("n", "<C-H>", "<C-w>h", { desc = "Focus on left window" })
 vim.keymap.set("n", "<C-J>", "<C-w>j", { desc = "Focus on below window" })
@@ -271,11 +272,26 @@ vim.keymap.set("n", "<leader>fw", require("telescope.builtin").grep_string, { de
 -- See `:help nvim-treesitter`
 require("nvim-treesitter.configs").setup({
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { "c", "cpp", "go", "lua", "python", "rust", "tsx", "javascript", "typescript", "vimdoc", "vim" },
+  ensure_installed = {
+    "c",
+    "cpp",
+    "go",
+    "lua",
+    "python",
+    "rust",
+    "tsx",
+    "javascript",
+    "typescript",
+    "vimdoc",
+    "vim",
+  },
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
-  auto_install = false,
+  auto_install = true,
+  sync_install = false,
 
+  ignore_install = {},
+  modules = {},
   highlight = { enable = true },
   indent = { enable = true },
   incremental_selection = {
@@ -342,12 +358,6 @@ vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagn
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(client, bufnr)
-  -- NOTE: Remember that lua is a real programming language, and as such it is possible
-  -- to define small helper and utility functions so you don't have to repeat yourself
-  -- many times.
-  --
-  -- In this case, we create a function that lets us more easily define mappings specific
-  -- for LSP related items. It sets the mode, buffer and description for us each time.
   local nmap = function(keys, func, desc)
     if desc then
       desc = "LSP: " .. desc
@@ -437,13 +447,6 @@ mason_lspconfig.setup({
   ensure_installed = vim.tbl_keys(servers),
 })
 
--- FIXME: this doesn't work all of the time ()
--- START: override borders
--- TODO: tidy this up
-local handlers = {
-  ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" }),
-  ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" }),
-}
 vim.diagnostic.config({
   float = { border = "single" },
 })
@@ -461,7 +464,10 @@ mason_lspconfig.setup_handlers({
       on_attach = on_attach,
       settings = servers[server_name],
       filetypes = (servers[server_name] or {}).filetypes,
-      handlers = handlers,
+      handlers = {
+        ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" }),
+        ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" }),
+      },
     })
   end,
 })
