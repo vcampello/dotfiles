@@ -86,14 +86,6 @@ require("lazy").setup({
     end,
   },
   {
-    "folke/todo-comments.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    config = function()
-      -- FIXME: this shouldn't be needed
-      require("todo-comments").setup()
-    end,
-  },
-  {
     -- Set lualine as statusline
     "nvim-lualine/lualine.nvim",
     config = function()
