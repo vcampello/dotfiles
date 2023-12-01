@@ -30,8 +30,9 @@ return {
       -- TODO: turn this into a table so it's not so repetitive
       javascript = { { "prettierd", "prettier" } },
       typescript = { { "prettierd", "prettier" } },
-      json = { "prettierd", "prettier" },
-      markdown = { "prettierd", "prettier" },
+      json = { { "prettierd", "prettier" } },
+      jsonc = { { "prettierd", "prettier" } },
+      markdown = { { "prettierd", "prettier" } },
       rust = { "rustfmt" },
       shell = { "shellcheck" },
       ["*"] = { "codespell" },
