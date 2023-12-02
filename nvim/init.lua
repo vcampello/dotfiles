@@ -413,7 +413,7 @@ local servers = {
   tsserver = {},
   eslint = {},
   graphql = {},
-  -- html = { filetypes = { 'html', 'twig', 'hbs'} },
+  html = {},
 
   lua_ls = {
     Lua = {
