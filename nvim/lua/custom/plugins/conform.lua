@@ -35,12 +35,13 @@ local function use_prettier(langs)
 end
 
 local shared_prettier_configs = use_prettier({
-  "typescript",
+  "graphql",
   "javascript",
   "json",
-  "jasonc",
+  "jsonc",
   "markdown",
-  "graphql",
+  "typescript",
+  "yaml",
 })
 
 local other_configs = {
@@ -54,6 +55,14 @@ local other_configs = {
 return {
   "stevearc/conform.nvim",
   opts = {
+    -- log_level = vim.log.levels.DEBUG,
+    formatters = {
+      prettierd = {
+        env = {
+          PRETTIERD_DEFAULT_CONFIG = vim.fn.expand("~/.config/nvim/other-configs/prettierrc.json"),
+        },
+      },
+    },
     formatters_by_ft = vim.tbl_deep_extend("force", {}, shared_prettier_configs, other_configs),
     format_on_save = function(bufnr)
       -- Disable with a global or buffer-local variable
