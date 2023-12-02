@@ -412,6 +412,7 @@ local servers = {
   gopls = {},
   tsserver = {},
   eslint = {},
+  graphql = {},
   -- html = { filetypes = { 'html', 'twig', 'hbs'} },
 
   lua_ls = {
@@ -445,6 +446,7 @@ local mason_lspconfig = require("mason-lspconfig")
 
 mason_lspconfig.setup({
   ensure_installed = vim.tbl_keys(servers),
+  automatic_installation = true,
 })
 
 vim.diagnostic.config({
