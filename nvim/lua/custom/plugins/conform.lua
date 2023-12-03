@@ -59,7 +59,7 @@ local PRETTIER = {}
 
 PRETTIER.rc_store = {
   default = tostring(vim.fn.expand("~/.config/nvim/other-configs/prettierrc-default.json")),
-  short_indent = tostring(vim.fn.expand("~/.config/nvim/other-configs/prettierrc-configs.json")),
+  short_indent = tostring(vim.fn.expand("~/.config/nvim/other-configs/prettierrc-short-indent.json")),
 }
 
 PRETTIER.validate_config_store = function()
