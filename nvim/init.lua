@@ -469,6 +469,20 @@ local servers = {
       },
     },
   },
+  yamlls = {
+    settings = {
+      yaml = {
+        schemaStore = {
+          -- You must disable built-in schemaStore support if you want to use
+          -- this plugin and its advanced options like `ignore`.
+          enable = false,
+          -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
+          url = "",
+        },
+        schemas = require("schemastore").yaml.schemas(),
+      },
+    },
+  },
 }
 
 -- Setup neovim lua configuration
@@ -523,6 +537,9 @@ cmp.setup({
     expand = function(args)
       luasnip.lsp_expand(args.body)
     end,
+  },
+  completion = {
+    completeopt = "menu,menuone,noinsert",
   },
   mapping = cmp.mapping.preset.insert({
 
