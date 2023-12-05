@@ -71,7 +71,7 @@ require("lazy").setup({
     config = function()
       require("nightfox").setup({
         options = {
-          transparent = true,
+          transparent = false,
         },
         groups = {
           all = {
@@ -120,7 +120,7 @@ require("lazy").setup({
   -- require 'kickstart.plugins.debug',
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
-  { import = "custom.plugins" },
+  { import = "plugins" },
 }, {})
 
 -- [[ Setting options ]]
