@@ -5,6 +5,7 @@ return {
     "nvim-lua/plenary.nvim",
     "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
     "MunifTanjim/nui.nvim",
+    -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
     {
       "s1n7ax/nvim-window-picker",
       version = "2.*",
@@ -25,54 +26,64 @@ return {
       end,
     },
   },
-  opts = {
-    autoselect_one = false,
-    include_current = false,
-    filter_rules = {
-      -- filter using buffer options
-      bo = {
-        -- if the file type is one of following, the window will be ignored
-        filetype = { "neo-tree", "neo-tree-popup", "notify" },
-        -- if the buffer type is one of following, the window will be ignored
-        buftype = { "terminal", "quickfix" },
-      },
-    },
-    close_if_last_window = true, -- Close Neo-tree if it is the last window left in the tab
-    window = {
-      position = "right",
-      mappings = {
-        ["S"] = "split_with_window_picker",
-        ["s"] = "vsplit_with_window_picker",
-      },
-    },
-    filesystem = {
-      follow_current_file = { enabled = true },
-      filtered_items = {
-        visible = false, -- when true, they will just be displayed differently than normal items
-        hide_dotfiles = false,
-        hide_gitignored = false,
-        hide_hidden = false, -- only works on Windows for hidden files/directories
-        hide_by_name = {
-          "node_modules",
-        },
-        never_show = { -- remains hidden even if visible is toggled to true, this overrides always_show
-          ".DS_Store",
-          "thumbs.db",
-        },
-        never_show_by_pattern = { -- uses glob style patterns
-          --".null-ls_*",
-        },
-      },
-    },
-    buffers = {
-      follow_current_file = { enabled = true },
-    },
-  },
   config = function()
+    -- If you want icons for diagnostic errors, you'll need to define them somewhere:
+    vim.fn.sign_define("DiagnosticSignError", { text = " ", texthl = "DiagnosticSignError" })
+    vim.fn.sign_define("DiagnosticSignWarn", { text = " ", texthl = "DiagnosticSignWarn" })
+    vim.fn.sign_define("DiagnosticSignInfo", { text = " ", texthl = "DiagnosticSignInfo" })
+    vim.fn.sign_define("DiagnosticSignHint", { text = "󰌵", texthl = "DiagnosticSignHint" })
+
+    require("neo-tree").setup({
+      sources = {
+        "filesystem",
+        "buffers",
+        "git_status",
+        "document_symbols",
+      },
+      source_selector = {
+        winbar = true,
+        sources = {
+          { source = "filesystem" },
+          { source = "buffers" },
+          { source = "git_status" },
+          { source = "document_symbols" },
+        },
+      },
+      -- Close Neo-tree if it is the last window left in the tab
+      close_if_last_window = true,
+      window = {
+        position = "right",
+      },
+      filesystem = {
+        filtered_items = {
+          hide_dotfiles = false,
+          hide_by_name = {
+            "node_modules",
+          },
+          always_show = { -- remains visible even if other settings would normally hide it
+            ".gitignored",
+          },
+        },
+        follow_current_file = {
+          enabled = true,
+        },
+        -- This will use the OS level file watchers to detect changes
+        -- instead of relying on nvim autocmd events.
+        use_libuv_file_watcher = true,
+      },
+      buffers = {
+        follow_current_file = {
+          enabled = true, -- This will find and focus the file in the active buffer every time
+        },
+      },
+    })
+
     -- Mappings
+    -- vim.cmd([[nnoremap \ :Neotree reveal<cr>]])
     vim.keymap.set("n", "<leader>nf", "<cmd>:Neotree filesystem reveal float<cr>", { desc = "Neotree Filesystem" })
     vim.keymap.set("n", "<leader>nb", "<cmd>:Neotree buffers toggle float<cr>", { desc = "Neotree Buffers" })
     vim.keymap.set("n", "<leader>ng", "<cmd>:Neotree git_status toggle float<cr>", { desc = "Neotree Git" })
+    vim.keymap.set("n", "<leader>ns", "<cmd>:Neotree document_symbols right<cr>", { desc = "Neotree Symbols" })
     vim.keymap.set("n", "<leader>nc", "<cmd>:Neotree close float<cr>", { desc = "Neotree Close" })
   end,
 }
