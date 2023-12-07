@@ -1,6 +1,6 @@
 local M = {}
 
-function M.setup()
+function M.settings()
   -- Set <space> as the leader key
   -- See `:help mapleader`
   --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
@@ -90,4 +90,15 @@ function M.setup()
   })
 end
 
+function M.define_signs()
+  vim.fn.sign_define("DiagnosticSignError", { text = " ", texthl = "DiagnosticSignError" })
+  vim.fn.sign_define("DiagnosticSignWarn", { text = " ", texthl = "DiagnosticSignWarn" })
+  vim.fn.sign_define("DiagnosticSignInfo", { text = " ", texthl = "DiagnosticSignInfo" })
+  vim.fn.sign_define("DiagnosticSignHint", { text = "󰌵", texthl = "DiagnosticSignHint" })
+end
+
+function M.setup()
+  M.settings()
+  M.define_signs()
+end
 return M
