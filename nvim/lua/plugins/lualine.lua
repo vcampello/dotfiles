@@ -14,6 +14,17 @@ return {
       extensions = { "neo-tree" },
       tabline = {
         lualine_a = { "tabs" },
+        lualine_z = {
+          -- TODO: how do I export this from the possession.lua file?
+          function()
+            local session = require("possession.session")
+            if session ~= nil and string.len(session.session_name or "") > 0 then
+              return "@" .. session.session_name
+            else
+              return ""
+            end
+          end,
+        },
       },
       sections = {
         lualine_c = {
