@@ -6,6 +6,7 @@ return {
     "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
     "MunifTanjim/nui.nvim",
     -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+    "mrbjarksen/neo-tree-diagnostics.nvim",
     {
       "s1n7ax/nvim-window-picker",
       version = "2.*",
@@ -33,6 +34,7 @@ return {
         "buffers",
         "git_status",
         "document_symbols",
+        "diagnostics",
       },
       source_selector = {
         winbar = true,
@@ -41,6 +43,8 @@ return {
           { source = "buffers" },
           { source = "git_status" },
           { source = "document_symbols" },
+          -- requires plugin 'mrbjarksen/neo-tree-diagnostics.nvim'
+          { source = "diagnostics" },
         },
       },
       -- Close Neo-tree if it is the last window left in the tab
@@ -70,6 +74,12 @@ return {
           enabled = true, -- This will find and focus the file in the active buffer every time
         },
       },
+      -- requires plugin 'mrbjarksen/neo-tree-diagnostics.nvim'
+      diagnostics = {
+        auto_preview = { -- May also be set to `true` or `false`
+          enabled = true,
+        },
+      },
     })
 
     -- Mappings
@@ -78,6 +88,7 @@ return {
     vim.keymap.set("n", "<leader>nb", "<cmd>:Neotree buffers toggle float<cr>", { desc = "Neotree Buffers" })
     vim.keymap.set("n", "<leader>ng", "<cmd>:Neotree git_status toggle float<cr>", { desc = "Neotree Git" })
     vim.keymap.set("n", "<leader>ns", "<cmd>:Neotree document_symbols right<cr>", { desc = "Neotree Symbols" })
-    vim.keymap.set("n", "<leader>nc", "<cmd>:Neotree close float<cr>", { desc = "Neotree Close" })
+    vim.keymap.set("n", "<leader>nd", "<cmd>:Neotree diagnostics bottom<cr>", { desc = "Neotree Diagnostics" })
+    vim.keymap.set("n", "<leader>nc", "<cmd>:Neotree close<cr>", { desc = "Neotree Close" })
   end,
 }
