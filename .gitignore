@@ -1,2 +1,10 @@
+# nvim
 nvim/lazy-lock.json
+
+# local file to lua scripts
 **/scratchpad.lua
+
+# lazygit
+lazygit/state.yml
+lazygit/*.log
+

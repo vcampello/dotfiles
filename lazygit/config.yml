@@ -1,0 +1,5 @@
+# $schema=https://json.schemastore.org/lazygit.json
+git:
+  paging:
+    colorArg: always
+    pager: delta --dark --paging=never
