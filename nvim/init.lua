@@ -46,15 +46,31 @@ require("lazy").setup({
     -- Autocompletion
     "hrsh7th/nvim-cmp",
     dependencies = {
+      -- eye candy
+      "onsails/lspkind.nvim",
+
       -- Snippet Engine & its associated nvim-cmp source
       "L3MON4D3/LuaSnip",
       "saadparwaiz1/cmp_luasnip",
 
-      -- Adds LSP completion capabilities
-      "hrsh7th/cmp-nvim-lsp",
-
-      -- Adds a number of user-friendly snippets
-      "rafamadriz/friendly-snippets",
+      "hrsh7th/cmp-nvim-lsp", -- adds LSP completion capabilities
+      "FelipeLema/cmp-async-path", -- adds filesystem paths.
+      "rafamadriz/friendly-snippets", -- adds a number of user-friendly snippets
+      {
+        "f3fora/cmp-spell", -- adds spellcheck
+        config = function()
+          vim.opt.spell = true
+          vim.opt.spelllang = { "en_gb" }
+        end,
+      },
+      {
+        "David-Kunz/cmp-npm",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        ft = "json",
+        config = function()
+          require("cmp-npm").setup({})
+        end,
+      },
     },
   },
   {
@@ -456,10 +472,10 @@ cmp.setup({
     ["<C-u>"] = cmp.mapping.scroll_docs(4),
     ["<C-Space>"] = cmp.mapping.complete(),
     ["<C-y>"] = cmp.mapping.confirm({ select = true }),
-    -- ["<CR>"] = cmp.mapping.confirm({
-    --   behavior = cmp.ConfirmBehavior.Replace,
-    --   select = true,
-    -- }),
+    ["<CR>"] = cmp.mapping.confirm({
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = true,
+    }),
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
@@ -482,6 +498,39 @@ cmp.setup({
   sources = {
     { name = "nvim_lsp" },
     { name = "luasnip" },
+    -- { name = "copilot", group_index = 2 },
+    { name = "async_path" },
+    { name = "npm", keyword_length = 4 },
+    {
+      name = "spell",
+      option = {
+        keep_all_entries = false,
+        enable_in_context = function()
+          return require("cmp.config.context").in_treesitter_capture("spell")
+        end,
+      },
+    },
+  },
+  window = {
+    completion = {
+      winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
+      col_offset = -3,
+      side_padding = 0,
+    },
+  },
+  formatting = {
+    fields = { "kind", "abbr", "menu" },
+    format = function(entry, vim_item)
+      local kind = require("lspkind").cmp_format({
+        mode = "symbol_text",
+        maxwidth = 100,
+      })(entry, vim_item)
+      local strings = vim.split(kind.kind, "%s", { trimempty = true })
+      kind.kind = " " .. (strings[1] or "") .. " "
+      kind.menu = "    (" .. (strings[2] or "") .. ")"
+
+      return kind
+    end,
   },
 })
 
