@@ -12,7 +12,8 @@ return {
     config = function()
       -- Enable telescope extension
       require("telescope").load_extension("lazygit")
-      vim.keymap.set("n", "<leader>gg", require("lazygit").lazygit, { desc = "[S]earch [K]eymaps" })
+      vim.keymap.set("n", "<leader>gg", require("lazygit").lazygit, { desc = "Lazygit" })
+      vim.keymap.set("n", "<leader>gf", ":Telescope lazygit<cr>", { desc = "Lazygit repos" })
     end,
   },
 }

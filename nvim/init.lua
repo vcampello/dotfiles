@@ -99,6 +99,7 @@ require("lazy").setup({
     branch = "0.1.x",
     dependencies = {
       "nvim-lua/plenary.nvim",
+      "debugloop/telescope-undo.nvim",
       -- Fuzzy Finder Algorithm which requires local dependencies to be built.
       -- Only load if `make` is available. Make sure you have the system
       -- requirements installed.
@@ -108,6 +109,17 @@ require("lazy").setup({
         cond = function()
           return vim.fn.executable("make") == 1
         end,
+      },
+    },
+    opts = {
+      extensions = {
+        undo = {
+          side_by_side = true,
+          layout_strategy = "vertical",
+          layout_config = {
+            preview_height = 0.8,
+          },
+        },
       },
     },
   },
@@ -162,9 +174,12 @@ vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
 
+-- TODO: review this. It probably shouldn't live here
 -- Enable telescope fzf native, if installed
 pcall(require("telescope").load_extension, "fzf")
-
+-- Enable telescope undo, if installed
+pcall(require("telescope").load_extension, "fzf")
+--
 -- Telescope live_grep in git root
 -- Function to find the git root directory based on the current buffer's path
 local function find_git_root()
@@ -221,12 +236,14 @@ vim.keymap.set("n", "<leader>ff", require("telescope.builtin").git_files, { desc
 vim.keymap.set("n", "<leader>fd", require("telescope.builtin").diagnostics, { desc = "Search Diagnostics" })
 vim.keymap.set("n", "<leader>ff", require("telescope.builtin").find_files, { desc = "Search Files" })
 vim.keymap.set("n", "<leader>fg", require("telescope.builtin").live_grep, { desc = "Search by Grep" })
-vim.keymap.set("n", "<leader>fG", ":LiveGrepGitRoot<cr>", { desc = "Search by Grep on Git Root" })
+vim.keymap.set("n", "<leader>fG", live_grep_git_root, { desc = "Search by Grep on Git Root" })
 vim.keymap.set("n", "<leader>fh", require("telescope.builtin").help_tags, { desc = "Search Help" })
 vim.keymap.set("n", "<leader>fm", require("telescope.builtin").marks, { desc = "Search Marks" })
 vim.keymap.set("n", "<leader>fk", require("telescope.builtin").keymaps, { desc = "Search Keymaps" })
 vim.keymap.set("n", "<leader>fr", require("telescope.builtin").resume, { desc = "Search Rresume" })
 vim.keymap.set("n", "<leader>fw", require("telescope.builtin").grep_string, { desc = "Search current Word" })
+-- FIXME: this should work but doesn't -> require("telescope").extensions.undo
+vim.keymap.set("n", "<leader>fu", ":Telescope undo<cr>", { desc = "Search undo" })
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
