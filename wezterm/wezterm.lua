@@ -39,6 +39,7 @@ config.default_cursor_style = "BlinkingBlock"
 
 config.window_background_opacity = 0.9
 config.tab_bar_at_bottom = true
+--[[
 config.background = {
   {
     source = {
@@ -47,6 +48,7 @@ config.background = {
     hsb = { brightness = 0.1 },
   },
 }
+]]
 
 -- Terminal style rendering
 config.use_fancy_tab_bar = false
