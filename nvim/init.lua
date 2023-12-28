@@ -1,5 +1,5 @@
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
-require("options").setup()
+require("vcampello.core")
 
 -- Install package manager
 --    https://github.com/folke/lazy.nvim
@@ -140,7 +140,7 @@ require("lazy").setup({
   -- require 'kickstart.plugins.debug',
 
   -- NOTE: automatically add plugins, configuration, etc from `lua/plugins/*.lua`
-  { import = "plugins" },
+  { import = "vcampello.plugins" },
 }, {})
 
 -- [[ Basic Keymaps ]]

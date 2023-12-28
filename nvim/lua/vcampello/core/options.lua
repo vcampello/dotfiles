@@ -101,4 +101,5 @@ function M.setup()
   M.settings()
   M.define_signs()
 end
-return M
+
+M.setup()
