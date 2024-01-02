@@ -96,7 +96,7 @@ end
 return {
   "stevearc/conform.nvim",
   opts = {
-    -- log_level = vim.log.levels.DEBUG,
+    log_level = vim.log.levels.DEBUG,
     formatters = {
       prettierd = {
         env = function()
