@@ -16,6 +16,11 @@ return {
         desc = "Preview git hunk",
       })
 
+      vim.keymap.set("n", "<leader>hr", require("gitsigns").reset_hunk, {
+        buffer = bufnr,
+        desc = "Reset git hunk",
+      })
+
       -- don't override the built-in and fugitive keymaps
       local gs = package.loaded.gitsigns
       vim.keymap.set({ "n", "v" }, "]c", function()
