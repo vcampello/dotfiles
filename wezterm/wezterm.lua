@@ -14,9 +14,14 @@ end
 
 -- For example, changing the color scheme:
 config.color_scheme = "carbonfox"
-config.font = wezterm.font("Victor Mono", {
-  weight = "DemiBold",
+config.font = wezterm.font_with_fallback({
+  { family = "Victor Mono", weight = "DemiBold" },
+  "JetBrains Mono", -- built-in font
 })
+
+-- fix strike through position
+-- might not work at all until this is set -> https://wezfurlong.org/wezterm/faq.html#how-do-i-enable-undercurl-curly-underlines
+config.strikethrough_position = "0.6cell"
 
 if wezterm.target_triple == "aarch64-apple-darwin" or wezterm.target_triple == "x86_64-apple-darwin" then
   -- macOS detected
@@ -34,7 +39,7 @@ else
   config.font_size = 10.5
 end
 
--- Can be overriden by editors and other applications
+-- Can be overridden by editors and other applications
 config.default_cursor_style = "BlinkingBlock"
 
 config.window_background_opacity = 0.9
