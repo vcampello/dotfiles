@@ -19,7 +19,7 @@ return {
       tmp = true, -- or fun(): boolean
       tmp_name = "autosave", -- or fun(): string
       on_load = true,
-      on_quit = true,
+      on_quit = false, -- do not update session automatically on quit
     },
   },
 }
