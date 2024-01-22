@@ -48,7 +48,8 @@ local shared_prettier_configs = use_prettier({
 })
 
 local other_configs = {
-  ["*"] = { "codespell" },
+  -- TODO: how to set this to en-gb?
+  -- ["*"] = { "codespell" },
   lua = { "stylua" },
   python = { "isort", "black" },
   rust = { "rustfmt" },
