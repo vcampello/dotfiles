@@ -10,7 +10,7 @@ return {
   config = function()
     -- Use defaults
     -- require("mini.cursorword").setup()
-    -- require("mini.indentscope").setup()
+    require("mini.indentscope").setup()
     require("mini.move").setup()
     require("mini.pairs").setup()
     require("mini.surround").setup()
