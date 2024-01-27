@@ -74,25 +74,29 @@ require("lazy").setup({
     },
   },
   {
-    "EdenEast/nightfox.nvim",
+    "AlexvZyl/nordic.nvim",
+    lazy = false,
     priority = 1000,
     config = function()
-      require("nightfox").setup({
-        options = {
-          transparent = false,
+      -- local palette = require("nordic.colors")
+
+      require("nordic").load({
+        transparent_bg = true,
+        bright_border = true,
+        telescope = {
+          -- Available styles: `classic`, `flat`.
+          style = "classic",
         },
-        groups = {
-          all = {
-            WinSeparator = { fg = "#582372" },
-            NormalFloat = { bg = "None" },
-            WhichKeyFloat = { bg = "None" },
-            Visual = { bg = "#582372", fg = "#ffffff" },
-          },
+        override = {
+          WhichKeyFloat = { bg = "None" },
+          WhichKeyBorder = { link = "FloatBorder" },
+          Visual = { bg = "#104060" },
+          LineNr = { fg = "#5080a0" },
         },
       })
-      vim.cmd.colorscheme("carbonfox")
     end,
   },
+
   -- Fuzzy Finder (files, lsp, etc)
   {
     "nvim-telescope/telescope.nvim",
@@ -530,11 +534,8 @@ cmp.setup({
     },
   },
   window = {
-    completion = {
-      winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
-      col_offset = -3,
-      side_padding = 0,
-    },
+    completion = cmp.config.window.bordered(),
+    documentation = cmp.config.window.bordered(),
   },
   formatting = {
     fields = { "kind", "abbr", "menu" },

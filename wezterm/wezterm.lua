@@ -13,7 +13,7 @@ end
 -- This is where you actually apply your config choices
 
 -- For example, changing the color scheme:
-config.color_scheme = "carbonfox"
+config.color_scheme = "SeaShells"
 config.font = wezterm.font_with_fallback({
   { family = "Victor Mono", weight = "DemiBold" },
   "JetBrains Mono", -- built-in font
@@ -42,18 +42,20 @@ end
 -- Can be overridden by editors and other applications
 config.default_cursor_style = "BlinkingBlock"
 
-config.window_background_opacity = 0.9
+-- config.window_background_opacity = 0.80
 config.tab_bar_at_bottom = true
---[[
+
+-- The art is a bit too bright and colorful to be useful as a backdrop
+-- for text, so we're going to dim it down to 10% of its normal brightness
+local dimmer = { brightness = 0.03, saturation = 0.7, hue = 1 }
 config.background = {
   {
     source = {
-      File = wezterm.config_dir .. "/wallpapers/tronpunk-selfie.jpg",
+      File = wezterm.config_dir .. "/wallpapers/sunset-sakura-tree.jpg",
     },
-    hsb = { brightness = 0.1 },
+    hsb = dimmer,
   },
 }
-]]
 
 -- Terminal style rendering
 config.use_fancy_tab_bar = false
@@ -69,14 +71,14 @@ config.tab_max_width = 60
 
 config.colors = {
   -- The color of the split lines between panes
-  split = "#582372",
+  split = "#104060",
 
   cursor_bg = "#ffbf00",
   cursor_fg = "#000000",
   cursor_border = "#ffbf00",
 
-  selection_fg = "#ffffff",
-  selection_bg = "#582372",
+  -- selection_fg = "#ffffff",
+  selection_bg = "#104060",
 }
 
 config.inactive_pane_hsb = {
@@ -143,7 +145,7 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 
   if tab.is_active then
     table.insert(elements, { Foreground = { Color = "#ffffff" } })
-    table.insert(elements, { Background = { Color = "#582372" } })
+    table.insert(elements, { Background = { Color = "#104060" } })
   end
 
   if hover then
@@ -167,7 +169,7 @@ wezterm.on("update-right-status", function(window, pane)
 
   -- Translate a cell into elements
   table.insert(elements, { Foreground = { Color = "#ffffff" } })
-  table.insert(elements, { Background = { Color = "#582372" } })
+  table.insert(elements, { Background = { Color = "#104060" } })
 
   if stripped_cwd ~= nil then
     table.insert(elements, { Text = " " .. stripped_cwd.hostname })
@@ -235,6 +237,11 @@ config.keys = {
     key = "r",
     mods = "LEADER",
     action = wezterm.action.ActivateKeyTable({ name = "resize_pane", one_shot = false }),
+  },
+  {
+    key = "r",
+    mods = "CMD|SHIFT",
+    action = wezterm.action.ReloadConfiguration,
   },
 
   -- Shouldn't conflict with linux/windows
