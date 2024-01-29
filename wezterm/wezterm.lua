@@ -47,7 +47,7 @@ config.tab_bar_at_bottom = true
 
 -- The art is a bit too bright and colorful to be useful as a backdrop
 -- for text, so we're going to dim it down to 10% of its normal brightness
-local dimmer = { brightness = 0.03, saturation = 0.7, hue = 1 }
+local dimmer = { brightness = 0.05, saturation = 0.7, hue = 1 }
 config.background = {
   {
     source = {
