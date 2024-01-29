@@ -25,7 +25,7 @@ config.strikethrough_position = "0.6cell"
 
 if wezterm.target_triple == "aarch64-apple-darwin" or wezterm.target_triple == "x86_64-apple-darwin" then
   -- macOS detected
-  config.font_size = 13
+  config.font_size = 14
 elseif wezterm.target_triple == "x86_64-unknown-linux-gnu" then
   -- linux detected
   config.font_size = 10.5
