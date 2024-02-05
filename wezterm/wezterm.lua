@@ -13,7 +13,7 @@ end
 -- This is where you actually apply your config choices
 
 -- For example, changing the color scheme:
-config.color_scheme = "SeaShells"
+config.color_scheme = "Bright Lights"
 config.font = wezterm.font_with_fallback({
   { family = "Victor Mono", weight = "DemiBold" },
   "JetBrains Mono", -- built-in font
