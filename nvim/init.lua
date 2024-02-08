@@ -56,6 +56,8 @@ require("lazy").setup({
       "hrsh7th/cmp-nvim-lsp", -- adds LSP completion capabilities
       "FelipeLema/cmp-async-path", -- adds filesystem paths.
       "rafamadriz/friendly-snippets", -- adds a number of user-friendly snippets
+      "hrsh7th/cmp-cmdline",
+      "hrsh7th/cmp-buffer",
       {
         "f3fora/cmp-spell", -- adds spellcheck
         config = function()
@@ -246,7 +248,6 @@ vim.keymap.set("n", "<leader>fm", require("telescope.builtin").marks, { desc = "
 vim.keymap.set("n", "<leader>fk", require("telescope.builtin").keymaps, { desc = "Search Keymaps" })
 vim.keymap.set("n", "<leader>fr", require("telescope.builtin").resume, { desc = "Search Rresume" })
 vim.keymap.set("n", "<leader>fw", require("telescope.builtin").grep_string, { desc = "Search current Word" })
--- FIXME: this should work but doesn't -> require("telescope").extensions.undo
 vim.keymap.set("n", "<leader>fu", ":Telescope undo<cr>", { desc = "Search undo" })
 
 -- [[ Configure Treesitter ]]
@@ -470,6 +471,7 @@ mason_lspconfig.setup_handlers({
   end,
 })
 
+-- FIXME: this is a mess
 -- [[ Configure nvim-cmp ]]
 -- See `:help cmp`
 local cmp = require("cmp")
@@ -552,9 +554,32 @@ cmp.setup({
     end,
   },
 })
+-- `/` cmdline setup.
+cmp.setup.cmdline("/", {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = {
+    { name = "buffer" },
+  },
+})
+-- `:` cmdline setup.
+cmp.setup.cmdline(":", {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = cmp.config.sources({
+    { name = "path" },
+  }, {
+    {
+      name = "cmdline",
+      option = {
+        ignore_cmds = { "Man", "!" },
+      },
+    },
+  }),
+})
 
+vim.keymap.set("n", "<leader>ll", vim.cmd.Lazy, { noremap = true, silent = true, desc = "Lazy" })
 vim.keymap.set("n", "<leader>lm", vim.cmd.Mason, { noremap = true, silent = true, desc = "Mason" })
 vim.keymap.set("n", "<leader>li", vim.cmd.LspInfo, { noremap = true, silent = true, desc = "LSP Info" })
 vim.keymap.set("n", "<leader>lr", vim.cmd.LspRestart, { noremap = true, silent = true, desc = "Restart LSP" })
+
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
