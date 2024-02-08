@@ -11,12 +11,12 @@ return {
       changedelete = { text = "~" },
     },
     on_attach = function(bufnr)
-      vim.keymap.set("n", "<leader>hp", require("gitsigns").preview_hunk, {
+      vim.keymap.set("n", "<leader>gp", require("gitsigns").preview_hunk, {
         buffer = bufnr,
         desc = "Preview git hunk",
       })
 
-      vim.keymap.set("n", "<leader>hr", require("gitsigns").reset_hunk, {
+      vim.keymap.set("n", "<leader>gr", require("gitsigns").reset_hunk, {
         buffer = bufnr,
         desc = "Reset git hunk",
       })
