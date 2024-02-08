@@ -45,16 +45,22 @@ config.default_cursor_style = "BlinkingBlock"
 -- config.window_background_opacity = 0.80
 config.tab_bar_at_bottom = true
 
--- The art is a bit too bright and colorful to be useful as a backdrop
--- for text, so we're going to dim it down to 10% of its normal brightness
 -- TODO: add a shortcut to toggle the background
-local dimmer = { brightness = 0.03, saturation = 0.7, hue = 1 }
 config.background = {
   {
     source = {
       File = wezterm.config_dir .. "/wallpapers/sunset-sakura-tree.jpg",
     },
-    hsb = dimmer,
+    hsb = { hue = 1, saturation = 0.7, brightness = 0.03 },
+  },
+  {
+    source = {
+      Color = "#cccccc",
+    },
+    width = "100%",
+    height = "100%",
+    opacity = 0.2,
+    hsb = { hue = 1, saturation = 1, brightness = 0.1 },
   },
 }
 
