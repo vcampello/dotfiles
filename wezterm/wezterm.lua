@@ -13,7 +13,8 @@ end
 -- This is where you actually apply your config choices
 
 -- For example, changing the color scheme:
-config.color_scheme = "Bright Lights"
+-- config.color_scheme = "Bright Lights"
+config.color_scheme = "Dark+"
 config.font = wezterm.font_with_fallback({
   { family = "Victor Mono", weight = "DemiBold" },
   "JetBrains Mono", -- built-in font
@@ -78,14 +79,15 @@ config.tab_max_width = 60
 
 config.colors = {
   -- The color of the split lines between panes
-  split = "#104060",
+  -- split = "#104060",
 
   cursor_bg = "#ffbf00",
   cursor_fg = "#000000",
   cursor_border = "#ffbf00",
 
   -- selection_fg = "#ffffff",
-  selection_bg = "#104060",
+
+  selection_bg = "rgba(58,61,65, 0.5)", -- #3a3d41
 }
 
 config.inactive_pane_hsb = {

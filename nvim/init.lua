@@ -92,7 +92,7 @@ require("lazy").setup({
         override = {
           WhichKeyFloat = { bg = "None" },
           WhichKeyBorder = { link = "FloatBorder" },
-          Visual = { bg = "#104060" },
+          Visual = { bg = "#3a3d41" },
           LineNr = { fg = "#5080a0" },
         },
       })
