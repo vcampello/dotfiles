@@ -500,10 +500,11 @@ cmp.setup({
     ["<C-u>"] = cmp.mapping.scroll_docs(4),
     ["<C-Space>"] = cmp.mapping.complete(),
     ["<C-y>"] = cmp.mapping.confirm({ select = true }),
-    ["<CR>"] = cmp.mapping.confirm({
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
-    }),
+    ["<C-e>"] = cmp.mapping.abort(),
+    -- ["<CR>"] = cmp.mapping.confirm({
+    --   behavior = cmp.ConfirmBehavior.Replace,
+    --   select = true,
+    -- }),
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
@@ -526,7 +527,7 @@ cmp.setup({
   sources = {
     { name = "nvim_lsp" },
     { name = "luasnip" },
-    { name = "copilot", group_index = 2 },
+    -- { name = "copilot", group_index = 2 },
     { name = "async_path" },
     { name = "npm", keyword_length = 4 },
     {
@@ -558,25 +559,22 @@ cmp.setup({
     end,
   },
 })
--- `/` cmdline setup.
-cmp.setup.cmdline("/", {
+
+-- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline({ "/", "?" }, {
   mapping = cmp.mapping.preset.cmdline(),
   sources = {
     { name = "buffer" },
   },
 })
--- `:` cmdline setup.
+
+-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(":", {
   mapping = cmp.mapping.preset.cmdline(),
   sources = cmp.config.sources({
     { name = "path" },
   }, {
-    {
-      name = "cmdline",
-      option = {
-        ignore_cmds = { "Man", "!" },
-      },
-    },
+    { name = "cmdline" },
   }),
 })
 
