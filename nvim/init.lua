@@ -581,7 +581,7 @@ cmp.setup.cmdline(":", {
 vim.keymap.set("n", "<leader>ll", vim.cmd.Lazy, { noremap = true, silent = true, desc = "Lazy" })
 vim.keymap.set("n", "<leader>lm", vim.cmd.Mason, { noremap = true, silent = true, desc = "Mason" })
 vim.keymap.set("n", "<leader>li", vim.cmd.LspInfo, { noremap = true, silent = true, desc = "LSP Info" })
-vim.keymap.set("n", "<leader>lr", vim.cmd.LspRestart, { noremap = true, silent = true, desc = "Restart LSP" })
+vim.keymap.set("n", "<leader>lR", vim.cmd.LspRestart, { noremap = true, silent = true, desc = "Restart LSP" })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
