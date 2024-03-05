@@ -527,7 +527,6 @@ cmp.setup({
   sources = {
     { name = "nvim_lsp" },
     { name = "luasnip" },
-    -- { name = "copilot", group_index = 2 },
     { name = "async_path" },
     { name = "npm", keyword_length = 4 },
     {
