@@ -16,8 +16,9 @@ end
 -- config.color_scheme = "Bright Lights"
 config.color_scheme = "Dark+"
 config.font = wezterm.font_with_fallback({
-  { family = "Victor Mono", weight = "DemiBold" },
-  "JetBrains Mono", -- built-in font
+  -- { family = "Victor Mono", weight = "DemiBold" },
+  { family = "JetBrainsMono Nerd Font", weight = "Regular" },
+  { family = "Symbols Nerd Font Mono" },
 })
 
 -- fix strike through position
@@ -30,7 +31,7 @@ if wezterm.target_triple == "aarch64-apple-darwin" or wezterm.target_triple == "
 elseif wezterm.target_triple == "x86_64-unknown-linux-gnu" then
   -- linux detected
   config.font_size = 10.5
-  config.window_decorations = "RESIZE"
+  -- config.window_decorations = "RESIZE"
 elseif wezterm.target_triple == "x86_64-pc-windows-msvc" then
   -- windows detected
   config.font_size = 10
