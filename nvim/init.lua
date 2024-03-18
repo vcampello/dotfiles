@@ -32,6 +32,8 @@ require("lazy").setup({
       -- Automatically install LSPs to stdpath for neovim
       { "williamboman/mason.nvim", config = true },
       "williamboman/mason-lspconfig.nvim",
+      -- Tool installer for mason
+      "WhoIsSethDaniel/mason-tool-installer.nvim",
 
       -- Additional lua configuration, makes nvim stuff amazing!
       "folke/neodev.nvim",
@@ -266,6 +268,8 @@ require("nvim-treesitter.configs").setup({
     "typescript",
     "vimdoc",
     "vim",
+    "terraform",
+    "html",
   },
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
@@ -389,6 +393,11 @@ end
 --  define the property 'filetypes' to the map in question.
 -- FIXME: setup mason tool installer
 local servers = {
+  -- terraform stuff
+  terraformls = {},
+  tflint = {},
+
+  -- other things
   clangd = {},
   pyright = {},
   rust_analyzer = {},
@@ -397,6 +406,7 @@ local servers = {
   eslint = {},
   graphql = {},
   html = {},
+  emmet_language_server = {},
 
   lua_ls = {
     Lua = {
@@ -473,6 +483,18 @@ mason_lspconfig.setup_handlers({
       },
     })
   end,
+})
+
+require("mason-tool-installer").setup({
+  ensure_installed = {
+    "bash-language-server",
+    "shfmt",
+    "gopls",
+    "gotests",
+    "shellcheck",
+    "eslint_d",
+    "prettierd",
+  },
 })
 
 -- FIXME: this is a mess
