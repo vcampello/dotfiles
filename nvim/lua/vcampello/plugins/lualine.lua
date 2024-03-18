@@ -26,8 +26,21 @@ return {
               return ""
             end
           end,
+        lualine_b = {
+          {
+            function()
+              local navic = require("nvim-navic")
+              return navic.get_location()
+            end,
+            cond = function()
+              local navic = require("nvim-navic")
+              local loc = navic.get_location()
+              return navic.is_available() and string.len(loc) > 0
+            end,
+          },
         },
       },
+
       sections = {
         lualine_c = {
           {
