@@ -77,43 +77,6 @@ require("lazy").setup({
       },
     },
   },
-  {
-    "ribru17/bamboo.nvim",
-    lazy = false,
-    priority = 1000,
-    config = function()
-      require("bamboo").setup({
-        -- NOTE: to use the light theme, set `vim.o.background = 'light'`
-        style = "vulgaris", -- Choose between 'vulgaris' (regular), 'multiplex' (greener), and 'light'
-        transparent = true,
-      })
-      require("bamboo").load()
-    end,
-  },
-  -- {
-  --   "AlexvZyl/nordic.nvim",
-  --   lazy = false,
-  --   priority = 1000,
-  --   config = function()
-  --     -- local palette = require("nordic.colors")
-  --
-  --     require("nordic").load({
-  --       transparent_bg = true,
-  --       bright_border = true,
-  --       telescope = {
-  --         -- Available styles: `classic`, `flat`.
-  --         style = "classic",
-  --       },
-  --       override = {
-  --         WhichKeyFloat = { bg = "None" },
-  --         WhichKeyBorder = { link = "FloatBorder" },
-  --         Visual = { bg = "#3a3d41" },
-  --         LineNr = { fg = "#5080a0" },
-  --       },
-  --     })
-  --   end,
-  -- },
-
   -- Fuzzy Finder (files, lsp, etc)
   {
     "nvim-telescope/telescope.nvim",
