@@ -61,7 +61,7 @@ function M.settings()
   vim.opt.swapfile = false
   vim.opt.backup = false -- Don't store backup while overwriting the file
   vim.opt.writebackup = false -- Don't store backup while overwriting the file
-  vim.opt.colorcolumn = "100"
+  -- vim.opt.colorcolumn = "100"
   vim.opt.autoread = true
   vim.opt.showmode = false -- hide mode on status line since it's been replace by lualine
 
