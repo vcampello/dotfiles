@@ -246,6 +246,8 @@ require("nvim-treesitter.configs").setup({
     "vim",
     "terraform",
     "html",
+    "markdown",
+    "markdown_inline",
   },
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
