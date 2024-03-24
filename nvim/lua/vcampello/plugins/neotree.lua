@@ -98,6 +98,12 @@ return {
             vim.keymap.set("i", "<esc>", vim.cmd.stopinsert, { noremap = true, buffer = args.bufnr })
           end,
         },
+        {
+          event = "neo_tree_buffer_enter",
+          handler = function()
+            vim.opt_local.relativenumber = true
+          end,
+        },
       },
     })
 
