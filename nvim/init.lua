@@ -329,6 +329,18 @@ local on_attach = function(client, bufnr)
 
     vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
   end
+  local imap = function(keys, func, desc)
+    if desc then
+      desc = "LSP: " .. desc
+    end
+
+    vim.keymap.set("i", keys, func, { buffer = bufnr, desc = desc })
+  end
+
+  -- NOTE: this makes text shift horizontally and it is distracting
+  -- if client.server_capabilities.inlayHintProvider then
+  --   vim.lsp.inlay_hint.enable(bufnr, true)
+  -- end
 
   nmap("<leader>lr", vim.lsp.buf.rename, "Rename")
   nmap("<leader>la", vim.lsp.buf.code_action, "Code Action")
@@ -343,6 +355,7 @@ local on_attach = function(client, bufnr)
   -- See `:help K` for why this keymap
   nmap("K", vim.lsp.buf.hover, "Hover Documentation")
   nmap("<leader>k", vim.lsp.buf.signature_help, "Signature Documentation")
+  imap("<c-k>", vim.lsp.buf.signature_help, "Signature Documentation")
 
   -- Lesser used LSP functionality
   nmap("gD", vim.lsp.buf.declaration, "Goto Declaration")
@@ -457,7 +470,11 @@ mason_lspconfig.setup_handlers({
       filetypes = (servers[server_name] or {}).filetypes,
       handlers = {
         ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" }),
-        ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" }),
+        ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+          border = "rounded",
+          -- Keep it open while typing
+          close_events = { "CursorMoved", "BufHidden" },
+        }),
       },
     })
   end,
