@@ -45,6 +45,11 @@ require("lazy").setup({
     },
   },
   {
+    --extended TS server functionality
+    "pmizio/typescript-tools.nvim",
+    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+  },
+  {
     -- Autocompletion
     "hrsh7th/nvim-cmp",
     dependencies = {
@@ -393,7 +398,8 @@ local servers = {
   pyright = {},
   rust_analyzer = {},
   gopls = {},
-  tsserver = {},
+  -- NOTE: replaced by typescript-tools further down
+  -- tsserver = {},
   eslint = {},
   graphql = {},
   html = {},
@@ -435,6 +441,13 @@ local servers = {
     },
   },
 }
+
+require("typescript-tools").setup({
+  on_attach = on_attach,
+  settings = {
+    expose_as_code_action = "all",
+  },
+})
 
 -- Setup neovim lua configuration
 require("neodev").setup()

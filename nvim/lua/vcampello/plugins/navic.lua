@@ -7,6 +7,10 @@ return {
   opts = {
     lsp = {
       auto_attach = true,
+      preference = {
+        "typescript-tools",
+        "tsserver",
+      },
     },
     icons = {
       File = " ",
