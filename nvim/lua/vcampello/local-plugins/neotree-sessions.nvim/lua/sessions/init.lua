@@ -4,7 +4,7 @@
 local vim = vim
 local renderer = require("neo-tree.ui.renderer")
 local manager = require("neo-tree.sources.manager")
-local events = require("neo-tree.events")
+local utils = require("neo-tree.utils")
 local p_query = require("possession.query")
 
 local M = {
@@ -15,6 +15,14 @@ local M = {
   display_name = "󱗖 Sessions",
 }
 
+local wrap = function(func)
+  return utils.wrap(func, M.name)
+end
+
+M.get_state = function()
+  return manager.get_state(M.name)
+end
+
 ---Navigate to the given path.
 ---@param path string Path to navigate to. If empty, will navigate to the cwd.
 M.navigate = function(state, path)
@@ -23,33 +31,26 @@ M.navigate = function(state, path)
   end
   state.path = path
 
-  -- to group with ease
-  local group_map = {}
-  -- to display
-  local group_nodes = {}
+  local nodes = {}
+  local cwd = vim.uv.cwd()
 
-  local home_dir = os.getenv("HOME")
-  for _, value in ipairs(p_query.as_list()) do
-    if not group_map[value.cwd] then
-      local group = {
-        id = value.cwd,
-        type = "directory",
-        name = value.cwd:gsub(home_dir, "~"),
+  local sessions = p_query.as_list()
+  p_query.sort_by(sessions, "name", false)
+
+  for _, value in ipairs(sessions) do
+    if value.cwd == cwd then
+      table.insert(nodes, {
+        id = value.file,
+        name = value.name,
+        -- FIXME: how to change this? It returns file stats as it is
+        type = "file",
         path = value.file,
         children = {},
-      }
-      table.insert(group_nodes, group)
-      group_map[value.cwd] = group
+        extra = {},
+      })
     end
-
-    table.insert(group_map[value.cwd].children, {
-      id = value.file,
-      name = value.name,
-      type = "file",
-      path = value.file,
-    })
   end
-  renderer.show_nodes(group_nodes, state)
+  renderer.show_nodes(nodes, state)
 end
 
 M.default_config = {
@@ -71,15 +72,6 @@ end
 ---Configures the plugin, should be called before the plugin is used.
 ---@param config table Configuration table containing any keys that the user
 --wants to change from the defaults. May be empty to accept default values.
-M.setup = function(config, global_config)
-  if config.use_libuv_file_watcher then
-    manager.subscribe(M.name, {
-      event = events.FS_EVENT,
-      handler = function(args)
-        manager.refresh(M.name)
-      end,
-    })
-  end
-end
+M.setup = function(config, global_config) end
 
 return M

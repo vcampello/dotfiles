@@ -13,40 +13,13 @@
 local highlights = require("neo-tree.ui.highlights")
 local common = require("neo-tree.sources.common.components")
 
-local M = {
-  name = "sessions",
-}
+local M = {}
 
 M.icon = function(config, node, state)
-  local icon = config.default or " "
   local padding = config.padding or " "
   local highlight = config.highlight or highlights.FILE_ICON
-  if node.type == "directory" then
-    highlight = highlights.DIRECTORY_ICON
-    if node:is_expanded() then
-      icon = config.folder_open or "-"
-    else
-      icon = config.folder_closed or "+"
-    end
-  elseif node.type == "file" then
-    icon = ""
-  end
   return {
-    text = icon .. padding,
-    highlight = highlight,
-  }
-end
-
-M.name = function(config, node, state)
-  local highlight = config.highlight or highlights.FILE_NAME
-  if node.type == "directory" then
-    highlight = highlights.DIRECTORY_NAME
-  end
-  if node:get_depth() == 1 then
-    highlight = highlights.ROOT_NAME
-  end
-  return {
-    text = node.name,
+    text = "" .. padding,
     highlight = highlight,
   }
 end
