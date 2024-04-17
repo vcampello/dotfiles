@@ -274,6 +274,26 @@ config.keys = {
   { key = "LeftArrow", mods = "OPT", action = wezterm.action({ SendString = "\x1bb" }) },
   -- Make Option-Right equivalent to Alt-f; forward-word
   { key = "RightArrow", mods = "OPT", action = wezterm.action({ SendString = "\x1bf" }) },
+
+  {
+    key = "F12",
+    action = wezterm.action_callback(function(_, pane)
+      local tab = pane:tab()
+      local panes = tab:panes_with_info()
+      if #panes == 1 then
+        pane:split({
+          direction = "Right",
+          size = 0.4,
+        })
+      elseif not panes[1].is_zoomed then
+        panes[1].pane:activate()
+        tab:set_zoomed(true)
+      elseif panes[1].is_zoomed then
+        tab:set_zoomed(false)
+        panes[2].pane:activate()
+      end
+    end),
+  },
 }
 
 config.key_tables = {
