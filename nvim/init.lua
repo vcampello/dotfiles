@@ -399,7 +399,7 @@ local servers = {
   rust_analyzer = {},
   gopls = {},
   -- NOTE: replaced by typescript-tools further down
-  -- tsserver = {},
+  tsserver = {},
   eslint = {},
   graphql = {},
   html = {},
@@ -442,13 +442,6 @@ local servers = {
   },
 }
 
-require("typescript-tools").setup({
-  on_attach = on_attach,
-  settings = {
-    expose_as_code_action = "all",
-  },
-})
-
 -- Setup neovim lua configuration
 require("neodev").setup()
 
@@ -476,7 +469,20 @@ require("lspconfig.ui.windows").default_options = {
 
 mason_lspconfig.setup_handlers({
   function(server_name)
+    if server_name == "tsserver" then
+      -- print("Setting up typescript-tools instead of tsserver")
+      -- It was done this way so if it's removed I won't forget why tsserver isn't working
+      require("typescript-tools").setup({
+        on_attach = on_attach,
+        settings = {
+          expose_as_code_action = "all",
+        },
+      })
+      return
+    end
+
     require("lspconfig")[server_name].setup({
+
       capabilities = capabilities,
       on_attach = on_attach,
       settings = servers[server_name],
