@@ -151,19 +151,34 @@ end
 
 wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
   local title = tab_title(tab)
+  ---@cast title  string
+
+  local title_contains_prod = title:lower():match("prod")
+
+  local prod_colour = "#990000"
+  --danger danger
+  if title_contains_prod then
+    title = "DANGER: " .. title
+  end
+
   local elements = {}
 
   if tab.is_active then
     table.insert(elements, { Foreground = { Color = "#ffffff" } })
-    table.insert(elements, { Background = { Color = "#104060" } })
-  end
-
-  if hover then
-    table.insert(elements, { Foreground = { Color = "#000000" } })
+    table.insert(elements, { Background = { Color = title_contains_prod and prod_colour or "#104060" } })
+  elseif title_contains_prod then
+    table.insert(elements, { Foreground = { Color = prod_colour } })
     table.insert(elements, { Background = { Color = "#ffffff" } })
   end
 
-  table.insert(elements, { Text = string.format(" [%d] %s  %s  ", tostring(tab.tab_index), title, utf8.char(0xe612)) })
+  if hover then
+    table.insert(elements, { Foreground = { Color = title_contains_prod and prod_colour or "#000000" } })
+    table.insert(elements, { Background = { Color = "#ffffff" } })
+  end
+
+  table.insert(elements, {
+    Text = string.format(" [%d] %s  %s  ", tostring(tab.tab_index), title, utf8.char(0xe612)),
+  })
 
   return elements
 end)
