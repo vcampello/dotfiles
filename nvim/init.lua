@@ -241,18 +241,19 @@ require("nvim-treesitter.configs").setup({
     "c",
     "cpp",
     "go",
-    "lua",
-    "python",
-    "rust",
-    "tsx",
-    "javascript",
-    "typescript",
-    "vimdoc",
-    "vim",
-    "terraform",
     "html",
+    "javascript",
+    "lua",
     "markdown",
     "markdown_inline",
+    "python",
+    "rust",
+    "templ",
+    "terraform",
+    "tsx",
+    "typescript",
+    "vim",
+    "vimdoc",
   },
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
@@ -387,7 +388,10 @@ end
 --
 --  If you want to override the default filetypes that your language server will attach to you can
 --  define the property 'filetypes' to the map in question.
--- FIXME: setup mason tool installer
+
+-- TODO: create a better way to set this up so custom configs live with their lsp stuff
+vim.filetype.add({ extension = { templ = "templ" } })
+
 local servers = {
   -- terraform stuff
   terraformls = {},
@@ -398,11 +402,17 @@ local servers = {
   pyright = {},
   rust_analyzer = {},
   gopls = {},
-  -- NOTE: replaced by typescript-tools further down
+  templ = {},
+  -- NOTE: replaced by typescript-tools on_attach
   tsserver = {},
   eslint = {},
   graphql = {},
-  html = {},
+  html = {
+    filetypes = { "html", "templ" },
+  },
+  htmx = {
+    filetypes = { "html", "templ" },
+  },
   emmet_language_server = {},
 
   lua_ls = {

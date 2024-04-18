@@ -54,6 +54,7 @@ local other_configs = {
   python = { "isort", "black" },
   rust = { "rustfmt" },
   shell = { "shellcheck" },
+  templ = { "templ" },
 }
 
 local PRETTIER = {}
