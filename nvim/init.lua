@@ -137,14 +137,17 @@ vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 
 local fzflua = require("fzf-lua")
 
-vim.keymap.set("n", "<leader>f", ":FzfLua<cr>", { desc = "Search Git Files" })
-vim.keymap.set("n", "<leader>fr", fzflua.resume, { desc = "Search Resume" })
+vim.keymap.set("n", "<leader>f", ":FzfLua<cr>", { desc = "Search git files" })
+vim.keymap.set("n", "<leader>fr", fzflua.resume, { desc = "Search resume" })
 vim.keymap.set("n", "<leader>ff", function()
   fzflua.files({ resume = true })
-end, { desc = "Search Files" })
-vim.keymap.set("n", "<leader>fh", fzflua.helptags, { desc = "Search Help" })
+end, { desc = "Search files" })
+vim.keymap.set("n", "<leader>fg", function()
+  fzflua.grep_project({ resume = true })
+end, { desc = "Search project" })
+vim.keymap.set("n", "<leader>fh", fzflua.helptags, { desc = "Search help" })
 vim.keymap.set("n", "<leader>fH", fzflua.manpages, { desc = "Search man pages" })
-vim.keymap.set("n", "<leader>fm", fzflua.marks, { desc = "Search Marks" })
+vim.keymap.set("n", "<leader>fm", fzflua.marks, { desc = "Search marks" })
 vim.keymap.set("v", "<leader>f", fzflua.grep_visual, { desc = "Search selection" })
 vim.keymap.set("n", "<leader>fs", fzflua.spell_suggest, { desc = "Search spell suggestions" })
 
