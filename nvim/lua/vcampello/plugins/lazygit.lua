@@ -10,11 +10,9 @@ return {
       "nvim-lua/plenary.nvim",
     },
     config = function()
-      -- Enable telescope extension
-      require("telescope").load_extension("lazygit")
-      vim.keymap.set("n", "<leader>gg", require("lazygit").lazygit, { desc = "Lazygit" })
-      vim.keymap.set("n", "<leader>gc", require("lazygit").lazygitcurrentfile, { desc = "Lazygit - current file" })
-      vim.keymap.set("n", "<leader>gf", ":Telescope lazygit<cr>", { desc = "Lazygit repos" })
+      local lg = require("lazygit")
+      vim.keymap.set("n", "<leader>gg", lg.lazygit, { desc = "Lazygit" })
+      vim.keymap.set("n", "<leader>gc", lg.lazygitcurrentfile, { desc = "Lazygit - current file" })
     end,
   },
 }

@@ -1,3 +1,4 @@
+
 return {
   -- Set lualine as statusline
   "nvim-lualine/lualine.nvim",
@@ -16,19 +17,6 @@ return {
       extensions = { "neo-tree" },
       tabline = {
         lualine_a = { "tabs" },
-        lualine_z = {
-          {
-            -- TODO: how do I export this from the possession.lua file?
-            function()
-              local session = require("possession.session")
-              return "@" .. session.session_name
-            end,
-            conf = function()
-              local session = require("possession.session")
-              return session ~= nil and string.len(session.session_name or "") > 0
-            end,
-          },
-        },
         lualine_b = {
           {
             function()
@@ -38,12 +26,24 @@ return {
             cond = function()
               local navic = require("nvim-navic")
               local loc = navic.get_location()
-              return navic.is_available() and string.len(loc) > 0
+              return navic.is_available() and #loc > 0
+            end,
+          },
+        },
+        lualine_z = {
+          {
+            -- TODO: how do I export this from the possession.lua file?
+            function()
+              local session = require("possession.session")
+              return "@" .. session.session_name
+            end,
+            conf = function()
+              local session = require("possession.session")
+              return session ~= nil and #session.session_name or "" > 0
             end,
           },
         },
       },
-
       sections = {
         lualine_c = {
           {
