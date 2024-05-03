@@ -137,9 +137,10 @@ vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 
 local fzflua = require("fzf-lua")
 
-vim.keymap.set("n", "<leader>f", ":FzfLua<cr>", { desc = "Search git files" })
+vim.keymap.set("n", "<leader>f", ":FzfLua<cr>", { desc = "FzfLua", nowait = true })
 vim.keymap.set("n", "<leader>fr", fzflua.resume, { desc = "Search resume" })
 vim.keymap.set("n", "<leader>ff", fzflua.files, { desc = "Search files" })
+vim.keymap.set("n", "<leader>/", fzflua.grep_curbuf, { desc = "Search current buffer" })
 vim.keymap.set("n", "<leader>fg", fzflua.grep_project, { desc = "Search project" })
 vim.keymap.set("n", "<leader>fh", fzflua.helptags, { desc = "Search help" })
 vim.keymap.set("n", "<leader>fH", fzflua.manpages, { desc = "Search man pages" })

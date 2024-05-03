@@ -120,7 +120,7 @@ return {
 
     -- Mappings
     -- vim.cmd([[nnoremap \ :Neotree reveal<cr>]])
-    vim.keymap.set("n", "<leader>nn", "<cmd>:Neotree reveal float<cr>", { desc = "Neotree (float)" })
+    vim.keymap.set("n", "<leader>n", "<cmd>:Neotree reveal float<cr>", { desc = "Neotree (float)", nowait = true })
     vim.keymap.set("n", "<leader>nh", "<cmd>:Neotree reveal left<cr>", { desc = "Neotree (left)" })
     vim.keymap.set("n", "<leader>nl", "<cmd>:Neotree reveal right<cr>", { desc = "Neotree (right)" })
     vim.keymap.set("n", "<leader>nk", "<cmd>:Neotree reveal top<cr>", { desc = "Neotree (top)" })
