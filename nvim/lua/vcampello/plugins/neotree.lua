@@ -120,11 +120,11 @@ return {
 
     -- Mappings
     -- vim.cmd([[nnoremap \ :Neotree reveal<cr>]])
-    vim.keymap.set("n", "<leader>nf", "<cmd>:Neotree filesystem reveal float<cr>", { desc = "Neotree Filesystem" })
-    vim.keymap.set("n", "<leader>nb", "<cmd>:Neotree buffers toggle float<cr>", { desc = "Neotree Buffers" })
-    vim.keymap.set("n", "<leader>ng", "<cmd>:Neotree git_status toggle float<cr>", { desc = "Neotree Git" })
-    vim.keymap.set("n", "<leader>ns", "<cmd>:Neotree document_symbols right<cr>", { desc = "Neotree Symbols" })
-    vim.keymap.set("n", "<leader>nd", "<cmd>:Neotree diagnostics bottom<cr>", { desc = "Neotree Diagnostics" })
+    vim.keymap.set("n", "<leader>nn", "<cmd>:Neotree reveal float<cr>", { desc = "Neotree (float)" })
+    vim.keymap.set("n", "<leader>nh", "<cmd>:Neotree reveal left<cr>", { desc = "Neotree (left)" })
+    vim.keymap.set("n", "<leader>nl", "<cmd>:Neotree reveal right<cr>", { desc = "Neotree (right)" })
+    vim.keymap.set("n", "<leader>nk", "<cmd>:Neotree reveal top<cr>", { desc = "Neotree (top)" })
+    vim.keymap.set("n", "<leader>nj", "<cmd>:Neotree reveal bottom<cr>", { desc = "Neotree (bottom)" })
     vim.keymap.set("n", "<leader>nc", "<cmd>:Neotree close<cr>", { desc = "Neotree Close" })
   end,
 }
