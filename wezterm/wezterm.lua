@@ -264,6 +264,17 @@ config.keys = {
     action = wezterm.action.ActivateKeyTable({ name = "resize_pane", one_shot = false }),
   },
   {
+    key = "p",
+    mods = "LEADER",
+    action = wezterm.action.PaneSelect,
+  },
+  {
+    key = "P",
+    mods = "LEADER",
+    action = wezterm.action.PaneSelect({ mode = "SwapWithActive" }),
+  },
+  { key = "X", mods = "CTRL", action = wezterm.action.ActivateCopyMode },
+  {
     key = "r",
     mods = "CMD|SHIFT",
     action = wezterm.action.ReloadConfiguration,
@@ -306,6 +317,14 @@ config.key_tables = {
     {
       key = "r",
       action = wezterm.action.RotatePanes("Clockwise"),
+    },
+    {
+      key = "{",
+      action = wezterm.action.MoveTabRelative(-1),
+    },
+    {
+      key = "}",
+      action = wezterm.action.MoveTabRelative(1),
     },
     { key = "Escape", action = "PopKeyTable" },
     { key = "Enter", action = "PopKeyTable" },
