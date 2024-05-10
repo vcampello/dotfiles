@@ -13,7 +13,14 @@ return {
     require("mini.indentscope").setup()
     require("mini.move").setup()
     require("mini.pairs").setup()
-    require("mini.surround").setup()
+    require("mini.surround").setup({
+      custom_surroundings = {
+        ["("] = { input = { "%b()", "^.().*().$" }, output = { left = "(", right = ")" } },
+        ["["] = { input = { "%b[]", "^.().*().$" }, output = { left = "[", right = "]" } },
+        ["{"] = { input = { "%b{}", "^.().*().$" }, output = { left = "{", right = "}" } },
+        ["<"] = { input = { "%b<>", "^.().*().$" }, output = { left = "<", right = ">" } },
+      },
+    })
     require("mini.splitjoin").setup()
 
     require("mini.comment").setup({
