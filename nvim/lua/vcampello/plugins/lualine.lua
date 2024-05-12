@@ -1,4 +1,3 @@
-
 return {
   -- Set lualine as statusline
   "nvim-lualine/lualine.nvim",
@@ -35,11 +34,11 @@ return {
             -- TODO: how do I export this from the possession.lua file?
             function()
               local session = require("possession.session")
-              return "@" .. session.session_name
+              return "@" .. session.get_session_name()
             end,
             conf = function()
               local session = require("possession.session")
-              return session ~= nil and #session.session_name or "" > 0
+              return session ~= nil and #session.get_session_name() or "" > 0
             end,
           },
         },
