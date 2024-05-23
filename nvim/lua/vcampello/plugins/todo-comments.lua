@@ -1,5 +1,12 @@
 return {
   "folke/todo-comments.nvim",
   dependencies = { "nvim-lua/plenary.nvim" },
-  opts = {},
+  opts = {
+    keywords = {
+      CHECK = {
+        icon = " ",
+        color = "#27e2e8",
+      },
+    },
+  },
 }
