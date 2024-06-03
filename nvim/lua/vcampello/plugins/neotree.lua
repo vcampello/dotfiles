@@ -11,9 +11,6 @@ return {
     {
       -- lazy = false,
       dir = vim.fn.stdpath("config") .. "/lua/vcampello/local-plugins/neotree-sessions.nvim",
-      opts = {
-        msg = "potato",
-      },
     },
     {
       "s1n7ax/nvim-window-picker",
@@ -92,7 +89,6 @@ return {
         },
       },
       event_handlers = {
-
         {
           event = "neo_tree_popup_input_ready",
           handler = function()
