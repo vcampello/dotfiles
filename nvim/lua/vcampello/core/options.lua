@@ -65,6 +65,7 @@ function M.settings()
   -- vim.opt.colorcolumn = "100"
   vim.opt.autoread = true
   vim.opt.showmode = false -- hide mode on status line since it's been replace by lualine
+  vim.o.jumpoptions = "stack"
 
   -- Tabs
   vim.opt.tabstop = 4
