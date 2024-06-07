@@ -11,7 +11,7 @@ return {
     -- Use defaults
     require("mini.cursorword").setup()
     require("mini.indentscope").setup()
-    require("mini.move").setup()
+    -- require("mini.move").setup() -- conflicts with smart-splits. Let's see if I actually need it
     require("mini.pairs").setup()
     require("mini.surround").setup({
       custom_surroundings = {

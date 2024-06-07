@@ -99,9 +99,36 @@ function M.define_signs()
   vim.fn.sign_define("DiagnosticSignHint", { text = "󰌵", texthl = "DiagnosticSignHint" })
 end
 
+function M.default_remaps()
+  -- [[ Basic Keymaps ]]
+
+  -- Keep cursor centered when moving or searching
+  vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Scroll down (centralised)" })
+  vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Scroll up (centralised)" })
+  vim.keymap.set("n", "n", "nzzzv", { desc = "Next search match (centralised)" })
+  vim.keymap.set("n", "N", "Nzzzv", { desc = "Previous search match (centralised)" })
+
+  vim.keymap.set("x", "<leader>p", [["_dP]], { desc = "Delete into the void and paste without losing buffer" })
+
+  -- Window navigation (will get overridden by smart-splits)
+  vim.keymap.set("n", "<C-H>", "<C-w>h", { desc = "Focus on left window" })
+  vim.keymap.set("n", "<C-J>", "<C-w>j", { desc = "Focus on below window" })
+  vim.keymap.set("n", "<C-K>", "<C-w>k", { desc = "Focus on above window" })
+  vim.keymap.set("n", "<C-L>", "<C-w>l", { desc = "Focus on right window" })
+
+  -- Keymaps for better default experience
+  -- See `:help vim.keymap.set()`
+  vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
+
+  -- Remap for dealing with word wrap
+  vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+  vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+end
+
 function M.setup()
   M.settings()
   M.define_signs()
+  M.default_remaps()
 end
 
 M.setup()
