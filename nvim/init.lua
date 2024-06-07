@@ -394,10 +394,20 @@ require("lspconfig.ui.windows").default_options = {
 
 mason_lspconfig.setup_handlers({
   function(server_name)
+    local handlers = {
+      ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" }),
+      ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+        border = "rounded",
+        -- Keep it open while typing
+        close_events = { "CursorMoved", "BufHidden" },
+      }),
+    }
+
     if server_name == "tsserver" then
       -- print("Setting up typescript-tools instead of tsserver")
       -- It was done this way so if it's removed I won't forget why tsserver isn't working
       require("typescript-tools").setup({
+        handlers = handlers,
         on_attach = on_attach,
         settings = {
           expose_as_code_action = "all",
@@ -412,14 +422,7 @@ mason_lspconfig.setup_handlers({
       on_attach = on_attach,
       settings = servers[server_name],
       filetypes = (servers[server_name] or {}).filetypes,
-      handlers = {
-        ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" }),
-        ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-          border = "rounded",
-          -- Keep it open while typing
-          close_events = { "CursorMoved", "BufHidden" },
-        }),
-      },
+      handlers = handlers,
     })
   end,
 })
