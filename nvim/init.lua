@@ -109,7 +109,7 @@ require("lazy").setup({
 
 local fzflua = require("fzf-lua")
 
-vim.keymap.set("n", "<leader>fF", ":FzfLua<cr>", { desc = "FzfLua", nowait = true })
+vim.keymap.set("n", "<leader><leader>", ":FzfLua<cr>", { desc = "FzfLua", nowait = true })
 vim.keymap.set("v", "<leader>f", fzflua.grep_visual, { desc = "Search selection" })
 vim.keymap.set("n", "<leader>fr", fzflua.resume, { desc = "Search resume" })
 vim.keymap.set("n", "<leader>ff", fzflua.files, { desc = "Search files" })
