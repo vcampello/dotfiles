@@ -108,6 +108,55 @@ require("lazy").setup({
 }, {})
 
 local fzflua = require("fzf-lua")
+fzflua.setup({
+  actions = {
+    files = {
+      ["default"] = fzflua.actions.file_edit_or_qf,
+      ["ctrl-w"] = {
+        fn = function(selected, opts)
+          -- nothing to do
+          if #selected < 1 then
+            return fzflua.actions.resume()
+          end
+
+          -- FIXME: aside from `include_current_win` this is duplicated in ./lua/vcampello/plugins/neotree.lua
+          local picker = require("window-picker")
+          picker.setup({
+            filter_rules = {
+              include_current_win = true,
+              autoselect_one = true,
+              -- filter using buffer options
+              bo = {
+                -- if the file type is one of following, the window will be ignored
+                filetype = { "neo-tree", "neo-tree-popup", "notify" },
+                -- if the buffer type is one of following, the window will be ignored
+                buftype = { "terminal", "quickfix" },
+              },
+            },
+          })
+
+          -- Convert the entry to an actual path without the leading icon
+          local fzfluapath = require("fzf-lua.path")
+          local file = fzfluapath.entry_to_file(selected[1])
+          -- print("True path: " .. path.path)
+
+          local win_id = picker.pick_window()
+          -- print("win id: " .. win_id)
+
+          if type(win_id) ~= "number" then
+            -- should never happen
+            print("Selected window id is not a number")
+            return
+          end
+
+          -- Open the file in a buffer and select the window
+          local bufnr = vim.fn.bufadd(file.path)
+          vim.api.nvim_win_set_buf(win_id, bufnr)
+        end,
+      },
+    },
+  },
+})
 
 vim.keymap.set("n", "<leader><leader>", ":FzfLua<cr>", { desc = "FzfLua", nowait = true })
 vim.keymap.set("v", "<leader>f", fzflua.grep_visual, { desc = "Search selection" })
