@@ -12,6 +12,7 @@ return {
     vim.keymap.set("n", "<C-l>", sp.move_cursor_right, { desc = "Focus on right window" })
 
     -- Resize
+    vim.keymap.set("n", "<M-h>", sp.resize_left, { desc = "Resize left window" })
     vim.keymap.set("n", "<M-j>", sp.resize_down, { desc = "Resize below" })
     vim.keymap.set("n", "<M-k>", sp.resize_up, { desc = "Resize above" })
     vim.keymap.set("n", "<M-l>", sp.resize_right, { desc = "Resize right" })
