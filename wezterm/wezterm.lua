@@ -320,11 +320,11 @@ config.key_tables = {
       action = wezterm.action.RotatePanes("Clockwise"),
     },
     {
-      key = "{",
+      key = "H",
       action = wezterm.action.MoveTabRelative(-1),
     },
     {
-      key = "}",
+      key = "L",
       action = wezterm.action.MoveTabRelative(1),
     },
     { key = "Escape", action = "PopKeyTable" },
