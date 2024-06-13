@@ -274,7 +274,7 @@ config.keys = {
     mods = "LEADER",
     action = wezterm.action.PaneSelect({ mode = "SwapWithActive" }),
   },
-  { key = "X", mods = "CTRL", action = wezterm.action.ActivateCopyMode },
+  { key = "x", mods = "CTRL", action = wezterm.action.ActivateCopyMode },
   {
     key = "r",
     mods = "CMD|SHIFT",
