@@ -36,7 +36,7 @@ elseif wezterm.target_triple == "x86_64-unknown-linux-gnu" then
 elseif wezterm.target_triple == "x86_64-pc-windows-msvc" then
   -- windows detected
   config.font_size = 10
-  config.cell_width = 1.1
+  -- config.cell_width = 1
   config.default_domain = "WSL:Ubuntu"
 else
   config.font_size = 10.5
