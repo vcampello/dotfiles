@@ -125,10 +125,91 @@ function M.default_remaps()
   vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 end
 
+--TODO: move this somewhere else as it's technically a plugin
+--Open a to-do list
+function M.setup_todo_list()
+  -- support for a float per tab
+  local todo_map = {}
+
+  local function todo_list()
+    local todo_filepath = vim.fn.stdpath("data") .. "/my-todo.md"
+    local buf = vim.fn.bufadd(todo_filepath)
+    local tab_id = vim.api.nvim_get_current_tabpage()
+    local win_id = vim.api.nvim_get_current_win()
+
+    if todo_map[tab_id] ~= nil then
+      print("A todo list is already open on this tab. Windows: " .. vim.inspect(todo_map, { newline = " " }))
+      return
+    end
+
+    -- current window dimensions
+    local win_width = vim.api.nvim_list_uis()[1].width
+    local win_height = vim.api.nvim_list_uis()[1].height
+
+    -- floating window dimensions
+    local width = math.floor(win_width * 0.5)
+    local height = math.floor(win_height * 0.7)
+
+    -- anchor offset to centre it
+    local col = math.floor((win_width / 2) - (width / 2))
+    local row = math.floor((win_height / 2) - (height / 2))
+
+    -- open floating window
+    local todo_win_id = vim.api.nvim_open_win(buf, true, {
+      relative = "editor",
+      row = row,
+      col = col,
+      width = width,
+      height = height,
+      title = "To-do",
+      title_pos = "center",
+      border = "rounded",
+    })
+
+    -- TODO: setup group
+    vim.api.nvim_create_autocmd({ "WinClosed" }, {
+      buffer = buf,
+      once = false, -- the buffer is shared so each window needs the ability to run the callback
+      callback = function()
+        -- only remove from hashmap if closing the floating window from the same tab
+        if tab_id == vim.api.nvim_get_current_tabpage() then
+          -- print("Removing window from todo_map " .. os.date("%c"))
+          todo_map[tab_id] = nil
+        end
+      end,
+    })
+
+    -- TODO: clean this up
+    vim.api.nvim_create_autocmd({ "BufWinLeave" }, {
+      buffer = buf,
+      once = false,
+      callback = function()
+        -- only remove from hashmap if closing the floating window from the same tab
+        if tab_id == vim.api.nvim_get_current_tabpage() then
+          -- print("Removing window from todo_map " .. os.date("%c"))
+          todo_map[tab_id] = nil
+        end
+
+        -- also close the window if the buffer is changed - e.g. prevent jumping to another file
+        vim.api.nvim_win_close(vim.api.nvim_get_current_win(), true)
+      end,
+    })
+
+    -- enter the window
+    vim.api.nvim_set_current_win(todo_win_id)
+    -- store window id to prevent opening it again
+    todo_map[tab_id] = win_id
+    print(vim.inspect(todo_map))
+  end
+
+  vim.keymap.set("n", "<leader>t", todo_list, { desc = "Open to-do list", silent = true })
+end
+
 function M.setup()
   M.settings()
   M.define_signs()
   M.default_remaps()
+  M.setup_todo_list()
 end
 
 M.setup()
