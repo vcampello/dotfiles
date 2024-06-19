@@ -161,7 +161,7 @@ function M.setup_todo_list()
       col = col,
       width = width,
       height = height,
-      title = "To-do",
+      title = " To-do ",
       title_pos = "center",
       border = "rounded",
     })
@@ -199,7 +199,7 @@ function M.setup_todo_list()
     vim.api.nvim_set_current_win(todo_win_id)
     -- store window id to prevent opening it again
     todo_map[tab_id] = win_id
-    print(vim.inspect(todo_map))
+    -- print(vim.inspect(todo_map))
   end
 
   vim.keymap.set("n", "<leader>t", todo_list, { desc = "Open to-do list", silent = true })
