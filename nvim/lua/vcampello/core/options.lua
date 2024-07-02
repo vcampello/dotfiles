@@ -123,6 +123,9 @@ function M.default_remaps()
   -- Remap for dealing with word wrap
   vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
   vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+
+  -- Better terminal escape
+  vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-N>", { silent = true })
 end
 
 --TODO: move this somewhere else as it's technically a plugin
