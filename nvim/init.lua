@@ -108,10 +108,11 @@ require("lazy").setup({
 }, {})
 
 local fzflua = require("fzf-lua")
+
 fzflua.setup({
   actions = {
-    files = {
-      ["default"] = fzflua.actions.file_edit_or_qf,
+    -- Retain the original actions, then override (replaces all by default)
+    files = vim.tbl_deep_extend("force", fzflua.defaults.actions.files, {
       ["ctrl-w"] = {
         fn = function(selected, opts)
           -- nothing to do
@@ -154,7 +155,7 @@ fzflua.setup({
           vim.api.nvim_win_set_buf(win_id, bufnr)
         end,
       },
-    },
+    }),
   },
 })
 
