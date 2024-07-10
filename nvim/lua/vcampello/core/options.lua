@@ -124,8 +124,21 @@ function M.default_remaps()
   vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
   vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
-  -- Better terminal escape
-  vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-N>", { silent = true })
+  -- Better terminal navigation
+  -- esc 3 times because I have a habit of pressing it twice and it gets term apps like lazygit stuck :/
+  vim.keymap.set("t", "<Esc><Esc><Esc>", "<C-\\><C-N>", { silent = true })
+  vim.keymap.set("t", "<C-H>", "<C-\\><C-N><C-H>", { desc = "Escape term and focus on left window" })
+  vim.keymap.set("t", "<C-J>", "<C-\\><C-N><C-J>", { desc = "Escape term and focus on below window" })
+  vim.keymap.set("t", "<C-K>", "<C-\\><C-N><C-K>", { desc = "Escape term and focus on above window" })
+  vim.keymap.set("t", "<C-L>", "<C-\\><C-N><C-L>", { desc = "Escape term and focus on right window" })
+
+  -- TODO: setup group
+  vim.api.nvim_create_autocmd({ "TermOpen" }, {
+    callback = function()
+      -- Start terminal in insert mod
+      vim.cmd.startinsert()
+    end,
+  })
 end
 
 --TODO: move this somewhere else as it's technically a plugin
