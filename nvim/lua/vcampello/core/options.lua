@@ -9,6 +9,7 @@ function M.settings()
 
   -- Set highlight on search
   vim.o.hlsearch = false
+  vim.opt.inccommand = "split"
 
   -- Make line numbers default
   vim.wo.number = true
