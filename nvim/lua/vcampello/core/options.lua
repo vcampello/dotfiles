@@ -125,9 +125,7 @@ function M.default_remaps()
   vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
   vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
-  -- Better terminal navigation
-  -- esc 3 times because I have a habit of pressing it twice and it gets term apps like lazygit stuck :/
-  vim.keymap.set("t", "<Esc><Esc><Esc>", "<C-\\><C-N>", { silent = true })
+  -- Better terminal navigation, also used for escaping
   vim.keymap.set("t", "<C-H>", "<C-\\><C-N><C-H>", { desc = "Escape term and focus on left window" })
   vim.keymap.set("t", "<C-J>", "<C-\\><C-N><C-J>", { desc = "Escape term and focus on below window" })
   vim.keymap.set("t", "<C-K>", "<C-\\><C-N><C-K>", { desc = "Escape term and focus on above window" })
