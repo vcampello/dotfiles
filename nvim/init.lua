@@ -63,8 +63,6 @@ require("lazy").setup({
       "hrsh7th/cmp-nvim-lsp", -- adds LSP completion capabilities
       "FelipeLema/cmp-async-path", -- adds filesystem paths.
       "rafamadriz/friendly-snippets", -- adds a number of user-friendly snippets
-      "hrsh7th/cmp-cmdline",
-      "hrsh7th/cmp-buffer",
       {
         "f3fora/cmp-spell", -- adds spellcheck
         config = function()
@@ -96,12 +94,6 @@ require("lazy").setup({
     },
     build = ":TSUpdate",
   },
-
-  -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
-  --       These are some example plugins that I've included in the kickstart repository.
-  --       Uncomment any of the lines below to enable them.
-  -- require("kickstart.plugins.autoformat"),
-  -- require 'kickstart.plugins.debug',
 
   -- NOTE: automatically add plugins, configuration, etc from `lua/plugins/*.lua`
   { import = "plugins" },
@@ -544,24 +536,6 @@ cmp.setup({
     end,
   },
 })
-
--- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline({ "/", "?" }, {
-  mapping = cmp.mapping.preset.cmdline(),
-  sources = {
-    { name = "buffer" },
-  },
-})
-
--- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
--- cmp.setup.cmdline(":", {
---   mapping = cmp.mapping.preset.cmdline(),
---   sources = cmp.config.sources({
---     { name = "path" },
---   }, {
---     { name = "cmdline" },
---   }),
--- })
 
 vim.keymap.set("n", "<leader>ll", vim.cmd.Lazy, { noremap = true, silent = true, desc = "Lazy" })
 vim.keymap.set("n", "<leader>lm", vim.cmd.Mason, { noremap = true, silent = true, desc = "Mason" })
