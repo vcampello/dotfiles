@@ -1,1 +1,0 @@
-require("vcampello.core.options")
