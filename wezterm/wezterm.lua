@@ -3,19 +3,14 @@ local wezterm = require("wezterm")
 local smart_splits = wezterm.plugin.require("https://github.com/mrjones2014/smart-splits.nvim")
 
 -- This table will hold the configuration.
-local config = {}
-
--- In newer versions of wezterm, use the config_builder which will
--- help provide clearer error messages
-if wezterm.config_builder then
-  config = wezterm.config_builder()
-end
+local config = wezterm.config_builder()
 
 -- This is where you actually apply your config choices
 
 -- For example, changing the color scheme:
 -- config.color_scheme = "Bright Lights"
-config.color_scheme = "Dark+"
+-- config.color_scheme = "Dark+"
+config.color_scheme = "carbonfox"
 config.font = wezterm.font_with_fallback({
   -- { family = "Victor Mono", weight = "DemiBold" },
   { family = "JetBrainsMono Nerd Font", weight = "Regular" },
@@ -52,18 +47,18 @@ config.tab_bar_at_bottom = true
 config.background = {
   {
     source = {
-      File = wezterm.config_dir .. "/wallpapers/sunset-sakura-tree.jpg",
+      File = wezterm.config_dir .. "/wallpapers/dope-sukuna.png",
     },
-    hsb = { hue = 1, saturation = 0.7, brightness = 0.03 },
+    hsb = { hue = 1.8, saturation = 0.7, brightness = 0.1 },
   },
   {
     source = {
-      Color = "#cccccc",
+      Color = "#192330",
     },
     width = "100%",
     height = "100%",
-    opacity = 0.2,
-    hsb = { hue = 1, saturation = 1, brightness = 0.1 },
+    opacity = 0.5,
+    hsb = { hue = 1, saturation = 1, brightness = 1.0 },
   },
 }
 
@@ -89,7 +84,7 @@ config.colors = {
 
   -- selection_fg = "#ffffff",
 
-  selection_bg = "rgba(58,61,65, 0.5)", -- #3a3d41
+  selection_bg = "rgba(150,100,0, 0.5)", -- #3a3d41
 }
 
 config.inactive_pane_hsb = {

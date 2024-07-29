@@ -3,10 +3,10 @@ return {
   "nvim-lualine/lualine.nvim",
   config = function()
     local theme = require("lualine.themes.auto")
-    theme.inactive.a.bg = "#202030"
-    theme.inactive.a.fg = "#666666"
-    theme.inactive.c.bg = "#202030"
-    theme.inactive.c.fg = "#666666"
+    -- theme.inactive.a.bg = "#202030"
+    -- theme.inactive.a.fg = "#666666"
+    -- theme.inactive.c.bg = "#202030"
+    -- theme.inactive.c.fg = "#666666"
 
     require("lualine").setup({
       options = {
@@ -26,19 +26,6 @@ return {
               local navic = require("nvim-navic")
               local loc = navic.get_location()
               return navic.is_available() and #loc > 0
-            end,
-          },
-        },
-        lualine_z = {
-          {
-            -- TODO: how do I export this from the possession.lua file?
-            function()
-              local session = require("possession.session")
-              return "@" .. session.get_session_name()
-            end,
-            conf = function()
-              local session = require("possession.session")
-              return session ~= nil and #session.get_session_name() or "" > 0
             end,
           },
         },
