@@ -17,6 +17,9 @@ config.font = wezterm.font_with_fallback({
   { family = "Symbols Nerd Font Mono" },
 })
 
+-- Disable as the pop-up comes up way too often
+config.warn_about_missing_glyphs = false
+
 -- fix strike through position
 -- might not work at all until this is set -> https://wezfurlong.org/wezterm/faq.html#how-do-i-enable-undercurl-curly-underlines
 config.strikethrough_position = "0.6cell"
