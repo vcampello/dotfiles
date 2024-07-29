@@ -60,7 +60,7 @@ config.background = {
     },
     width = "100%",
     height = "100%",
-    opacity = 0.5,
+    opacity = 0.3,
     hsb = { hue = 1, saturation = 1, brightness = 1.0 },
   },
 }
@@ -79,7 +79,7 @@ config.tab_max_width = 60
 
 config.colors = {
   -- The color of the split lines between panes
-  -- split = "#104060",
+  split = "#523E64",
 
   cursor_bg = "#ffbf00",
   cursor_fg = "#000000",

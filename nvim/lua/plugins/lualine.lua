@@ -3,10 +3,10 @@ return {
   "nvim-lualine/lualine.nvim",
   config = function()
     local theme = require("lualine.themes.auto")
-    -- theme.inactive.a.bg = "#202030"
-    -- theme.inactive.a.fg = "#666666"
-    -- theme.inactive.c.bg = "#202030"
-    -- theme.inactive.c.fg = "#666666"
+    theme.inactive.a.bg = "#202030"
+    theme.inactive.a.fg = "#486489"
+    theme.inactive.c.bg = "#202030"
+    theme.inactive.c.fg = "#486489"
 
     require("lualine").setup({
       options = {
