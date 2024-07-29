@@ -7,11 +7,6 @@ return {
     "MunifTanjim/nui.nvim",
     -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
     "mrbjarksen/neo-tree-diagnostics.nvim",
-    -- "neotree-sessions.nvim",
-    {
-      -- lazy = false,
-      dir = vim.fn.stdpath("config") .. "/lua/vcampello/local-plugins/neotree-sessions.nvim",
-    },
     {
       "s1n7ax/nvim-window-picker",
       version = "2.*",
@@ -40,7 +35,6 @@ return {
         "git_status",
         "document_symbols",
         "diagnostics",
-        "sessions",
       },
       source_selector = {
         winbar = true,
@@ -51,10 +45,8 @@ return {
           { source = "document_symbols" },
           -- requires plugin 'mrbjarksen/neo-tree-diagnostics.nvim'
           { source = "diagnostics" },
-          { source = "sessions" },
         },
       },
-      sessions = {},
       -- Close Neo-tree if it is the last window left in the tab
       close_if_last_window = true,
       window = {
