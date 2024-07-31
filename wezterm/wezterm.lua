@@ -52,7 +52,7 @@ config.background = {
     source = {
       File = wezterm.config_dir .. "/wallpapers/dope-sukuna.png",
     },
-    hsb = { hue = 1.8, saturation = 0.7, brightness = 0.1 },
+    hsb = { hue = 1.5, saturation = 0.7, brightness = 0.5 },
   },
   {
     source = {
@@ -60,8 +60,8 @@ config.background = {
     },
     width = "100%",
     height = "100%",
-    opacity = 0.3,
-    hsb = { hue = 1, saturation = 1, brightness = 1.0 },
+    opacity = 0.8,
+    hsb = { hue = 1, saturation = 1.8, brightness = 0.7 },
   },
 }
 

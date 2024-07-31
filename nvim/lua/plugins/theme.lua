@@ -12,6 +12,9 @@ return {
           NormalFloat = {
             bg = "NONE",
           },
+          WinSeparator = {
+            fg = "#523E64",
+          },
         },
       },
     })
