@@ -33,7 +33,7 @@ function M.settings()
   -- vim.o.smartcase = true -- UNLESS \C or capital in search
 
   -- Keep signcolumn on by default
-  vim.wo.signcolumn = "yes"
+  vim.o.signcolumn = "yes"
 
   -- Decrease update time
   vim.o.updatetime = 100
