@@ -6,6 +6,7 @@ return {
       CHECK = {
         icon = " ",
         color = "#27e2e8",
+        alt = { "REVIEW" },
       },
     },
   },
