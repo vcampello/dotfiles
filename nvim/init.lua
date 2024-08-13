@@ -208,13 +208,17 @@ require("nvim-treesitter.configs").setup({
       enable = true,
       lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
       keymaps = {
-        -- You can use the capture groups defined in textobjects.scm
         ["aa"] = "@parameter.outer",
         ["ia"] = "@parameter.inner",
         ["af"] = "@function.outer",
         ["if"] = "@function.inner",
         ["ac"] = "@class.outer",
         ["ic"] = "@class.inner",
+        ["ii"] = "@conditional.inner",
+        ["ai"] = "@conditional.outer",
+        ["il"] = "@loop.inner",
+        ["al"] = "@loop.outer",
+        ["at"] = "@comment.outer",
       },
     },
     move = {
@@ -309,18 +313,10 @@ local on_attach = function(client, bufnr)
   nmap("<leader>lf", format, "Format current buffer with LSP")
 end
 
--- Enable the following language servers
---  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
---
---  Add any additional override configuration in the following tables. They will be passed to
---  the `settings` field of the server config. You must look up that documentation yourself.
---
---  If you want to override the default filetypes that your language server will attach to you can
---  define the property 'filetypes' to the map in question.
-
 -- TODO: create a better way to set this up so custom configs live with their lsp stuff
 vim.filetype.add({ extension = { templ = "templ" } })
 
+-- Enable the following language servers
 local servers = {
   -- terraform stuff
   terraformls = {},
@@ -536,7 +532,6 @@ cmp.setup({
     end,
   },
 })
-
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
