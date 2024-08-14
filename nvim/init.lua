@@ -78,89 +78,10 @@ require("lazy").setup({
       },
     },
   },
-  -- Fuzzy Finder (files, lsp, etc)
-  {
-    "ibhagwan/fzf-lua",
-    -- optional for icon support
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    -- optional: setup int .lua/plugins/window-picker.lua
-    "s1n7ax/nvim-window-picker",
-  },
-
   -- NOTE: automatically add plugins, configuration, etc from `lua/plugins/*.lua`
   { import = "plugins" },
   { import = "lsp" },
 })
-
-local fzflua = require("fzf-lua")
-
-fzflua.setup({
-  actions = {
-    -- Retain the original actions, then override (replaces all by default)
-    files = vim.tbl_deep_extend("force", fzflua.defaults.actions.files, {
-      ["ctrl-w"] = {
-        fn = function(selected, opts)
-          print("running custom action")
-          -- nothing to do
-          if #selected < 1 then
-            return fzflua.actions.resume()
-          end
-
-          local picker = require("window-picker")
-          print("requiring picker")
-
-          -- Convert the entry to an actual path without the leading icon
-          local fzfluapath = require("fzf-lua.path")
-          local file = fzfluapath.entry_to_file(selected[1])
-          -- print("True path: " .. path.path)
-
-          local win_id = picker.pick_window({
-            filter_rules = {
-              include_current_win = true,
-              autoselect_one = true,
-            },
-          })
-          -- print("win id: " .. win_id)
-
-          if type(win_id) ~= "number" then
-            -- should never happen
-            print("Selected window id is not a number")
-            return
-          end
-
-          -- Open the file in a buffer and select the window
-          local bufnr = vim.fn.bufadd(file.path)
-          vim.api.nvim_win_set_buf(win_id, bufnr)
-        end,
-      },
-    }),
-  },
-})
-
-vim.keymap.set("n", "<leader><leader>", ":FzfLua<cr>", { desc = "FzfLua", nowait = true })
-vim.keymap.set("v", "<leader>f", fzflua.grep_visual, { desc = "Search selection" })
-vim.keymap.set("n", "<leader>fr", fzflua.resume, { desc = "Search resume" })
-vim.keymap.set("n", "<leader>ff", fzflua.files, { desc = "Search files" })
-vim.keymap.set("n", "<leader>/", fzflua.grep_curbuf, { desc = "Search current buffer" })
-vim.keymap.set("n", "<leader>fg", function()
-  -- ignore some project files by default
-  local ignore_list = { "!package-lock.json" }
-  local ignore_opt = ""
-
-  for _, value in ipairs(ignore_list) do
-    ignore_opt = string.format("%s --glob '%s'", ignore_opt, value)
-  end
-
-  fzflua.live_grep_glob({
-    rg_opts = string.format("%s %s", ignore_opt, fzflua.defaults.grep.rg_opts),
-  })
-end, { desc = "Search project" })
-vim.keymap.set("n", "<leader>fh", fzflua.helptags, { desc = "Search help" })
-vim.keymap.set("n", "<leader>fH", fzflua.manpages, { desc = "Search man pages" })
-vim.keymap.set("n", "<leader>fm", fzflua.marks, { desc = "Search marks" })
-
--- keep it similar to code actions (la)
-vim.keymap.set("n", "<leader>ls", fzflua.spell_suggest, { desc = "Search spell suggestions" })
 
 -- Diagnostic keymaps
 vim.keymap.set("n", "[d", function()
@@ -195,14 +116,15 @@ local on_attach = function(client, bufnr)
   --   vim.lsp.inlay_hint.enable(bufnr, true)
   -- end
 
+  local fzf = require("fzf-lua")
   nmap("<leader>lr", vim.lsp.buf.rename, "Rename")
   -- nmap("<leader>la", vim.lsp.buf.code_action, "Code Action")
-  nmap("<leader>la", fzflua.lsp_code_actions, "Code Action")
+  nmap("<leader>la", fzf.lsp_code_actions, "Code Action")
 
   nmap("gd", vim.lsp.buf.definition, "Goto Definition")
-  nmap("gr", fzflua.lsp_references, "Goto References")
-  nmap("gI", fzflua.lsp_implementations, "Goto Implementation")
-  nmap("<leader>fs", fzflua.lsp_document_symbols, "Document Symbols")
+  nmap("gr", fzf.lsp_references, "Goto References")
+  nmap("gI", fzf.lsp_implementations, "Goto Implementation")
+  nmap("<leader>fs", fzf.lsp_document_symbols, "Document Symbols")
 
   -- See `:help K` for why this keymap
   nmap("K", vim.lsp.buf.hover, "Hover Documentation")
