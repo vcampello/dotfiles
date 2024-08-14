@@ -1,4 +1,5 @@
 return {
+  lazy = false,
   -- Tool installer for mason
   "WhoIsSethDaniel/mason-tool-installer.nvim",
   opts = {

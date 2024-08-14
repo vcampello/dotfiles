@@ -1,4 +1,5 @@
 return {
+  lazy = false,
   -- Autocompletion
   "hrsh7th/nvim-cmp",
   dependencies = {

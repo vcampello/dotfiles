@@ -1,5 +1,5 @@
 return {
-
+  lazy = false,
   -- LSP Configuration & Plugins
   "neovim/nvim-lspconfig",
   dependencies = {
