@@ -53,7 +53,6 @@ return {
           ["ctrl-w"] = {
             fn = pick_window,
           },
-          "window",
         }),
       },
     })
