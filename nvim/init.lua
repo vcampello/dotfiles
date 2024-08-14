@@ -147,10 +147,23 @@ vim.keymap.set("v", "<leader>f", fzflua.grep_visual, { desc = "Search selection"
 vim.keymap.set("n", "<leader>fr", fzflua.resume, { desc = "Search resume" })
 vim.keymap.set("n", "<leader>ff", fzflua.files, { desc = "Search files" })
 vim.keymap.set("n", "<leader>/", fzflua.grep_curbuf, { desc = "Search current buffer" })
-vim.keymap.set("n", "<leader>fg", fzflua.grep_project, { desc = "Search project" })
+vim.keymap.set("n", "<leader>fg", function()
+  -- ignore some project files by default
+  local ignore_list = { "!package-lock.json" }
+  local ignore_opt = ""
+
+  for _, value in ipairs(ignore_list) do
+    ignore_opt = string.format("%s --glob '%s'", ignore_opt, value)
+  end
+
+  fzflua.live_grep_glob({
+    rg_opts = string.format("%s %s", ignore_opt, fzflua.defaults.grep.rg_opts),
+  })
+end, { desc = "Search project" })
 vim.keymap.set("n", "<leader>fh", fzflua.helptags, { desc = "Search help" })
 vim.keymap.set("n", "<leader>fH", fzflua.manpages, { desc = "Search man pages" })
 vim.keymap.set("n", "<leader>fm", fzflua.marks, { desc = "Search marks" })
+
 -- keep it similar to code actions (la)
 vim.keymap.set("n", "<leader>ls", fzflua.spell_suggest, { desc = "Search spell suggestions" })
 
