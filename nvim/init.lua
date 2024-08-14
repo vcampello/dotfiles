@@ -83,6 +83,8 @@ require("lazy").setup({
     "ibhagwan/fzf-lua",
     -- optional for icon support
     dependencies = { "nvim-tree/nvim-web-devicons" },
+    -- optional: setup int .lua/plugins/window-picker.lua
+    "s1n7ax/nvim-window-picker",
   },
 
   -- NOTE: automatically add plugins, configuration, etc from `lua/plugins/*.lua`
@@ -98,33 +100,26 @@ fzflua.setup({
     files = vim.tbl_deep_extend("force", fzflua.defaults.actions.files, {
       ["ctrl-w"] = {
         fn = function(selected, opts)
+          print("running custom action")
           -- nothing to do
           if #selected < 1 then
             return fzflua.actions.resume()
           end
 
-          -- FIXME: aside from `include_current_win` this is duplicated in ./lua/vcampello/plugins/neotree.lua
           local picker = require("window-picker")
-          picker.setup({
-            filter_rules = {
-              include_current_win = true,
-              autoselect_one = true,
-              -- filter using buffer options
-              bo = {
-                -- if the file type is one of following, the window will be ignored
-                filetype = { "neo-tree", "neo-tree-popup", "notify" },
-                -- if the buffer type is one of following, the window will be ignored
-                buftype = { "terminal", "quickfix" },
-              },
-            },
-          })
+          print("requiring picker")
 
           -- Convert the entry to an actual path without the leading icon
           local fzfluapath = require("fzf-lua.path")
           local file = fzfluapath.entry_to_file(selected[1])
           -- print("True path: " .. path.path)
 
-          local win_id = picker.pick_window()
+          local win_id = picker.pick_window({
+            filter_rules = {
+              include_current_win = true,
+              autoselect_one = true,
+            },
+          })
           -- print("win id: " .. win_id)
 
           if type(win_id) ~= "number" then
