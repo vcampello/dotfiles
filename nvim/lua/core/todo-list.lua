@@ -1,5 +1,3 @@
-local utils = require("lib.utils")
-
 local M = {
   name = "Simple to-do list",
   desc = "A simple to-do list accessible in any vim instance and with with multitab support",
@@ -155,7 +153,7 @@ M.setup = function()
   end, {
     nargs = 1,
     complete = function()
-      return utils.tableKeys(M.actions)
+      return vim.tbl_keys(M.actions)
     end,
   })
 
