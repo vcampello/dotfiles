@@ -20,14 +20,6 @@ return {
         vim.opt.spelllang = { "en_gb" }
       end,
     },
-    {
-      "David-Kunz/cmp-npm",
-      dependencies = { "nvim-lua/plenary.nvim" },
-      ft = "json",
-      config = function()
-        require("cmp-npm").setup({})
-      end,
-    },
   },
   config = function()
     local cmp = require("cmp")
@@ -80,7 +72,6 @@ return {
         { name = "nvim_lsp" },
         { name = "luasnip" },
         { name = "async_path" },
-        { name = "npm", keyword_length = 4 },
         {
           name = "spell",
           option = {
