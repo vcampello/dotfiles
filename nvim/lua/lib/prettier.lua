@@ -9,7 +9,7 @@ M.rc_store = {
 }
 
 ---Validate known prettier configurations
-M.validate_config_store = function()
+function M.validate_config_store()
   vim.notify("Validating prettierrc config store...", vim.log.levels.INFO)
 
   for key, value in pairs(M.rc_store) do
@@ -29,7 +29,7 @@ M.config_by_ft = {
 ---Find matching prettierc or return the default
 ---@param ft string filetype
 ---@return string filepath
-M.get_config_for_filetype = function(ft)
+function M.get_config_for_filetype(ft)
   local specifc_config = M.config_by_ft[ft]
   if specifc_config then
     return specifc_config

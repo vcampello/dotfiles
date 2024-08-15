@@ -90,7 +90,7 @@ local function create_and_open()
 end
 
 ---Close floating window
-M.actions.close = function()
+function M.actions.close()
   if known_winid ~= nil and vim.api.nvim_win_is_valid(known_winid) then
     vim.api.nvim_win_close(known_winid, true)
   end
@@ -99,7 +99,7 @@ end
 
 ---Check if is open on tab
 ---@return boolean
-M.is_open_on_tab = function(tabid)
+function M.is_open_on_tab(tabid)
   for _, value in ipairs(vim.api.nvim_tabpage_list_wins(tabid)) do
     if value == known_winid then
       return true
@@ -110,7 +110,7 @@ M.is_open_on_tab = function(tabid)
 end
 
 ---Open window
-M.actions.open = function()
+function M.actions.open()
   local tabid = vim.api.nvim_get_current_tabpage()
 
   if not M.is_open_on_tab(tabid) then
@@ -119,7 +119,7 @@ M.actions.open = function()
 end
 
 ---Toggle floating window
-M.actions.toggle = function()
+function M.actions.toggle()
   local tabid = vim.api.nvim_get_current_tabpage()
 
   if M.is_open_on_tab(tabid) then
@@ -134,7 +134,7 @@ M.actions.toggle = function()
 end
 
 ---Dump current known location
-M.actions.debug = function()
+function M.actions.debug()
   if known_winid ~= nil then
     print("Open on window: " .. known_winid)
   else
@@ -143,7 +143,7 @@ M.actions.debug = function()
 end
 
 ---Initialise plugin
-M.setup = function()
+function M.setup()
   -- Setup commands
   vim.api.nvim_create_user_command("TodoList", function(opts)
     local action_name = opts.fargs[1]
