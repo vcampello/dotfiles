@@ -50,9 +50,15 @@ return {
       -- nmap("<leader>la", vim.lsp.buf.code_action, "Code Action")
       nmap("<leader>la", fzf.lsp_code_actions, "Code Action")
 
-      nmap("gd", fzf.lsp_definitions, "Goto Definition")
-      nmap("gr", fzf.lsp_references, "Goto References")
-      nmap("gI", fzf.lsp_implementations, "Goto Implementation")
+      nmap("gd", function()
+        fzf.lsp_definitions({ jump_to_single_result = true })
+      end, "Goto Definition")
+      nmap("gr", function()
+        fzf.lsp_references({ jump_to_single_result = true })
+      end, "Goto References")
+      nmap("gI", function()
+        fzf.lsp_implementations({ jump_to_single_result = true })
+      end, "Goto Implementation")
       nmap("<leader>fs", fzf.lsp_document_symbols, "Document Symbols")
 
       -- See `:help K` for why this keymap
