@@ -43,17 +43,18 @@ return {
       vim.api.nvim_win_set_buf(win_id, bufnr)
     end
 
-    -- Set the action name or it will show as 'table <hex code>'
+    -- -- Set the action name or it will show as 'table <hex code>'
     fzfconf.set_action_helpstr(pick_window, "pick_window")
 
     fzf.setup({
       actions = {
         -- Retain the original actions, then override (replaces all by default)
-        files = vim.tbl_deep_extend("force", fzf.defaults.actions.files, {
+        files = {
+          true, -- inherit defaults
           ["ctrl-w"] = {
             fn = pick_window,
           },
-        }),
+        },
       },
     })
 
