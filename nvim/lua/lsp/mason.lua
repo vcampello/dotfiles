@@ -50,7 +50,7 @@ return {
       -- nmap("<leader>la", vim.lsp.buf.code_action, "Code Action")
       nmap("<leader>la", fzf.lsp_code_actions, "Code Action")
 
-      nmap("gd", vim.lsp.buf.definition, "Goto Definition")
+      nmap("gd", fzf.lsp_definitions, "Goto Definition")
       nmap("gr", fzf.lsp_references, "Goto References")
       nmap("gI", fzf.lsp_implementations, "Goto Implementation")
       nmap("<leader>fs", fzf.lsp_document_symbols, "Document Symbols")
