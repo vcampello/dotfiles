@@ -71,7 +71,7 @@ return {
     map("n", "<leader>fm", fzf.marks, { desc = "Search marks" })
     map("n", "<leader>fg", function()
       -- ignore some project files by default
-      local ignore_list = { "!package-lock.json" }
+      local ignore_list = { "!package-lock.json", "!yarn.lock" }
       local ignore_opt = ""
 
       for _, value in ipairs(ignore_list) do
