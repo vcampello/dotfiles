@@ -71,10 +71,14 @@ return {
     map("n", "<leader>fm", fzf.marks, { desc = "Search marks" })
     map("n", "<leader>fg", function()
       -- ignore some project files by default
-      local ignore_list = { "!package-lock.json", "!yarn.lock" }
+      -- make it interatable through :let g:fzf_ignore_list
+      local fzf_ignore_list = vim.g.fzf_ignore_list or { "!package-lock.json", "!yarn.lock" }
+      if not vim.g.fzf_ignore_list then
+        vim.g.fzf_ignore_list = fzf_ignore_list
+      end
       local ignore_opt = ""
 
-      for _, value in ipairs(ignore_list) do
+      for _, value in ipairs(fzf_ignore_list) do
         ignore_opt = string.format("%s --glob '%s'", ignore_opt, value)
       end
 
