@@ -6,12 +6,10 @@ return {
     -- Automatically install LSPs to stdpath for neovim
     { "williamboman/mason.nvim", config = true },
     "williamboman/mason-lspconfig.nvim",
+
+    "b0o/schemastore.nvim",
     -- configured in: ./cmp.lua
     "hrsh7th/nvim-cmp",
-
-    -- Additional lua configuration, makes nvim stuff amazing!
-    "folke/neodev.nvim",
-    "b0o/schemastore.nvim",
     {
       "ckipp01/stylua-nvim",
       build = "cargo install stylua",
@@ -146,9 +144,6 @@ return {
         },
       },
     }
-
-    -- Setup neovim lua configuration
-    require("neodev").setup()
 
     -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
     local capabilities = vim.lsp.protocol.make_client_capabilities()

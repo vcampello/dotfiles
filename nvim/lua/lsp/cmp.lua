@@ -80,6 +80,10 @@ return {
               return require("cmp.config.context").in_treesitter_capture("spell")
             end,
           },
+          {
+            name = "lazydev",
+            group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+          },
         },
       },
       window = {
