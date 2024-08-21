@@ -66,6 +66,10 @@ vim.opt.showmode = false -- hide mode on status line since it's been replace by 
 --REVIEW: what about 'unload'?
 vim.o.jumpoptions = "stack"
 
+-- Show invisible characters
+vim.opt.list = true
+vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
+
 -- Tabs
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
