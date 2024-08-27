@@ -22,8 +22,7 @@ local function use_prettier(langs)
   local mapped = {}
 
   for _, value in ipairs(langs) do
-    -- Use a sub-list to run only the first available formatter
-    mapped[value] = { { "prettierd", "prettier" } }
+    mapped[value] = { "prettierd", "prettier", stop_after_first = true }
   end
 
   return mapped
