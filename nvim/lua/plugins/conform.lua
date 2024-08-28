@@ -14,6 +14,9 @@ end, {
   desc = "Re-enable autoformat-on-save for buffer",
 })
 
+---Configure languages to use prettier
+---@param langs string[]
+---@return table
 local function use_prettier(langs)
   if langs == nil then
     langs = {}
