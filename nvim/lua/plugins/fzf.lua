@@ -66,6 +66,7 @@ return {
     map("n", "<leader>fr", fzf.resume, { desc = "Search resume" })
     map("n", "<leader>ff", fzf.files, { desc = "Search files" })
     map("n", "<leader>/", fzf.grep_curbuf, { desc = "Search current buffer" })
+    map("n", "<leader>fb", fzf.git_bcommits, { desc = "Blame commits" })
     map("n", "<leader>fh", fzf.helptags, { desc = "Search help" })
     map("n", "<leader>fH", fzf.manpages, { desc = "Search man pages" })
     map("n", "<leader>fm", fzf.marks, { desc = "Search marks" })
@@ -87,7 +88,7 @@ return {
       })
     end, { desc = "Search project" })
 
-    -- keep it similar to code actions (la)
-    map("n", "<leader>ls", fzf.spell_suggest, { desc = "Search spell suggestions" })
+    -- replace original suggestions keymap
+    map("n", "z=", fzf.spell_suggest, { desc = "Search spell suggestions" })
   end,
 }
