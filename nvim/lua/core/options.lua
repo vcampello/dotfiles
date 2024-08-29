@@ -83,6 +83,9 @@ vim.opt.smartindent = true
 vim.opt.wrap = true
 vim.opt.scrolloff = 12
 
+-- Open vertical diffs by default
+vim.opt.diffopt:append("vertical")
+
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
 vim.api.nvim_create_autocmd("TextYankPost", {
