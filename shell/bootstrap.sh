@@ -18,6 +18,7 @@ brew install \
     git-delta \
     jq \
     lazygit \
+    luarocks \
     nvm \
     ripgrep \
     rustup-init \
