@@ -1,23 +1,14 @@
 return {
-  "EdenEast/nightfox.nvim",
+  "dgox16/oldworld.nvim",
   lazy = false,
   priority = 1000,
   config = function()
-    require("nightfox").setup({
-      options = {
-        transparent = true,
-      },
-      groups = {
-        all = {
-          NormalFloat = {
-            bg = "NONE",
-          },
-          WinSeparator = {
-            fg = "#523E64",
-          },
-        },
+    require("oldworld").setup({
+      integrations = {
+        neo_tree = true,
+        navic = true,
       },
     })
-    vim.cmd("colorscheme nightfox")
+    vim.cmd.colorscheme("oldworld")
   end,
 }

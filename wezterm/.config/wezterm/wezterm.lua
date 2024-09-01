@@ -54,21 +54,21 @@ config.tab_bar_at_bottom = true
 
 -- TODO: add a shortcut to toggle the background
 config.background = {
-  {
-    source = {
-      File = wezterm.config_dir .. "/wallpapers/dope-sukuna.png",
-    },
-    hsb = { hue = 1.5, saturation = 0.7, brightness = 0.5 },
-  },
-  {
-    source = {
-      Color = "#192330",
-    },
-    width = "100%",
-    height = "100%",
-    opacity = 0.8,
-    hsb = { hue = 1, saturation = 1.8, brightness = 0.7 },
-  },
+  -- {
+  --   source = {
+  --     File = wezterm.config_dir .. "/wallpapers/dope-sukuna.png",
+  --   },
+  --   hsb = { hue = 1.5, saturation = 0.7, brightness = 0.5 },
+  -- },
+  -- {
+  --   source = {
+  --     Color = "#192330",
+  --   },
+  --   width = "100%",
+  --   height = "100%",
+  --   opacity = 0.8,
+  --   hsb = { hue = 1, saturation = 1.8, brightness = 0.7 },
+  -- },
 }
 
 -- Terminal style rendering
