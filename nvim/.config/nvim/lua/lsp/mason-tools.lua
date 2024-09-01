@@ -11,6 +11,7 @@ return {
       "shellcheck",
       "eslint_d",
       "prettierd",
+      "stylua"
     },
   },
 }
