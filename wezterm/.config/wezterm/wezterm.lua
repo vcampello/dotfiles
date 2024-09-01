@@ -11,11 +11,11 @@ local config = wezterm.config_builder()
 -- config.color_scheme = "Bright Lights"
 -- config.color_scheme = "Dark+"
 config.color_scheme = "carbonfox"
-config.font = wezterm.font_with_fallback({
-  -- { family = "Victor Mono", weight = "DemiBold" },
-  { family = "JetBrainsMono Nerd Font", weight = "Regular" },
-  { family = "Symbols Nerd Font Mono" },
-})
+-- config.font = wezterm.font_with_fallback({
+--   -- { family = "Victor Mono", weight = "DemiBold" },
+--   { family = "JetBrainsMono Nerd Font", weight = "Regular" },
+--   { family = "Symbols Nerd Font Mono" },
+-- })
 
 -- Disable as the pop-up comes up way too often
 config.warn_about_missing_glyphs = false
