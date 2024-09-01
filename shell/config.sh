@@ -1,26 +1,28 @@
 # Source NVM
 export NVM_DIR="$HOME/.nvm"
 # This loads nvm
-[ -s "/home/linuxbrew/.linuxbrew/opt/nvm/nvm.sh" ] && \. "/home/linuxbrew/.linuxbrew/opt/nvm/nvm.sh" 
+[ -s "/home/linuxbrew/.linuxbrew/opt/nvm/nvm.sh" ] && \. "/home/linuxbrew/.linuxbrew/opt/nvm/nvm.sh"
 # This loads nvm bash_completion
 [ -s "/home/linuxbrew/.linuxbrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/home/linuxbrew/.linuxbrew/opt/nvm/etc/bash_completion.d/nvm"
+
+# rust
+source "$HOME/.cargo/env"
 
 # Find out if we are using bash or zsh
 shell_name=""
 case "$SHELL" in
-    *bash)
+*bash)
     shell_name="bash"
-        ;;
-    *zsh)
+    ;;
+*zsh)
     shell_name="zsh"
-        ;;
+    ;;
 esac
-
 
 if [[ -z $shell_name ]]; then
     echo "Unkown shell. Zoxide and fzf shell integration will not be setup"
 else
-    echo "Setting up zoxide and fzf to use $shell_name"
+    # echo "Setting up zoxide and fzf to use $shell_name"
     # zoxide
     eval "$(zoxide init --cmd cd ${shell_name})"
 

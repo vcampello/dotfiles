@@ -3,13 +3,12 @@
 # setup brew
 if [ ! -f "$(which brew)" ]; then
     # TODO: add confirmation prompt
-    echo "Bootstrapping brew..." 
+    echo "Bootstrapping brew..."
     # Brew ask for confirmation on installation
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-else 
+else
     echo "Brew found..."
 fi
-
 
 # TODO: add confirmation prompt
 # setup tools
@@ -21,9 +20,13 @@ brew install \
     lazygit \
     nvm \
     ripgrep \
-    rustup \
+    rustup-init \
     stow \
-    zoxide \
+    zoxide
+
+# setup rust
+# the path will be set in config.sh
+rustup-init -y --no-modify-path
 
 # TODO: verify if this will work on macos
 # Setup env config for the script
