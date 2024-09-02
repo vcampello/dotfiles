@@ -7,6 +7,13 @@ return {
       options = {
         transparent = true,
       },
+      groups = {
+        all = {
+          NormalFloat = {
+            bg = "NONE",
+          },
+        },
+      },
     })
     vim.cmd.colorscheme("carbonfox")
   end,
