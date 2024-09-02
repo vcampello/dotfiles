@@ -1,19 +1,13 @@
 return {
-  "dgox16/oldworld.nvim",
+  "EdenEast/nightfox.nvim",
   lazy = false,
   priority = 1000,
   config = function()
-    require("oldworld").setup({
-      integrations = {
-        neo_tree = true,
-        navic = true,
-      },
-      highlight_overrides = {
-        Normal = { bg = "NONE" },
-        NormalNC = { bg = "NONE" },
-        CursorLine = { bg = "#222128" },
+    require("nightfox").setup({
+      options = {
+        transparent = true,
       },
     })
-    vim.cmd.colorscheme("oldworld")
+    vim.cmd.colorscheme("carbonfox")
   end,
 }
