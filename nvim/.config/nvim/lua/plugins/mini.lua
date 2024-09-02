@@ -9,7 +9,7 @@ return {
   },
   config = function()
     -- Use defaults
-    require("mini.cursorword").setup()
+    -- require("mini.cursorword").setup()
     require("mini.indentscope").setup()
     -- require("mini.move").setup() -- conflicts with smart-splits. Let's see if I actually need it
     require("mini.pairs").setup()
@@ -35,8 +35,5 @@ return {
     local MiniBufRemove = require("mini.bufremove")
     MiniBufRemove.setup()
     vim.keymap.set({ "n", "i" }, "<C-c>", MiniBufRemove.wipeout, { desc = "Wipeout current buffer" })
-    vim.keymap.set({ "n", "i" }, "<F4>", function()
-      MiniBufRemove.wipeout(0, true)
-    end, { desc = "Wipeout current buffer (force)" })
   end,
 }
