@@ -8,6 +8,11 @@ return {
         neo_tree = true,
         navic = true,
       },
+      highlight_overrides = {
+        Normal = { bg = "NONE" },
+        NormalNC = { bg = "NONE" },
+        CursorLine = { bg = "#222128" },
+      },
     })
     vim.cmd.colorscheme("oldworld")
   end,
