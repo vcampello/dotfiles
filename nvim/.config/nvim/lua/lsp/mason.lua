@@ -97,7 +97,7 @@ return {
       gopls = {},
       templ = {},
       -- NOTE: replaced by typescript-tools on_attach
-      tsserver = {},
+      ts_ls = {},
       eslint = {},
       graphql = {},
       html = {
@@ -168,9 +168,9 @@ return {
           }),
         }
 
-        if server_name == "tsserver" then
-          -- print("Setting up typescript-tools instead of tsserver")
-          -- It was done this way so if it's removed I won't forget why tsserver isn't working
+        if server_name == "ts_ls" then
+          -- print("Setting up typescript-tools instead of ts_ls")
+          -- It was done this way so if it's removed I won't forget why ts_ls isn't working
           require("typescript-tools").setup({
             handlers = handlers,
             on_attach = on_attach,
