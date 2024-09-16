@@ -6,8 +6,6 @@ return {
     "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
     "MunifTanjim/nui.nvim",
     -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
-    "mrbjarksen/neo-tree-diagnostics.nvim",
-    -- optional: setup int ./window-picker.lua
     "s1n7ax/nvim-window-picker",
   },
   config = function()
@@ -16,8 +14,6 @@ return {
         "filesystem",
         "buffers",
         "git_status",
-        "document_symbols",
-        "diagnostics",
       },
       source_selector = {
         winbar = true,
@@ -25,9 +21,6 @@ return {
           { source = "filesystem" },
           { source = "buffers" },
           { source = "git_status" },
-          { source = "document_symbols" },
-          -- requires plugin 'mrbjarksen/neo-tree-diagnostics.nvim'
-          { source = "diagnostics" },
         },
       },
       -- Close Neo-tree if it is the last window left in the tab
@@ -68,7 +61,7 @@ return {
           event = "neo_tree_popup_input_ready",
           handler = function()
             -- enter input popup with normal mode by default.
-            vim.cmd("stopinsert")
+            vim.cmd.stopinsert()
           end,
         },
         {

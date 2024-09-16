@@ -19,6 +19,10 @@ return {
       "pmizio/typescript-tools.nvim",
       dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
     },
+    {
+      -- set setup on ./file-operations.lua
+      "antosha417/nvim-lsp-file-operations",
+    },
   },
   config = function()
     --  This function gets run when an LSP connects to a particular buffer.
@@ -145,9 +149,11 @@ return {
       },
     }
 
-    -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
+    -- broadcast addional capabilities to servers
     local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+    local cmp_capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+    local file_ops_capabilities = require("lsp-file-operations").default_capabilities()
+    capabilities = vim.tbl_deep_extend("force", capabilities, cmp_capabilities, file_ops_capabilities)
 
     -- Ensure the servers above are installed
     local mason_lspconfig = require("mason-lspconfig")
