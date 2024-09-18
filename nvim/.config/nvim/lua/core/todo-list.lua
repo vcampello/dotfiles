@@ -23,9 +23,9 @@ local todo_augroup = vim.api.nvim_create_augroup("TodolistGroup", { clear = true
 local function create_and_open()
   local bufnr = vim.fn.bufadd(M.config.filepath)
   -- ensure buffer is wiped out when it's hidden (prevents jumpting to it when using c-o)
-  vim.bo[bufnr].bufhidden = "wipe"
+  -- vim.bo[bufnr].bufhidden = "wipe" -- conflicts with markview.nvim
   -- prevent buffer from being listed by :ls
-  vim.bo[bufnr].buflisted = true
+  vim.bo[bufnr].buflisted = false
 
   -- current window dimensions
   local win_width = vim.api.nvim_list_uis()[1].width
