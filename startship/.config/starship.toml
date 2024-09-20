@@ -24,7 +24,8 @@ truncation_length = 4
 truncation_symbol = '.../'
 
 [aws]
-symbol = "  "
+format = 'on [$symbol($profile )(\($region\) )]($style)'
+symbol = '  '
 
 [buf]
 symbol = " "
