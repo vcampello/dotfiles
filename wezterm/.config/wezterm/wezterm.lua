@@ -196,15 +196,29 @@ wez.on("update-status", function(window, pane)
     bg = theme.COLORS.gray,
     fg = theme.COLORS.white,
   })
+  window:set_right_status(wez.format(right))
 
-  local left = shared.build_elements({
+  local workspaces = shared.build_elements({
     shared.format_text({ tostring(#mux.get_workspace_names()), " ", window:active_workspace() }),
   }, {
-    bg = theme.COLORS.gray,
+    bg = theme.COLORS.red,
     fg = theme.COLORS.white,
   })
 
-  window:set_right_status(wez.format(right))
+  local default_mode = "normal"
+  local mode_text = window:active_key_table() or default_mode
+  local mode = shared.build_elements({
+    shared.format_text({ "󰨚 ", mode_text:upper() }),
+  }, {
+    bg = mode_text == default_mode and theme.COLORS.black or theme.COLORS.purple,
+    fg = theme.COLORS.white,
+  })
+
+  local left = {}
+  shared.concat_array(left, mode)
+  shared.concat_array(left, workspaces)
+  print(left)
+
   window:set_left_status(wez.format(left))
 end)
 

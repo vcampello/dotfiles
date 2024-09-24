@@ -6,6 +6,8 @@ M.COLORS = {
   gray = "#333333",
   black = "#000000",
   white = "#ffffff",
+  purple = "#810CA8",
+  red = "#750E21",
 }
 
 -- TODO: create palette

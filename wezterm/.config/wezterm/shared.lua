@@ -54,4 +54,13 @@ function M.build_elements(components, opts)
   return elements
 end
 
+---Concatenate array
+---@param target any[]
+---@param other any[]
+function M.concat_array(target, other)
+  for _, v in ipairs(other) do
+    table.insert(target, v)
+  end
+end
+
 return M
