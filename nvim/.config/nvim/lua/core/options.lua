@@ -5,7 +5,8 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 -- Set highlight on search
-vim.o.hlsearch = false
+vim.b.hlsearch = true
+vim.b.incsearch = true
 vim.opt.inccommand = "split"
 
 -- Make line numbers default
