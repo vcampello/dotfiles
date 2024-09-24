@@ -1,9 +1,12 @@
 -- Pull in the wezterm API
-local wezterm = require("wezterm")
-local smart_splits = wezterm.plugin.require("https://github.com/mrjones2014/smart-splits.nvim")
+local wez = require("wezterm")
+local mux = wez.mux
+
+local shared = require("shared")
+local theme = require("theme")
 
 -- This table will hold the configuration.
-local config = wezterm.config_builder()
+local config = wez.config_builder()
 
 -- This is where you actually apply your config choices
 
@@ -24,14 +27,14 @@ config.warn_about_missing_glyphs = false
 -- might not work at all until this is set -> https://wezfurlong.org/wezterm/faq.html#how-do-i-enable-undercurl-curly-underlines
 config.strikethrough_position = "0.6cell"
 
-if wezterm.target_triple == "aarch64-apple-darwin" or wezterm.target_triple == "x86_64-apple-darwin" then
+if wez.target_triple == "aarch64-apple-darwin" or wez.target_triple == "x86_64-apple-darwin" then
   -- macOS detected
   config.font_size = 14
-elseif wezterm.target_triple == "x86_64-unknown-linux-gnu" then
+elseif wez.target_triple == "x86_64-unknown-linux-gnu" then
   -- linux detected
   config.font_size = 10.5
   -- config.window_decorations = "RESIZE"
-elseif wezterm.target_triple == "x86_64-pc-windows-msvc" then
+elseif wez.target_triple == "x86_64-pc-windows-msvc" then
   -- windows detected
   config.font_size = 10
   -- config.cell_width = 1
@@ -45,6 +48,17 @@ elseif wezterm.target_triple == "x86_64-pc-windows-msvc" then
 else
   config.font_size = 10.5
 end
+config.unix_domains = {
+  {
+    name = "unix",
+  },
+}
+
+-- This causes `wezterm` to act as though it was started as
+-- `wezterm connect unix` by default, connecting to the unix
+-- domain on startup.
+-- If you prefer to connect manually, leave out this line.
+config.default_gui_startup_args = { "connect", "unix" }
 
 -- Can be overridden by editors and other applications
 config.default_cursor_style = "BlinkingBlock"
@@ -56,13 +70,13 @@ config.tab_bar_at_bottom = true
 config.background = {
   {
     source = {
-      File = wezterm.config_dir .. "/wallpapers/dope-sukuna.png",
+      File = wez.config_dir .. "/wallpapers/dope-sukuna.png",
     },
     hsb = { hue = 0, saturation = 0, brightness = 0.5 },
   },
   {
     source = {
-      Color = "#151515",
+      Color = theme.COLORS.black,
     },
     width = "100%",
     height = "100%",
@@ -86,14 +100,16 @@ config.tab_max_width = 60
 config.colors = {
   -- The color of the split lines between panes
   split = "#523E64",
-
-  cursor_bg = "#ffbf00",
-  cursor_fg = "#000000",
-  cursor_border = "#ffbf00",
+  cursor_bg = theme.COLORS.amber,
+  cursor_fg = theme.COLORS.black,
+  cursor_border = theme.COLORS.amber,
 
   -- selection_fg = "#ffffff",
 
   selection_bg = "rgba(150,100,0, 0.5)", -- #3a3d41
+  tab_bar = {
+    background = theme.COLORS.black,
+  },
 }
 
 config.inactive_pane_hsb = {
@@ -105,17 +121,17 @@ config.inactive_pane_hsb = {
 -- Figure out the cwd and host of the current pane.
 -- This will pick up the hostname for the remote host if your
 -- shell is using OSC 7 on the remote host.
+---@return { hostname: string, cwd: string }
 local function get_stripped_current_working_dir(cwd_uri)
+  local cwd = ""
+  local hostname = ""
   if cwd_uri then
-    local cwd = ""
-    local hostname = ""
-
     if type(cwd_uri) == "userdata" then
       -- Running on a newer version of wezterm and we have
       -- a URL object here, making this simple!
 
       cwd = cwd_uri.file_path
-      hostname = cwd_uri.host or wezterm.hostname()
+      hostname = cwd_uri.host or wez.hostname()
     else
       -- an older version of wezterm, 20230712-072601-f4abf8fd or earlier,
       -- which doesn't have the Url object
@@ -136,14 +152,16 @@ local function get_stripped_current_working_dir(cwd_uri)
       hostname = hostname:sub(1, dot - 1)
     end
     if hostname == "" then
-      hostname = wezterm.hostname()
+      hostname = wez.hostname()
     end
-
-    return { hostname = hostname, cwd = cwd }
   end
+  return { hostname = hostname, cwd = cwd }
 end
 
-function tab_title(tab_info)
+---Get tab title
+---@param tab_info any
+---@return string
+local function tab_title(tab_info)
   local title = tab_info.tab_title
   -- if the tab title is explicitly set, take that
   if title and #title > 0 then
@@ -154,49 +172,40 @@ function tab_title(tab_info)
   return tab_info.active_pane.title
 end
 
-wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
+wez.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
   local title = tab_title(tab)
-  ---@cast title  string
 
-  local elements = {}
-
-  if tab.is_active then
-    table.insert(elements, { Foreground = { Color = "#ffffff" } })
-    table.insert(elements, { Background = { Color = "#104060" } })
-  end
-
-  if hover then
-    table.insert(elements, { Foreground = { Color = "#000000" } })
-    table.insert(elements, { Background = { Color = "#ffffff" } })
-  end
-
-  table.insert(elements, {
-    Text = string.format(" [%d] %s  %s  ", tostring(tab.tab_index), title, utf8.char(0xe612)),
+  local elements = shared.build_elements({ shared.format_text({ tostring(tab.tab_index), " ", title }) }, {
+    -- when active set background to yellow and text to amber
+    bg = tab.is_active and theme.COLORS.amber or theme.COLORS.gray,
+    fg = tab.is_active and theme.COLORS.black or theme.COLORS.white,
   })
 
   return elements
 end)
 
-wezterm.on("update-right-status", function(window, pane)
-  -- Each element holds the text for a cell in a "powerline" style << fade
-
+wez.on("update-status", function(window, pane)
   local cwd_uri = pane:get_current_working_dir()
   local stripped_cwd = get_stripped_current_working_dir(cwd_uri)
 
-  -- The elements to be formatted
-  local elements = {}
+  local right = shared.build_elements({
+    shared.format_text({ "󰉌 ", stripped_cwd.cwd }),
+    shared.format_text({ "󰞇 ", (os.getenv("USER") or "anon") }),
+    shared.format_text({ "󰌢 ", stripped_cwd.hostname }),
+  }, {
+    bg = theme.COLORS.gray,
+    fg = theme.COLORS.white,
+  })
 
-  -- Translate a cell into elements
-  table.insert(elements, { Foreground = { Color = "#ffffff" } })
-  table.insert(elements, { Background = { Color = "#104060" } })
+  local left = shared.build_elements({
+    shared.format_text({ tostring(#mux.get_workspace_names()), " ", window:active_workspace() }),
+  }, {
+    bg = theme.COLORS.gray,
+    fg = theme.COLORS.white,
+  })
 
-  if stripped_cwd ~= nil then
-    table.insert(elements, { Text = " " .. stripped_cwd.hostname })
-    table.insert(elements, { Text = " " .. utf8.char(0xeb2b) .. "  " })
-    table.insert(elements, { Text = stripped_cwd.cwd .. " " })
-  end
-
-  window:set_right_status(wezterm.format(elements))
+  window:set_right_status(wez.format(right))
+  window:set_left_status(wez.format(left))
 end)
 
 --------------------------------------------------------
@@ -210,79 +219,123 @@ config.keys = {
   {
     key = "a",
     mods = "LEADER|CTRL",
-    action = wezterm.action.SendKey({ key = "a", mods = "CTRL" }),
+    action = wez.action.SendKey({ key = "a", mods = "CTRL" }),
   },
   {
     key = "s",
     mods = "LEADER",
-    action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }),
+    action = wez.action.SplitVertical({ domain = "CurrentPaneDomain" }),
   },
   {
     key = "v",
     mods = "LEADER",
-    action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }),
+    action = wez.action.SplitHorizontal({ domain = "CurrentPaneDomain" }),
   },
   {
     key = "h",
     mods = "LEADER",
-    action = wezterm.action.ActivatePaneDirection("Left"),
+    action = wez.action.ActivatePaneDirection("Left"),
   },
   {
     key = "j",
     mods = "LEADER",
-    action = wezterm.action.ActivatePaneDirection("Down"),
+    action = wez.action.ActivatePaneDirection("Down"),
   },
   {
     key = "k",
     mods = "LEADER",
-    action = wezterm.action.ActivatePaneDirection("Up"),
+    action = wez.action.ActivatePaneDirection("Up"),
   },
   {
     key = "l",
     mods = "LEADER",
-    action = wezterm.action.ActivatePaneDirection("Right"),
+    action = wez.action.ActivatePaneDirection("Right"),
   },
   {
     key = "c",
     mods = "LEADER",
-    action = wezterm.action.CloseCurrentPane({ confirm = true }),
+    action = wez.action.CloseCurrentPane({ confirm = true }),
   },
   {
     key = "z",
     mods = "LEADER",
-    action = wezterm.action.TogglePaneZoomState,
+    action = wez.action.TogglePaneZoomState,
   },
   {
     key = "r",
     mods = "LEADER",
-    action = wezterm.action.ActivateKeyTable({ name = "resize_pane", one_shot = false }),
+    action = wez.action.ActivateKeyTable({ name = "resize_pane", one_shot = false }),
   },
   {
     key = "p",
     mods = "LEADER",
-    action = wezterm.action.PaneSelect,
+    action = wez.action.PaneSelect,
   },
   {
     key = "P",
     mods = "LEADER",
-    action = wezterm.action.PaneSelect({ mode = "SwapWithActive" }),
+    action = wez.action.PaneSelect({ mode = "SwapWithActive" }),
   },
   -- { key = "x", mods = "CTRL", action = wezterm.action.ActivateCopyMode },
   {
     key = "r",
     mods = "CMD|SHIFT",
-    action = wezterm.action.ReloadConfiguration,
+    action = wez.action.ReloadConfiguration,
   },
 
   -- Shouldn't conflict with linux/windows
   -- Make Option-Left equivalent to Alt-b which many line editors interpret as backward-word
-  { key = "LeftArrow", mods = "OPT", action = wezterm.action({ SendString = "\x1bb" }) },
+  { key = "LeftArrow", mods = "OPT", action = wez.action({ SendString = "\x1bb" }) },
   -- Make Option-Right equivalent to Alt-f; forward-word
-  { key = "RightArrow", mods = "OPT", action = wezterm.action({ SendString = "\x1bf" }) },
-
+  { key = "RightArrow", mods = "OPT", action = wez.action({ SendString = "\x1bf" }) },
+  {
+    key = ",",
+    mods = "LEADER",
+    action = wez.action.PromptInputLine({
+      description = "Enter new name for tab",
+      action = wez.action_callback(function(window, pane, line)
+        -- line will be `nil` if they hit escape without entering anything
+        -- An empty string if they just hit enter
+        -- Or the actual line of text they wrote
+        if line then
+          window:active_tab():set_title(line)
+        end
+      end),
+    }),
+  },
+  {
+    key = "m",
+    mods = "LEADER",
+    action = wez.action.ShowLauncherArgs({
+      flags = "FUZZY|WORKSPACES",
+    }),
+  },
+  {
+    key = "n",
+    mods = "LEADER",
+    action = wez.action.PromptInputLine({
+      description = wez.format({
+        { Attribute = { Intensity = "Bold" } },
+        { Text = "Enter name for new workspace" },
+      }),
+      action = wez.action_callback(function(window, pane, line)
+        -- line will be `nil` if they hit escape without entering anything
+        -- An empty string if they just hit enter
+        -- Or the actual line of text they wrote
+        if line then
+          window:perform_action(
+            wez.action.SwitchToWorkspace({
+              name = #line > 0 and line or "unamed",
+            }),
+            pane
+          )
+        end
+      end),
+    }),
+  },
   {
     key = "F12",
-    action = wezterm.action_callback(function(_, pane)
+    action = wez.action_callback(function(_, pane)
       local tab = pane:tab()
       local panes = tab:panes_with_info()
       if #panes == 1 then
@@ -299,27 +352,41 @@ config.keys = {
       end
     end),
   },
+  {
+    -- enter tab/workspace navigation mode in vim style hl for tabs and and jk for workspaces
+    key = "j",
+    mods = "LEADER",
+    action = wez.action.ActivateKeyTable({ name = "navigate", one_shot = false }),
+  },
 }
 
 config.key_tables = {
   resize_pane = {
     -- TODO: is it possible to make this value dynamic based on resolution?
-    { key = "h", action = wezterm.action.AdjustPaneSize({ "Left", 2 }) },
-    { key = "j", action = wezterm.action.AdjustPaneSize({ "Down", 2 }) },
-    { key = "k", action = wezterm.action.AdjustPaneSize({ "Up", 2 }) },
-    { key = "l", action = wezterm.action.AdjustPaneSize({ "Right", 2 }) },
+    { key = "h", action = wez.action.AdjustPaneSize({ "Left", 2 }) },
+    { key = "j", action = wez.action.AdjustPaneSize({ "Down", 2 }) },
+    { key = "k", action = wez.action.AdjustPaneSize({ "Up", 2 }) },
+    { key = "l", action = wez.action.AdjustPaneSize({ "Right", 2 }) },
     {
       key = "r",
-      action = wezterm.action.RotatePanes("Clockwise"),
+      action = wez.action.RotatePanes("Clockwise"),
     },
     {
       key = "H",
-      action = wezterm.action.MoveTabRelative(-1),
+      action = wez.action.MoveTabRelative(-1),
     },
     {
       key = "L",
-      action = wezterm.action.MoveTabRelative(1),
+      action = wez.action.MoveTabRelative(1),
     },
+    { key = "Escape", action = "PopKeyTable" },
+    { key = "Enter", action = "PopKeyTable" },
+  },
+  navigate = {
+    { key = "j", action = wez.action.SwitchWorkspaceRelative(1) },
+    { key = "k", action = wez.action.SwitchWorkspaceRelative(-1) },
+    { key = "h", action = wez.action.ActivateTabRelative(-1) },
+    { key = "l", action = wez.action.ActivateTabRelative(1) },
     { key = "Escape", action = "PopKeyTable" },
     { key = "Enter", action = "PopKeyTable" },
   },
@@ -330,22 +397,23 @@ config.mouse_bindings = {
   {
     event = { Up = { streak = 1, button = "Left" } },
     mods = "NONE",
-    action = wezterm.action.DisableDefaultAssignment,
+    action = wez.action.DisableDefaultAssignment,
   },
   -- Ctrl-click will open the link under the mouse cursor
   {
     event = { Up = { streak = 1, button = "Left" } },
     mods = "CTRL",
-    action = wezterm.action.OpenLinkAtMouseCursor,
+    action = wez.action.OpenLinkAtMouseCursor,
   },
   -- Disable the Ctrl-click down event to stop programs from seeing it when a URL is clicked
   {
     event = { Down = { streak = 1, button = "Left" } },
     mods = "CTRL",
-    action = wezterm.action.Nop,
+    action = wez.action.Nop,
   },
 }
 
+local smart_splits = wez.plugin.require("https://github.com/mrjones2014/smart-splits.nvim")
 smart_splits.apply_to_config(config, {
   -- directional keys to use in order of: left, down, up, right
   direction_keys = { "h", "j", "k", "l" },
