@@ -218,7 +218,6 @@ wez.on("update-status", function(window, pane)
   local left = {}
   shared.concat_array(left, mode)
   shared.concat_array(left, workspaces)
-  print(left)
 
   window:set_left_status(wez.format(left))
 end)
