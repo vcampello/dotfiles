@@ -207,8 +207,9 @@ wez.on("update-status", function(window, pane)
 
   local default_mode = "normal"
   local mode_text = window:active_key_table() or default_mode
+  local mode_icon = mode_text == default_mode and "󰨙 " or "󰔡 "
   local mode = shared.build_elements({
-    shared.format_text({ "󰨚 ", mode_text:upper() }),
+    shared.format_text({ mode_icon, mode_text:upper() }),
   }, {
     bg = mode_text == default_mode and theme.COLORS.black or theme.COLORS.purple,
     fg = theme.COLORS.white,
