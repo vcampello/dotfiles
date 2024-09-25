@@ -339,7 +339,7 @@ config.keys = {
         if line then
           window:perform_action(
             wez.action.SwitchToWorkspace({
-              name = #line > 0 and line or "unamed",
+              name = #line > 0 and line or "unnamed",
             }),
             pane
           )
