@@ -328,7 +328,6 @@ config.keys = {
         -- Or the actual line of text they wrote
         if line then
           mux.rename_workspace(mux.get_active_workspace(), line)
-          window:active_tab():set_title(line)
         end
       end),
     }),
