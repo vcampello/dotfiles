@@ -54,11 +54,12 @@ config.unix_domains = {
   },
 }
 
+--TEMP: disabled as it was causing rendering lag on macos
 -- This causes `wezterm` to act as though it was started as
 -- `wezterm connect unix` by default, connecting to the unix
 -- domain on startup.
 -- If you prefer to connect manually, leave out this line.
-config.default_gui_startup_args = { "connect", "unix" }
+-- config.default_gui_startup_args = { "connect", "unix" }
 
 -- Can be overridden by editors and other applications
 config.default_cursor_style = "BlinkingBlock"
