@@ -176,7 +176,7 @@ end
 wez.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
   local title = tab_title(tab)
 
-  local elements = shared.build_elements({ shared.format_text({ tostring(tab.tab_index), " ", title }) }, {
+  local elements = shared.build_elements({ { tostring(tab.tab_index), " ", title } }, {
     -- when active set background to yellow and text to amber
     bg = tab.is_active and theme.COLORS.amber or theme.COLORS.gray,
     fg = tab.is_active and theme.COLORS.black or theme.COLORS.white,
@@ -190,17 +190,18 @@ wez.on("update-status", function(window, pane)
   local stripped_cwd = get_stripped_current_working_dir(cwd_uri)
 
   local right = shared.build_elements({
-    shared.format_text({ "󰉌 ", stripped_cwd.cwd }),
-    shared.format_text({ "󰞇 ", (os.getenv("USER") or "anon") }),
-    shared.format_text({ "󰌢 ", stripped_cwd.hostname }),
+    { "󰉌 ", stripped_cwd.cwd },
+    { "󰞇 ", (os.getenv("USER") or "anon") },
+    { "󰌢 ", stripped_cwd.hostname },
   }, {
     bg = theme.COLORS.gray,
     fg = theme.COLORS.white,
   })
+  -- prevent errors on lua repl
   window:set_right_status(wez.format(right))
 
   local workspaces = shared.build_elements({
-    shared.format_text({ tostring(#mux.get_workspace_names()), " ", window:active_workspace() }),
+    { tostring(#mux.get_workspace_names()), " ", window:active_workspace() },
   }, {
     bg = theme.COLORS.red,
     fg = theme.COLORS.white,
@@ -210,15 +211,13 @@ wez.on("update-status", function(window, pane)
   local mode_text = window:active_key_table() or default_mode
   local mode_icon = mode_text == default_mode and "󰨙 " or "󰔡 "
   local mode = shared.build_elements({
-    shared.format_text({ mode_icon, mode_text:upper() }),
+    { mode_icon, mode_text:upper() },
   }, {
     bg = mode_text == default_mode and theme.COLORS.black or theme.COLORS.purple,
     fg = theme.COLORS.white,
   })
 
-  local left = {}
-  shared.concat_array(left, mode)
-  shared.concat_array(left, workspaces)
+  local left = shared.concat_array({}, mode, workspaces)
 
   window:set_left_status(wez.format(left))
 end)
