@@ -210,14 +210,17 @@ wez.on("update-status", function(window, pane)
   local default_mode = "normal"
   local mode_text = window:active_key_table() or default_mode
   local mode_icon = mode_text == default_mode and "󰨙 " or "󰔡 "
+  local mode_bg = mode_text == default_mode and theme.COLORS.black or theme.COLORS.purple
+  local mode_fg = theme.COLORS.white
+
   local mode = shared.build_elements({
     { mode_icon, mode_text:upper() },
   }, {
-    bg = mode_text == default_mode and theme.COLORS.black or theme.COLORS.purple,
-    fg = theme.COLORS.white,
+    bg = mode_bg,
+    fg = mode_fg,
   })
 
-  local left = shared.concat_array({}, mode, workspaces)
+  local left = shared.concat_array(mode, workspaces)
 
   window:set_left_status(wez.format(left))
 end)
