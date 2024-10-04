@@ -1,8 +1,5 @@
 return {
   "vim-test/vim-test",
-  dependencies = {
-    "preservim/vimux",
-  },
   config = function()
     vim.cmd("let test#strategy = 'neovim'")
     vim.cmd("let test#neovim#term_position = 'botright vsplit'")
