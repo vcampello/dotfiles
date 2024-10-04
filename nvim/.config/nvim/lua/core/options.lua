@@ -67,6 +67,10 @@ vim.opt.showmode = false -- hide mode on status line since it's been replace by 
 --REVIEW: what about 'unload'?
 vim.o.jumpoptions = "stack"
 
+-- enable jumping to files in terminal output using gf
+-- may cause performance issues with :find
+vim.opt.path:append("**")
+
 -- Show invisible characters
 vim.opt.list = true
 vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }

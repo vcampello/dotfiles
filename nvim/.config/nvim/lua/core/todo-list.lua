@@ -158,7 +158,7 @@ function M.setup()
   })
 
   -- default keymap
-  vim.keymap.set("n", "<leader>t", M.actions.toggle, { desc = "Toggle to-do list", silent = true })
+  vim.keymap.set("n", "<leader>T", M.actions.toggle, { desc = "Toggle to-do list", silent = true })
 end
 
 return M
