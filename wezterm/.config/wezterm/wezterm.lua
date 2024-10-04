@@ -384,12 +384,6 @@ config.keys = {
       end
     end),
   },
-  {
-    -- enter tab/workspace navigation mode in vim style hl for tabs and and jk for workspaces
-    key = "j",
-    mods = "LEADER",
-    action = wez.action.ActivateKeyTable({ name = "navigate", one_shot = false }),
-  },
 }
 
 config.key_tables = {
@@ -415,14 +409,39 @@ config.key_tables = {
     { key = "Enter", action = "PopKeyTable" },
   },
   navigate = {
-    { key = "j", action = wez.action.SwitchWorkspaceRelative(1) },
-    { key = "k", action = wez.action.SwitchWorkspaceRelative(-1) },
-    { key = "h", action = wez.action.ActivateTabRelative(-1) },
-    { key = "l", action = wez.action.ActivateTabRelative(1) },
     { key = "Escape", action = "PopKeyTable" },
     { key = "Enter", action = "PopKeyTable" },
+    -- the rest will be added by the loop below
   },
 }
+
+-- enter tab/workspace navigation mode in vim style hl for tabs and and jk for workspaces
+local navigation_actions = {
+  j = wez.action.SwitchWorkspaceRelative(1),
+  k = wez.action.SwitchWorkspaceRelative(-1),
+  h = wez.action.ActivateTabRelative(-1),
+  l = wez.action.ActivateTabRelative(1),
+}
+
+for key, mapped_action in pairs(navigation_actions) do
+  -- insert keymaps
+  table.insert(config.keys, {
+    key = key,
+    mods = "LEADER",
+    -- action = wez.action.ActivateKeyTable({ name = "navigate", one_shot = false }),
+    action = wez.action.Multiple({
+      -- prevent nested keytables
+      wez.action.ClearKeyTableStack,
+      -- trigger the action first before entering the key table
+      mapped_action,
+      -- enter navigate mode
+      wez.action.ActivateKeyTable({ name = "navigate", one_shot = false }),
+    }),
+  })
+
+  -- insert into key_tables
+  table.insert(config.key_tables.navigate, { key = key, action = mapped_action })
+end
 
 config.mouse_bindings = {
   -- Disable the default click behavior
