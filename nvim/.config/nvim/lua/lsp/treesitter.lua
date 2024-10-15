@@ -4,6 +4,14 @@ return {
   "nvim-treesitter/nvim-treesitter",
   dependencies = {
     "nvim-treesitter/nvim-treesitter-textobjects",
+    {
+
+      "nvim-treesitter/nvim-treesitter-context",
+      config = function()
+        local ctx = require("treesitter-context")
+        ctx.setup({ separator = "-" })
+      end,
+    },
   },
   build = ":TSUpdate",
   config = function()
@@ -99,6 +107,14 @@ return {
           },
           swap_previous = {
             ["<leader>A"] = "@parameter.inner",
+          },
+        },
+        lsp_interop = {
+          enable = true,
+          border = "rounded",
+          peek_definition_code = {
+            ["<leader>df"] = "@function.outer",
+            ["<leader>dF"] = "@class.outer",
           },
         },
       },
