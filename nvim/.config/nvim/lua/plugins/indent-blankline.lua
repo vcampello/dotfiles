@@ -8,16 +8,6 @@ return {
   ---@type ibl.config
   opts = {},
   config = function()
-    -- setup rainbow-delimiters integration
-    local highlight = {
-      "RainbowRed",
-      "RainbowYellow",
-      "RainbowBlue",
-      "RainbowOrange",
-      "RainbowGreen",
-      "RainbowViolet",
-      "RainbowCyan",
-    }
     -- Define colorscheme from RainbowDelimiters
     local highlight = {
       "RainbowDelimiterRed",
