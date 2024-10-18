@@ -1,20 +1,18 @@
 return {
-  "EdenEast/nightfox.nvim",
-  lazy = false,
-  priority = 1000,
+  "rose-pine/neovim",
+  as = "rose-pine",
   config = function()
-    require("nightfox").setup({
-      options = {
-        transparent = true,
-      },
-      groups = {
-        all = {
-          NormalFloat = {
-            bg = "NONE",
-          },
-        },
+    require("rose-pine").setup({
+      styles = {
+        transparency = true,
       },
     })
-    vim.cmd.colorscheme("carbonfox")
+    vim.cmd.colorscheme("rose-pine")
+    require("lualine").setup({
+      options = {
+        --- @usage 'rose-pine' | 'rose-pine-alt'
+        theme = "rose-pine",
+      },
+    })
   end,
 }

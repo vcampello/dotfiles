@@ -2,18 +2,7 @@ return {
   -- Set lualine as statusline
   "nvim-lualine/lualine.nvim",
   config = function()
-    local theme = require("lualine.themes.auto")
-    -- #ffbf00
-    -- theme.inactive.a.bg = "#704040"
-    -- theme.inactive.a.fg = theme.normal.c.fg
-    -- theme.inactive.c.bg = "#29294f"
-    -- theme.inactive.c.fg = theme.normal.c.fg
-    -- theme.normal.c.bg = "#29294f"
-
     require("lualine").setup({
-      options = {
-        theme = theme,
-      },
       path = 1, -- Relative path
       extensions = { "neo-tree" },
       tabline = {
