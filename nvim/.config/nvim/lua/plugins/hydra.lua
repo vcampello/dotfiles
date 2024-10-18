@@ -5,6 +5,22 @@ M.hydras = {}
 M.current_idx = 1
 
 ---Get current hydra
+---@param opts { name: string, dry_run?: boolean }
+---@return Hydra current
+function M.switch_by_name(opts)
+  for idx, value in ipairs(M.hydras) do
+    if value.name:lower() == opts.name:lower() then
+      if opts.dry_run ~= true then
+        M.current_idx = idx
+      end
+
+      return M.hydras[idx]
+    end
+  end
+  error("Hydra " .. opts.name .. " not found", vim.log.levels.ERROR)
+end
+
+---Get current hydra
 ---@return Hydra current
 function M.get_current()
   return M.hydras[M.current_idx]
@@ -13,7 +29,7 @@ end
 ---Get hydra from offset. Wraps around
 ---@param opts { offset: number, dry_run?: boolean }
 ---@return Hydra current
-function M.cycle(opts)
+function M.switch_by_offset(opts)
   if #M.hydras == 0 then
     error("No navigation hydras", vim.log.levels.ERROR)
   end
@@ -24,111 +40,107 @@ function M.cycle(opts)
   if opts.dry_run ~= true then
     M.current_idx = new_idx
   end
+  -- print("cycling to " .. M.hydras[new_idx].name)
 
   return M.hydras[new_idx]
 end
 
----Create text object query heads for hydra
----@param query string
----@return { prev: fun(), next: fun()}
-function M.create_textobject_heads(query)
-  return {
-    prev = function()
-      vim.cmd.TSTextobjectGotoPreviousStart(query)
-    end,
-    next = function()
-      vim.cmd.TSTextobjectGotoNextStart(query)
-    end,
+---@class NavHydra
+---@field name string
+---@field keymap? string
+---@field heads table<string, hydra.Head >
+
+---@param opts NavHydra
+---@return Hydra
+function M.create_nav_hydra(opts)
+  --default heads
+  ---@type table<string, hydra.Head>
+  local heads = {
+    {
+      "h",
+      function(opts)
+        print(vim.v.count)
+        M.get_current():exit()
+        M.switch_by_offset({ offset = -1 }):activate()
+      end,
+      { exit = true, desc = "Previous mode", nowait = true },
+    },
+    {
+      "l",
+      function()
+        -- prevent bugs causing hydras to get stuck or flicker
+        M.get_current():exit()
+        M.switch_by_offset({ offset = 1 }):activate()
+      end,
+      { exit = true, desc = "Next move", nowait = true },
+    },
   }
+  --insert user heads
+  for _, head in ipairs(opts.heads) do
+    table.insert(heads, head)
+  end
+
+  local hint = [[ %{get_hint} ]]
+  local new_hydra = require("hydra")({
+    name = opts.name,
+    -- mode = { "n", "x" },
+    -- body = '<leader>;',
+    hint = hint,
+    config = {
+      color = "red",
+      invoke_on_body = true,
+      hint = {
+        float_opts = {
+          -- row, col, height, width, relative, and anchor should not be
+          -- overridden
+          style = "minimal",
+          focusable = false,
+          noautocmd = true,
+          border = "rounded",
+          -- title = " Nav: " .. opts.name,
+          -- title_pos = "center",
+        },
+        position = "bottom",
+        funcs = {
+          get_hint = function()
+            local modes = {}
+            for _, value in ipairs(M.hydras) do
+              local display = value.name
+              if M.get_current().name == value.name then
+                display = string.format("_h_   %s   _l_", value.name)
+              end
+              table.insert(modes, display)
+            end
+            return table.concat(modes, "  ")
+          end,
+        },
+      },
+      on_key = function()
+        vim.wait(50)
+      end,
+    },
+    heads = heads,
+  })
+
+  if opts.keymap and #opts.keymap > 0 then
+    vim.keymap.set({ "n", "x" }, opts.keymap, function()
+      M.switch_by_name({ name = opts.name }):activate()
+    end, { desc = opts.name })
+  end
+
+  return new_hydra
 end
 
 return {
   "nvimtools/hydra.nvim",
   config = function()
-    local Hydra = require("hydra")
-
-    ---@class NavHydra
-    ---@field name string
-    ---@field heads table<string,hydra.Head>
-
-    ---@param opts NavHydra
-    ---@return Hydra
-    function M.create_nav_hydra(opts)
-      --default heads
-      ---@type table<string, hydra.Head>
-      local heads = {
-        {
-          "h",
-          function()
-            M.cycle({ offset = -1 })
-            M.get_current():activate()
-          end,
-          { exit = true, desc = "Previous mode" },
-        },
-        {
-          "l",
-          function()
-            M.cycle({ offset = 1 })
-            M.get_current():activate()
-          end,
-          { exit = true, desc = "Next move" },
-        },
-      }
-      --insert user heads
-      for _, head in ipairs(opts.heads) do
-        table.insert(heads, head)
-      end
-
-      local hint = [[ %{get_hint} ]]
-      return Hydra({
-        name = opts.name,
-        -- mode = { "n", "x" },
-        -- body = '<leader>;',
-        hint = hint,
-        config = {
-          color = "red",
-          invoke_on_body = true,
-          hint = {
-            float_opts = {
-              -- row, col, height, width, relative, and anchor should not be
-              -- overridden
-              style = "minimal",
-              focusable = false,
-              noautocmd = true,
-              border = "rounded",
-              -- title = " Nav: " .. opts.name,
-              -- title_pos = "center",
-            },
-            position = "bottom",
-            funcs = {
-              get_hint = function()
-                local modes = {}
-                for _, value in ipairs(M.hydras) do
-                  local display = value.name
-                  if M.get_current().name == value.name then
-                    display = string.format("_h_   %s   _l_", value.name)
-                  end
-                  table.insert(modes, display)
-                end
-                return table.concat(modes, "  ")
-              end,
-            },
-          },
-          on_key = function()
-            vim.wait(50)
-          end,
-        },
-        heads = heads,
-      })
-    end
-
     local gitsigns = require("gitsigns")
 
     local ts_queries = {
-      { name = "Functions", query = "@function.outer" },
-      { name = "Classes", query = "@class.outer" },
-      { name = "Conditional", query = "@conditional.outer" },
-      { name = "Comments", query = "@comment.outer" },
+      { name = "Function", query = "@function.outer", keymap = "<leader>;f" },
+      { name = "Class", query = "@class.outer", keymap = "<leader>;c" },
+      { name = "Conditional", query = "@conditional.outer", keymap = "<leader>;i" },
+      { name = "Comment", query = "@comment.outer", keymap = "<leader>;g" },
       { name = "Loop", query = "@loop.outer" },
       { name = "Parameter", query = "@parameter.outer" },
     }
@@ -138,40 +150,79 @@ return {
         M.hydras,
         M.create_nav_hydra({
           name = value.name,
+          keymap = value.keymap,
           heads = {
             {
               "j",
               function()
                 vim.cmd.TSTextobjectGotoNextStart(value.query)
               end,
-              { desc = "Next start" },
+              { desc = "Next start", nowait = true },
             },
             {
               "k",
               function()
                 vim.cmd.TSTextobjectGotoPreviousStart(value.query)
               end,
-              { desc = "Previous start" },
+              { desc = "Previous start", nowait = true },
             },
             {
               "J",
               function()
                 vim.cmd.TSTextobjectGotoNextEnd(value.query)
               end,
-              { desc = "Next end" },
+              { desc = "Next end", nowait = true },
             },
             {
               "K",
               function()
                 vim.cmd.TSTextobjectGotoPreviousEnd(value.query)
               end,
-              { desc = "Previous end" },
+              { desc = "Previous end", nowait = true },
             },
           },
         })
       )
     end
 
+    -- diagnostics
+    table.insert(
+      M.hydras,
+      M.create_nav_hydra({
+        name = "Diagnostics",
+        keymap = "<leader>;d",
+        heads = {
+          {
+            "j",
+            function()
+              vim.diagnostic.goto_next()
+            end,
+            { desc = "Next", nowait = true },
+          },
+          {
+            "k",
+            function()
+              vim.diagnostic.goto_prev()
+            end,
+            { desc = "Previous", nowait = true },
+          },
+          {
+            "J",
+            function()
+              vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR })
+            end,
+            { desc = "Next", nowait = true },
+          },
+          {
+            "K",
+            function()
+              vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR })
+            end,
+            { desc = "Previous", nowait = true },
+          },
+        },
+      })
+    )
     -- chunks
     table.insert(
       M.hydras,
@@ -186,7 +237,7 @@ return {
               end
               gitsigns.next_hunk()
             end,
-            { desc = "Next" },
+            { desc = "Next", nowait = true },
           },
           {
             "k",
@@ -196,7 +247,7 @@ return {
               end
               gitsigns.prev_hunk()
             end,
-            { desc = "Previous" },
+            { desc = "Previous", nowait = true },
           },
         },
       })
@@ -206,10 +257,11 @@ return {
     table.insert(
       M.hydras,
       M.create_nav_hydra({
-        name = "Buffers",
+        name = "Buffer",
+        keymap = "<leader>;b",
         heads = {
-          { "j", vim.cmd.bnext, { desc = "Next" } },
-          { "k", vim.cmd.bprev, { desc = "Previous" } },
+          { "j", vim.cmd.bnext, { desc = "Next", nowait = true } },
+          { "k", vim.cmd.bprev, { desc = "Previous", nowait = true } },
         },
       })
     )
@@ -219,6 +271,7 @@ return {
       M.hydras,
       M.create_nav_hydra({
         name = "Quickfix",
+        keymap = "<leader>;q",
         heads = {
           {
             "j",
@@ -228,7 +281,7 @@ return {
               end
               vim.cmd.cnext()
             end,
-            { desc = "Next" },
+            { desc = "Next", nowait = true },
           },
           {
             "k",
@@ -238,15 +291,15 @@ return {
               end
               vim.cmd.cprev()
             end,
-            { desc = "Previous" },
+            { desc = "Previous", nowait = true },
           },
         },
       })
     )
-
     -- keymap
     vim.keymap.set({ "n", "x" }, "<leader>;", function()
+      M.get_current():exit()
       M.get_current():activate()
-    end)
+    end, { desc = "Nav mode" })
   end,
 }
