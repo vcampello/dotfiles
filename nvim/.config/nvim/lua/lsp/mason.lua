@@ -100,6 +100,7 @@ return {
       rust_analyzer = {},
       gopls = {},
       templ = {},
+      sqlls = {},
       -- NOTE: replaced by typescript-tools on_attach
       ts_ls = {},
       eslint = {},
@@ -190,7 +191,7 @@ return {
         require("lspconfig")[server_name].setup({
           capabilities = capabilities,
           on_attach = on_attach,
-          settings = servers[server_name],
+          settings = (servers[server_name] or {}).settings,
           filetypes = (servers[server_name] or {}).filetypes,
           handlers = handlers,
         })
