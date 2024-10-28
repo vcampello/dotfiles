@@ -42,10 +42,15 @@ return {
         vim.keymap.set("i", keys, func, { buffer = bufnr, desc = desc })
       end
 
-      -- NOTE: this makes text shift horizontally and it is distracting
-      -- if client.server_capabilities.inlayHintProvider then
-      --   vim.lsp.inlay_hint.enable(bufnr, true)
-      -- end
+      -- NOTE: this makes text shift horizontally and it can be distracting
+      if client.server_capabilities.inlayHintProvider then
+        print("enabling inlay")
+        vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+      end
+
+      nmap("<leader>li", function()
+        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+      end, "Toggle inlay hints")
 
       local fzf = require("fzf-lua")
       nmap("<leader>lr", vim.lsp.buf.rename, "Rename")
@@ -98,7 +103,19 @@ return {
       clangd = {},
       pyright = {},
       rust_analyzer = {},
-      gopls = {},
+      gopls = {
+        settings = {
+          hints = {
+            assignVariableTypes = true,
+            compositeLiteralFields = true,
+            compositeLiteralTypes = true,
+            constantValues = true,
+            functionTypeParameters = true,
+            parameterNames = true,
+            rangeVariableTypes = true,
+          },
+        },
+      },
       templ = {},
       sqlls = {},
       -- NOTE: replaced by typescript-tools on_attach
@@ -186,6 +203,16 @@ return {
             on_attach = on_attach,
             settings = {
               expose_as_code_action = "all",
+              -- TODO: migrate this to ts_ls (the structure is different)
+              tsserver_file_preferences = {
+                includeInlayParameterNameHints = "all",
+                includeInlayEnumMemberValueHints = true,
+                includeInlayFunctionLikeReturnTypeHints = true,
+                includeInlayFunctionParameterTypeHints = true,
+                includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+                includeInlayPropertyDeclarationTypeHints = true,
+                -- includeInlayVariableTypeHints = true,
+              },
             },
           })
           return
