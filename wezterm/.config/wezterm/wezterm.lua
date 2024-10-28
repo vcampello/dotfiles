@@ -83,7 +83,7 @@ config.background = {
     width = "100%",
     height = "100%",
     opacity = 0.95,
-    hsb = { hue = 1, saturation = 1.0, brightness = 0.8 },
+    hsb = { hue = 1, saturation = 1.4, brightness = 0.8 },
   },
 }
 
