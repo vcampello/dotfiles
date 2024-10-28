@@ -44,7 +44,6 @@ return {
 
       -- NOTE: this makes text shift horizontally and it can be distracting
       if client.server_capabilities.inlayHintProvider then
-        print("enabling inlay")
         vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
       end
 
