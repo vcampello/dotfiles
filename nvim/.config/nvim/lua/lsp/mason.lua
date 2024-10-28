@@ -114,15 +114,18 @@ return {
       emmet_language_server = {},
 
       lua_ls = {
-        Lua = {
-          format = {
-            enable = false,
-          },
-          workspace = { checkThirdParty = false },
-          telemetry = { enable = false },
-          diagnostics = {
-            -- Get the language server to recognize the `vim` global
-            globals = { "vim" },
+        settings = {
+          Lua = {
+            hint = { enable = true, paramType = true },
+            format = {
+              enable = false,
+            },
+            workspace = { checkThirdParty = false },
+            telemetry = { enable = false },
+            diagnostics = {
+              -- Get the language server to recognize the `vim` global
+              globals = { "vim" },
+            },
           },
         },
       },
