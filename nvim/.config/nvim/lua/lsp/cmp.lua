@@ -69,7 +69,16 @@ return {
         end, { "i", "s" }),
       }),
       sources = {
-        { name = "nvim_lsp" },
+        {
+          name = "nvim_lsp",
+          entry_filter = function(entry)
+            return require("cmp.types").lsp.CompletionItemKind[entry:get_kind()] ~= "Text"
+          end,
+        },
+        {
+          name = "lazydev",
+          group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+        },
         { name = "luasnip" },
         { name = "async_path" },
         {
@@ -79,10 +88,6 @@ return {
             enable_in_context = function()
               return require("cmp.config.context").in_treesitter_capture("spell")
             end,
-          },
-          {
-            name = "lazydev",
-            group_index = 0, -- set group index to 0 to skip loading LuaLS completions
           },
         },
       },
