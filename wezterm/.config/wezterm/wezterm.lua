@@ -77,13 +77,13 @@ config.background = {
   },
   {
     source = {
-      -- Color = theme.COLORS.black,
-      Color = theme.COLORS.rosepine, --r
+      Color = theme.COLORS.kanagawa_dragon,
+      -- Color = theme.COLORS.rosepine, --r
     },
     width = "100%",
     height = "100%",
     opacity = 0.95,
-    hsb = { hue = 1, saturation = 1.4, brightness = 0.8 },
+    -- hsb = { hue = 1, saturation = 1.0, brightness = 0.8 },
   },
 }
 

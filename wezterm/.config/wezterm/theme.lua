@@ -9,12 +9,13 @@ M.COLORS = {
   purple = "#810CA8",
   red = "#750E21",
   rosepine = "#211b29",
+  kanagawa_dragon = "#181616",
 }
 
 -- TODO: create palette
 M.palette = {
   status_bar = {
-    bg = M.COLORS.rosepine,
+    bg = M.COLORS.kanagawa_dragon,
   },
 }
 
