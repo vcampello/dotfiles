@@ -59,6 +59,8 @@ function M.kanagawa()
             NormalFloat = { bg = "none" },
             FloatBorder = { bg = "none" },
             FloatTitle = { bg = "none" },
+            NeotreeTitleBar = { bg = colors.theme.ui.bg_p1 },
+            WinSeparator = { fg = colors.theme.ui.fg },
           }
         end,
       })
