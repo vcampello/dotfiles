@@ -4,11 +4,7 @@ return {
     "HiPhish/rainbow-delimiters.nvim",
   },
   main = "ibl",
-  ---@module "ibl"
-  ---@type ibl.config
-  opts = {},
   config = function()
-    -- Define colorscheme from RainbowDelimiters
     local highlight = {
       "RainbowDelimiterRed",
       "RainbowDelimiterYellow",
@@ -18,10 +14,12 @@ return {
       "RainbowDelimiterViolet",
       "RainbowDelimiterCyan",
     }
-    local hooks = require("ibl.hooks")
-
+    vim.g.rainbow_delimiters = { highlight = highlight }
     require("ibl").setup({ scope = { highlight = highlight } })
 
+    local hooks = require("ibl.hooks")
     hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
+    hooks.register(hooks.type.WHITESPACE, hooks.builtin.hide_first_space_indent_level)
+    hooks.register(hooks.type.WHITESPACE, hooks.builtin.hide_first_tab_indent_level)
   end,
 }
