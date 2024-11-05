@@ -61,6 +61,10 @@ function M.kanagawa()
             FloatTitle = { bg = "none" },
             NeotreeTitleBar = { bg = colors.theme.ui.bg_p1 },
             WinSeparator = { fg = colors.theme.ui.fg },
+            Error = { fg = "#962D1B" },
+            DiagnosticError = { fg = "#962D1B" },
+            ErrorMessage = { fg = "#962D1B" },
+            NvimInternalError = { bg = "#962D1B", fg = "none" },
           }
         end,
       })
