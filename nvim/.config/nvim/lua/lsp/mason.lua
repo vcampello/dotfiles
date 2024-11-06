@@ -43,12 +43,14 @@ return {
       end
 
       -- NOTE: this makes text shift horizontally and it can be distracting
+      local inlay_hint_filter = { bufnr = bufnr }
       if client.server_capabilities.inlayHintProvider then
-        vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+        vim.lsp.inlay_hint.enable(false, inlay_hint_filter)
       end
 
       nmap("<leader>li", function()
-        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+        local is_enabled = vim.lsp.inlay_hint.is_enabled(inlay_hint_filter)
+        vim.lsp.inlay_hint.enable(not is_enabled, inlay_hint_filter)
       end, "Toggle inlay hints")
 
       local fzf = require("fzf-lua")
