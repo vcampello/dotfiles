@@ -169,6 +169,7 @@ return {
           },
         },
       },
+      glsl_analyzer = {},
     }
 
     -- broadcast addional capabilities to servers
