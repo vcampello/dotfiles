@@ -3,7 +3,7 @@ return {
   dependencies = {
     "neovim/nvim-lspconfig",
   },
-
+  ---@type Options
   opts = {
     lsp = {
       auto_attach = true,
