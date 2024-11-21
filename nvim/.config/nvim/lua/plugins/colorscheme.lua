@@ -24,6 +24,8 @@ function M.nightfox()
   return {
     "EdenEast/nightfox.nvim",
     config = function()
+      local palette = require("nightfox.palette").load("carbonfox")
+      -- print(vim.inspect(palette))
       require("nightfox").setup({
         options = {
           transparent = true,
@@ -31,6 +33,8 @@ function M.nightfox()
         groups = {
           all = {
             NormalFloat = { bg = "NONE" },
+            NeotreeTitleBar = { bg = palette.bg2 },
+            WinSeparator = { fg = palette.fg1 },
           },
         },
       })
