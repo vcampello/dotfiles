@@ -73,4 +73,4 @@ function M.kanagawa()
   }
 end
 
-return M.kanagawa()
+return M.nightfox()
