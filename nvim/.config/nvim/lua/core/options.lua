@@ -78,3 +78,13 @@ vim.opt.writebackup = false -- Don't store backup while overwriting the file
 -- enable jumping to files in terminal output using gf
 -- may cause performance issues with :find
 vim.opt.path:append("**")
+
+-- Highlight when yanking (copying) text
+--  See `:help vim.highlight.on_yank()`
+vim.api.nvim_create_autocmd("TextYankPost", {
+  desc = "Highlight when yanking (copying) text",
+  group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+})
