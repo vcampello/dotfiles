@@ -12,7 +12,7 @@ return {
     -- require("mini.cursorword").setup()
     -- require("mini.indentscope").setup()
     -- require("mini.move").setup() -- conflicts with smart-splits. Let's see if I actually need it
-    require("mini.pairs").setup()
+    -- require("mini.pairs").setup()
     require("mini.surround").setup({
       custom_surroundings = {
         ["("] = { input = { "%b()", "^.().*().$" }, output = { left = "(", right = ")" } },
