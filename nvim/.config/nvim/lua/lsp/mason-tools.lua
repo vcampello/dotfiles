@@ -11,7 +11,8 @@ return {
       "shellcheck",
       "eslint_d",
       "prettierd",
-      "stylua"
+      "stylua",
+      "nixpkgs-fmt",
     },
   },
 }

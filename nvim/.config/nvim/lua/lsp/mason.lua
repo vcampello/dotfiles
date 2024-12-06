@@ -170,6 +170,7 @@ return {
         },
       },
       glsl_analyzer = {},
+      nil_ls = {}, -- Nix support
     }
 
     -- broadcast addional capabilities to servers
