@@ -18,14 +18,9 @@ return {
       end,
     },
   },
-  config = function()
-    require("nvim-autopairs").setup({
-      -- check if the bracket is actually needed aka prevent {}}
-      enable_check_bracket_line = true,
-    })
-    -- If you want to automatically add `(` after selecting a function or method
-    local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-    local cmp = require("cmp")
-    cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
-  end,
+  ---@module 'nvim-autopairs
+  ---@type nvim-ts-autotag.Opts
+  opts = {
+    enable_check_bracket_line = true,
+  },
 }

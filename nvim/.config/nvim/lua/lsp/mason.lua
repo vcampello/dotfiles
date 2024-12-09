@@ -9,7 +9,7 @@ return {
 
     "b0o/schemastore.nvim",
     -- configured in: ./cmp.lua
-    "hrsh7th/nvim-cmp",
+    "saghen/blink.cmp",
     {
       "ckipp01/stylua-nvim",
       build = "cargo install stylua",
@@ -175,7 +175,7 @@ return {
 
     -- broadcast addional capabilities to servers
     local capabilities = vim.lsp.protocol.make_client_capabilities()
-    local cmp_capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+    local cmp_capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
     local file_ops_capabilities = require("lsp-file-operations").default_capabilities()
     capabilities = vim.tbl_deep_extend("force", capabilities, cmp_capabilities, file_ops_capabilities)
 
