@@ -1,30 +1,31 @@
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
 require("core")
 
--- [[ Install `lazy.nvim` plugin manager ]]
---    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
+-- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   local lazyrepo = "https://github.com/folke/lazy.nvim.git"
   local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
   if vim.v.shell_error ~= 0 then
-    error("Error cloning lazy.nvim:\n" .. out)
+    vim.api.nvim_echo({
+      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+      { out, "WarningMsg" },
+      { "\nPress any key to exit..." },
+    }, true, {})
+    vim.fn.getchar()
+    os.exit(1)
   end
-end ---@diagnostic disable-next-line: undefined-field
+end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-  -- NOTE: First, some plugins that don't require any configuration
-
-  -- Detect tabstop and shiftwidth automatically
-  "tpope/vim-sleuth",
+  ui = {
+    border = "single",
+  },
 
   -- NOTE: automatically add plugins, configuration, etc from `lua/plugins/*.lua`
-  { import = "plugins" },
-  { import = "lsp" },
+  spec = {
+    { import = "plugins" },
+    { import = "lsp" },
+  },
 })
-
--- END: override borders
-
--- The line beneath this is called `modeline`. See `:help modeline`
--- vim: ts=2 sts=2 sw=2 et
