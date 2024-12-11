@@ -32,7 +32,7 @@ function M.nightfox()
         },
         groups = {
           all = {
-            NormalFloat = { bg = "NONE" },
+            NormalFloat = { bg = palette.bg1, fg = palette.fg1 },
             NeotreeTitleBar = { bg = palette.bg2 },
             WinSeparator = { fg = palette.fg1 },
           },

@@ -179,6 +179,7 @@ return {
     local file_ops_capabilities = require("lsp-file-operations").default_capabilities()
     capabilities = vim.tbl_deep_extend("force", capabilities, cmp_capabilities, file_ops_capabilities)
 
+    require("mason").setup({ ui = { border = "single" } })
     -- Ensure the servers above are installed
     local mason_lspconfig = require("mason-lspconfig")
 
