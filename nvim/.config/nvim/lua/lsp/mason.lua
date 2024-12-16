@@ -183,6 +183,11 @@ return {
     -- Ensure the servers above are installed
     local mason_lspconfig = require("mason-lspconfig")
 
+    -- nix is required for nil_ls to be installed
+    if vim.fn.executable("nix") == 0 then
+      servers.nil_ls = nil
+    end
+
     mason_lspconfig.setup({
       ensure_installed = vim.tbl_keys(servers),
       automatic_installation = true,
