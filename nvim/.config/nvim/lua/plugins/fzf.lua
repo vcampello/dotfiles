@@ -47,6 +47,9 @@ return {
     fzfconf.set_action_helpstr(pick_window, "pick_window")
 
     fzf.setup({
+      winopts = {
+        fullscreen = true,
+      },
       actions = {
         -- Retain the original actions, then override (replaces all by default)
         files = {
