@@ -53,7 +53,8 @@ config.unix_domains = {
     name = "unix",
   },
 }
-
+-- disable ligatures
+config.harfbuzz_features = { "calt=0" }
 --TEMP: disabled as it was causing rendering lag on macos
 -- This causes `wezterm` to act as though it was started as
 -- `wezterm connect unix` by default, connecting to the unix
