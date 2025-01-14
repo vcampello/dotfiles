@@ -1,5 +1,6 @@
 return {
-  lazy = false,
+  -- lazy = false,
+  event = "LspAttach",
   -- LSP Configuration & Plugins
   "neovim/nvim-lspconfig",
   dependencies = {
