@@ -73,6 +73,7 @@ return {
     map("n", "<leader>fh", fzf.helptags, { desc = "Search help" })
     map("n", "<leader>fH", fzf.manpages, { desc = "Search man pages" })
     map("n", "<leader>fm", fzf.marks, { desc = "Search marks" })
+    map("n", "<leader>fj", fzf.jumps, { desc = "Search jumps" })
     map("n", "<leader>fg", function()
       -- ignore some project files by default
       -- make it interatable through :let g:fzf_ignore_list
