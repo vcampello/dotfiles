@@ -3,6 +3,8 @@ function M.rosepine()
   return {
     "rose-pine/neovim",
     as = "rose-pine",
+    lazy = false,
+    priority = 1000,
     config = function()
       require("rose-pine").setup({
         styles = {
@@ -23,6 +25,8 @@ end
 function M.nightfox()
   return {
     "EdenEast/nightfox.nvim",
+    lazy = false,
+    priority = 1000,
     config = function()
       local palette = require("nightfox.palette").load("carbonfox")
       -- print(vim.inspect(palette))
@@ -46,6 +50,8 @@ end
 function M.kanagawa()
   return {
     "rebelot/kanagawa.nvim",
+    lazy = false,
+    priority = 1000,
     config = function()
       require("kanagawa").setup({
         colors = {
@@ -77,4 +83,33 @@ function M.kanagawa()
   }
 end
 
-return M.nightfox()
+function M.shadow()
+  return {
+    "rjshkhr/shadow.nvim",
+    priority = 1000,
+    config = function()
+      vim.opt.termguicolors = true
+      vim.cmd.colorscheme("shadow")
+    end,
+  }
+end
+
+function M.oldworld()
+  return {
+    "dgox16/oldworld.nvim",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      require("oldworld").setup({
+        highlight_overrides = {
+          Normal = { bg = "none" },
+          NormalFloat = { bg = "none" },
+          FloatBorder = { bg = "none" },
+        },
+      })
+      vim.cmd.colorscheme("oldworld")
+    end,
+  }
+end
+
+return M.oldworld()
