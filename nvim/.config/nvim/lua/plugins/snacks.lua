@@ -23,6 +23,9 @@ return {
       notification = {
         -- wo = { wrap = true } -- Wrap notifications
       },
+      input = {
+        relative = "cursor",
+      },
     },
   },
   keys = {
