@@ -3,7 +3,6 @@ return {
   event = "InsertEnter",
   -- Optional dependency
   dependencies = {
-    "hrsh7th/nvim-cmp",
     {
       "windwp/nvim-ts-autotag",
       config = function()
