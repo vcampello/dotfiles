@@ -106,6 +106,9 @@ function M.oldworld()
           NormalFloat = { bg = "none" },
           FloatBorder = { bg = "none" },
         },
+        integrations = {
+          neo_tree = true,
+        },
       })
       vim.cmd.colorscheme("oldworld")
     end,
