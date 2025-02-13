@@ -60,13 +60,13 @@ return {
       nmap("<leader>la", fzf.lsp_code_actions, "Code Action")
 
       nmap("gd", function()
-        fzf.lsp_definitions({ jump_to_single_result = true })
+        fzf.lsp_definitions({ jump1 = true })
       end, "Goto Definition")
       nmap("gr", function()
-        fzf.lsp_references({ jump_to_single_result = true })
+        fzf.lsp_references({ jump1 = true })
       end, "Goto References")
       nmap("gI", function()
-        fzf.lsp_implementations({ jump_to_single_result = true })
+        fzf.lsp_implementations({ jump1 = true })
       end, "Goto Implementation")
       nmap("<leader>fs", fzf.lsp_document_symbols, "Document Symbols")
 
