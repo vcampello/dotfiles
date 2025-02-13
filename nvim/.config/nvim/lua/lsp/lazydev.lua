@@ -1,20 +1,12 @@
 return {
   "folke/lazydev.nvim",
-  dependencies = {
-    "justinsgithub/wezterm-types",
-    "LelouchHe/xmake-luals-addon",
-  },
   ft = "lua", -- only load on lua files
   opts = {
     library = {
-      -- Or relative, which means they will be resolved from the plugin dir.
-      "luvit-meta/library",
-      { path = "luvit-meta/library", words = { "vim%.uv" } },
-      -- Needs `justinsgithub/wezterm-types` to be installed
-      { path = "wezterm-types", mods = { "wezterm" } },
-      -- Load the xmake types when opening file named `xmake.lua`
-      -- Needs `LelouchHe/xmake-luals-addon` to be installed
-      { path = "xmake-luals-addon/library", files = { "xmake.lua" } },
+      -- See the configuration section for more details
+      -- Load luvit types when the `vim.uv` word is found
+      { path = "${3rd}/luv/library", words = { "vim%.uv" } },
     },
   },
+  -- { "folke/neodev.nvim", enabled = false }, -- make sure to uninstall or disable neodev.nvim
 }
