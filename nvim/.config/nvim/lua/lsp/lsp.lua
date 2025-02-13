@@ -5,25 +5,18 @@ return {
   "neovim/nvim-lspconfig",
   dependencies = {
     -- Automatically install LSPs to stdpath for neovim
-    { "williamboman/mason.nvim", config = true },
+    { "williamboman/mason.nvim", opts = {} },
     "williamboman/mason-lspconfig.nvim",
-
     "b0o/schemastore.nvim",
     -- configured in: ./cmp.lua
     "saghen/blink.cmp",
-    {
-      "ckipp01/stylua-nvim",
-      build = "cargo install stylua",
-    },
     {
       --extended TS server functionality
       "pmizio/typescript-tools.nvim",
       dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
     },
-    {
-      -- set setup on ./file-operations.lua
-      "antosha417/nvim-lsp-file-operations",
-    },
+    -- set setup on ./file-operations.lua
+    "antosha417/nvim-lsp-file-operations",
   },
   config = function()
     --  This function gets run when an LSP connects to a particular buffer.
@@ -92,9 +85,6 @@ return {
       nmap("<leader>lf", format, "Format current buffer with LSP")
     end
 
-    -- TODO: create a better way to set this up so custom configs live with their lsp stuff
-    vim.filetype.add({ extension = { templ = "templ" } })
-
     -- Enable the following language servers
     local servers = {
       -- terraform stuff
@@ -118,7 +108,6 @@ return {
           },
         },
       },
-      templ = {},
       sqlls = {},
       -- NOTE: replaced by typescript-tools on_attach
       ts_ls = {},
