@@ -54,9 +54,8 @@ return {
         },
       },
     },
-    keymap = {
-      preset = "default",
-      cmdline = {
+    cmdline = {
+      keymap = {
         -- stop tab from inserting ^I in cmdline
         preset = "default",
         ["<S-Tab>"] = { "select_prev", "fallback" },
