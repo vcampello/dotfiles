@@ -74,6 +74,12 @@ return {
     map("n", "<leader>fH", fzf.manpages, { desc = "Search man pages" })
     map("n", "<leader>fm", fzf.marks, { desc = "Search marks" })
     map("n", "<leader>fj", fzf.jumps, { desc = "Search jumps" })
+    map("n", "<leader>fk", function()
+      fzf.fzf_exec("git show --name-only --pretty=''", {
+        prompt = "Previous commit files > ",
+        actions = fzf.defaults.actions.files,
+      })
+    end, { desc = "Files changed by previous commit" })
     map("n", "<leader>fg", function()
       -- ignore some project files by default
       -- make it interatable through :let g:fzf_ignore_list
