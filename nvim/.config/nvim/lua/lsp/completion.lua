@@ -14,11 +14,13 @@ return {
   ---@module 'blink.cmp'
   ---@type blink.cmp.Config
   opts = {
+    keymap = { preset = "default" },
     appearance = {
       -- Sets the fallback highlight groups to nvim-cmp's highlight groups
       -- Useful for when your theme doesn't support blink.cmp
       -- will be removed in a future release
       use_nvim_cmp_as_default = true,
+      nerd_font_variant = "mono",
     },
 
     sources = {
@@ -33,38 +35,9 @@ return {
       },
     },
 
-    -- experimental auto-brackets support
-    completion = {
-      accept = {
-        auto_brackets = { enabled = true },
-      },
-      documentation = {
-        auto_show = true,
-        auto_show_delay_ms = 200,
-      },
-      menu = {
-        draw = {
-          gap = 2,
-          treesitter = { "lsp" },
-        },
-      },
-      list = {
-        selection = {
-          preselect = true,
-        },
-      },
-    },
-    cmdline = {
-      keymap = {
-        -- stop tab from inserting ^I in cmdline
-        preset = "default",
-        ["<S-Tab>"] = { "select_prev", "fallback" },
-        ["<Tab>"] = { "select_next", "fallback" },
-      },
-    },
-
     -- experimental signature help support
     signature = { enabled = true },
+    fuzzy = { implementation = "prefer_rust_with_warning" },
   },
   -- allows extending the enabled_providers array elsewhere in your config
   -- without having to redefine it
