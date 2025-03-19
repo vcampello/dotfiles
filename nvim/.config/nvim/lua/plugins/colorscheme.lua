@@ -115,4 +115,20 @@ function M.oldworld()
   }
 end
 
-return M.oldworld()
+function M.onenord()
+  return {
+    "rmehri01/onenord.nvim",
+    config = function()
+      require("onenord").setup({
+        theme = "dark",
+        disable = {
+          background = true,
+          float_background = true,
+        },
+      })
+      vim.cmd.colorscheme("onenord")
+    end,
+  }
+end
+
+return M.onenord()
