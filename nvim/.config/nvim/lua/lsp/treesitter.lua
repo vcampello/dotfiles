@@ -14,6 +14,7 @@ return {
         "diff",
         "go",
         "html",
+        "css",
         "javascript",
         "json",
         "lua",

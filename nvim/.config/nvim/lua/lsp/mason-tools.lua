@@ -13,6 +13,7 @@ return {
       "prettierd",
       "stylua",
       "nixpkgs-fmt",
+      "volar",
     },
   },
 }

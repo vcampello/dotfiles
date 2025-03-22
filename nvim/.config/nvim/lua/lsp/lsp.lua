@@ -111,6 +111,9 @@ return {
       sqlls = {},
       -- NOTE: replaced by typescript-tools on_attach
       ts_ls = {},
+      volar = {
+        filetypes = { "vue" },
+      },
       eslint = {},
       graphql = {},
       html = {
@@ -200,6 +203,13 @@ return {
           require("typescript-tools").setup({
             handlers = handlers,
             on_attach = on_attach,
+            filetypes = {
+              "javascript",
+              "javascriptreact",
+              "typescript",
+              "typescriptreact",
+              "vue",
+            },
             settings = {
               expose_as_code_action = "all",
               -- TODO: migrate this to ts_ls (the structure is different)
@@ -211,6 +221,14 @@ return {
                 includeInlayParameterNameHintsWhenArgumentMatchesName = true,
                 includeInlayPropertyDeclarationTypeHints = true,
                 -- includeInlayVariableTypeHints = true,
+              },
+              capabilities = capabilities,
+              -- root_dir = root_pattern_exclude({
+              --   root = { "package.json" },
+              --   exclude = { "deno.json", "deno.jsonc" },
+              -- }),
+              tsserver_plugins = {
+                "@vue/typescript-plugin",
               },
             },
           })
