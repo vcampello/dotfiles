@@ -128,6 +128,7 @@ return {
         settings = {
           Lua = {
             hint = { enable = true, paramType = true },
+            completion = { callSnippet = "Replace" },
             format = {
               enable = false,
             },
