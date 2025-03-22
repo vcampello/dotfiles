@@ -22,6 +22,14 @@ return {
       use_nvim_cmp_as_default = true,
       nerd_font_variant = "mono",
     },
+    completion = {
+      -- Disable auto brackets
+      accept = { auto_brackets = { enabled = false } },
+      -- Display a preview of the selected item on the current line
+      ghost_text = { enabled = true },
+      -- Show documentation when selecting a completion item
+      documentation = { auto_show = true, auto_show_delay_ms = 500 },
+    },
 
     sources = {
       default = { "lsp", "path", "snippets", "buffer", "lazydev" },
