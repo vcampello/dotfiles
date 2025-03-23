@@ -1,6 +1,5 @@
 return {
   -- lazy = false,
-  event = "LspAttach",
   -- LSP Configuration & Plugins
   "neovim/nvim-lspconfig",
   dependencies = {
@@ -19,71 +18,70 @@ return {
     "antosha417/nvim-lsp-file-operations",
   },
   config = function()
-    --  This function gets run when an LSP connects to a particular buffer.
-    local on_attach = function(client, bufnr)
-      local nmap = function(keys, func, desc)
-        if desc then
-          desc = "LSP: " .. desc
+    vim.api.nvim_create_autocmd("LspAttach", {
+      group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
+      callback = function(ev)
+        local bufnr = ev.buf
+        local client = vim.lsp.get_client_by_id(ev.data.client_id)
+
+        ---@param mode string | string[]
+        ---@param keys string
+        ---@param func fun()
+        ---@param desc string
+        local map = function(mode, keys, func, desc)
+          vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = "LSP: " .. desc })
         end
 
-        vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
-      end
-      local imap = function(keys, func, desc)
-        if desc then
-          desc = "LSP: " .. desc
+        -- NOTE: this makes text shift horizontally and it can be distracting
+        local inlay_hint_filter = { bufnr = bufnr }
+        if client.server_capabilities.inlayHintProvider then
+          vim.lsp.inlay_hint.enable(false, inlay_hint_filter)
         end
 
-        vim.keymap.set("i", keys, func, { buffer = bufnr, desc = desc })
-      end
+        map("n", "<leader>li", function()
+          local is_enabled = vim.lsp.inlay_hint.is_enabled(inlay_hint_filter)
+          vim.lsp.inlay_hint.enable(not is_enabled, inlay_hint_filter)
+        end, "Toggle inlay hints")
 
-      -- NOTE: this makes text shift horizontally and it can be distracting
-      local inlay_hint_filter = { bufnr = bufnr }
-      if client.server_capabilities.inlayHintProvider then
-        vim.lsp.inlay_hint.enable(false, inlay_hint_filter)
-      end
+        local fzf = require("fzf-lua")
+        map("n", "<leader>lr", vim.lsp.buf.rename, "Rename")
+        -- nmap("<leader>la", vim.lsp.buf.code_action, "Code Action")
+        map("n", "<leader>la", fzf.lsp_code_actions, "Code Action")
 
-      nmap("<leader>li", function()
-        local is_enabled = vim.lsp.inlay_hint.is_enabled(inlay_hint_filter)
-        vim.lsp.inlay_hint.enable(not is_enabled, inlay_hint_filter)
-      end, "Toggle inlay hints")
+        map("n", "gd", function()
+          fzf.lsp_definitions({ jump1 = true })
+        end, "Goto Definition")
+        map("n", "gr", function()
+          fzf.lsp_references({ jump1 = true })
+        end, "Goto References")
+        map("n", "gI", function()
+          fzf.lsp_implementations({ jump1 = true })
+        end, "Goto Implementation")
+        map("n", "<leader>fs", fzf.lsp_document_symbols, "Document Symbols")
 
-      local fzf = require("fzf-lua")
-      nmap("<leader>lr", vim.lsp.buf.rename, "Rename")
-      -- nmap("<leader>la", vim.lsp.buf.code_action, "Code Action")
-      nmap("<leader>la", fzf.lsp_code_actions, "Code Action")
+        -- See `:help K` for why this keymap
+        map("n", "K", vim.lsp.buf.hover, "Hover Documentation")
+        map("n", "<leader>k", vim.lsp.buf.signature_help, "Signature Documentation")
+        map("i", "<c-k>", vim.lsp.buf.signature_help, "Signature Documentation")
 
-      nmap("gd", function()
-        fzf.lsp_definitions({ jump1 = true })
-      end, "Goto Definition")
-      nmap("gr", function()
-        fzf.lsp_references({ jump1 = true })
-      end, "Goto References")
-      nmap("gI", function()
-        fzf.lsp_implementations({ jump1 = true })
-      end, "Goto Implementation")
-      nmap("<leader>fs", fzf.lsp_document_symbols, "Document Symbols")
+        -- Lesser used LSP functionality
+        map("n", "gD", vim.lsp.buf.type_definition, "Goto Type Definition")
+        map("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, "Workspace Add Folder")
+        map("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, "Workspace Remove Folder")
+        map("n", "<leader>wl", function()
+          print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+        end, "Workspace List Folders")
 
-      -- See `:help K` for why this keymap
-      nmap("K", vim.lsp.buf.hover, "Hover Documentation")
-      nmap("<leader>k", vim.lsp.buf.signature_help, "Signature Documentation")
-      imap("<c-k>", vim.lsp.buf.signature_help, "Signature Documentation")
+        -- TODO: improve this
+        local function format()
+          require("conform").format({ async = true, lsp_fallback = true })
+        end
 
-      -- Lesser used LSP functionality
-      nmap("gD", vim.lsp.buf.type_definition, "Goto Type Definition")
-      nmap("<leader>wa", vim.lsp.buf.add_workspace_folder, "Workspace Add Folder")
-      nmap("<leader>wr", vim.lsp.buf.remove_workspace_folder, "Workspace Remove Folder")
-      nmap("<leader>wl", function()
-        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-      end, "Workspace List Folders")
+        vim.api.nvim_buf_create_user_command(bufnr, "Format", format, { desc = "Format current buffer with LSP" })
 
-      local function format()
-        require("conform").format({ async = true, lsp_fallback = true })
-      end
-
-      vim.api.nvim_buf_create_user_command(bufnr, "Format", format, { desc = "Format current buffer with LSP" })
-
-      nmap("<leader>lf", format, "Format current buffer with LSP")
-    end
+        map("n", "<leader>lf", format, "Format current buffer with LSP")
+      end,
+    })
 
     -- Enable the following language servers
     local servers = {
@@ -167,20 +165,21 @@ return {
       nil_ls = {}, -- Nix support
     }
 
+    -- nix is required for nil_ls to be installed
+    if vim.fn.executable("nix") == 0 then
+      servers.nil_ls = nil
+    end
+
     -- broadcast addional capabilities to servers
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     local cmp_capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
     local file_ops_capabilities = require("lsp-file-operations").default_capabilities()
     capabilities = vim.tbl_deep_extend("force", capabilities, cmp_capabilities, file_ops_capabilities)
 
+    ---@diagnostic disable-next-line: missing-fields
     require("mason").setup({ ui = { border = "single" } })
     -- Ensure the servers above are installed
     local mason_lspconfig = require("mason-lspconfig")
-
-    -- nix is required for nil_ls to be installed
-    if vim.fn.executable("nix") == 0 then
-      servers.nil_ls = nil
-    end
 
     mason_lspconfig.setup({
       ensure_installed = vim.tbl_keys(servers),
