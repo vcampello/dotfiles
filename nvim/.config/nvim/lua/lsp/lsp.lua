@@ -45,27 +45,33 @@ return {
         ---@param keys string
         ---@param func fun()
         ---@param desc string
-        local map = function(mode, keys, func, desc)
+        local function map(mode, keys, func, desc)
           vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = "LSP: " .. desc })
         end
 
         -- setup inlay hints if available
         if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
-          map("n", "<leader>li", function()
+          map("n", "grI", function()
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }))
           end, "Toggle inlay hints")
         end
 
         local fzf = require("fzf-lua")
-        map("n", "<leader>lr", vim.lsp.buf.rename, "Rename")
-        map("n", "<leader>la", fzf.lsp_code_actions, "Code Action")
+        -- override: vim.lsp.buf.code_action
+        map("n", "gra", fzf.lsp_code_actions, "Code Action")
 
+        --- these 2 are used way too often
         map("n", "gd", function()
           fzf.lsp_definitions({ jump1 = true })
         end, "Go to Definition")
-        map("n", "gr", function()
+        map("n", "gD", vim.lsp.buf.type_definition, "Go to Type Definition")
+
+        -- override: vim.lsp.buf.references
+        map("n", "grr", function()
           fzf.lsp_references({ jump1 = true })
         end, "Go to References")
+
+        -- override: vim.lsp.buf_impementation
         map("n", "gri", function()
           fzf.lsp_implementations({ jump1 = true })
         end, "Goto Implementation")
@@ -79,10 +85,9 @@ return {
         map("i", "<c-k>", vim.lsp.buf.signature_help, "Signature Documentation")
 
         -- Lesser used LSP functionality
-        map("n", "grd", vim.lsp.buf.type_definition, "Goto Type Definition")
-        map("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, "Workspace Add Folder")
-        map("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, "Workspace Remove Folder")
-        map("n", "<leader>wl", function()
+        map("n", "grA", vim.lsp.buf.add_workspace_folder, "Workspace Add Folder")
+        map("n", "grR", vim.lsp.buf.remove_workspace_folder, "Workspace Remove Folder")
+        map("n", "grL", function()
           vim.print(vim.lsp.buf.list_workspace_folders())
         end, "Workspace List Folders")
 
@@ -93,7 +98,7 @@ return {
 
         vim.api.nvim_buf_create_user_command(bufnr, "Format", format, { desc = "Format current buffer with LSP" })
 
-        map("n", "<leader>lf", format, "Format current buffer with LSP")
+        map("n", "grf", format, "Format current buffer with LSP")
 
         -- The following two autocommands are used to highlight references of the
         -- word under your cursor when your cursor rests there for a little while.
@@ -180,6 +185,8 @@ return {
             diagnostics = {
               -- Get the language server to recognize the `vim` global
               globals = { "vim", "Snacks" },
+              -- Ignore noisy warnings
+              disable = { "missing-fields" },
             },
           },
         },
