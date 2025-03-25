@@ -79,7 +79,8 @@ return {
         -- See `:help K` for why this keymap
         map("n", "K", vim.lsp.buf.hover, "Hover Documentation")
         map("n", "<leader>k", vim.lsp.buf.signature_help, "Signature Documentation")
-        map("i", "<c-k>", vim.lsp.buf.signature_help, "Signature Documentation")
+        --handled by blink
+        -- map("i", "<c-k>", vim.lsp.buf.signature_help, "Signature Documentation")
 
         -- Lesser used LSP functionality
         map("n", "grA", vim.lsp.buf.add_workspace_folder, "Workspace Add Folder")

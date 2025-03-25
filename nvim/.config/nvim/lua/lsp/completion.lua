@@ -16,19 +16,21 @@ return {
   opts = {
     keymap = { preset = "default" },
     appearance = {
-      -- Sets the fallback highlight groups to nvim-cmp's highlight groups
-      -- Useful for when your theme doesn't support blink.cmp
-      -- will be removed in a future release
       use_nvim_cmp_as_default = true,
       nerd_font_variant = "mono",
     },
     completion = {
       -- Disable auto brackets
-      accept = { auto_brackets = { enabled = false } },
+      accept = { auto_brackets = { enabled = true } },
       -- Display a preview of the selected item on the current line
       ghost_text = { enabled = true },
       -- Show documentation when selecting a completion item
-      documentation = { auto_show = true, auto_show_delay_ms = 500 },
+      documentation = { auto_show = true, auto_show_delay_ms = 250 },
+      menu = {
+        draw = {
+          treesitter = { "lsp" },
+        },
+      },
     },
 
     sources = {
