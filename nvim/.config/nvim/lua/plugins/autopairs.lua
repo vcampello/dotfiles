@@ -1,7 +1,5 @@
 return {
   "windwp/nvim-autopairs",
-  event = "InsertEnter",
-  -- Optional dependency
   dependencies = {
     {
       "windwp/nvim-ts-autotag",
@@ -17,9 +15,5 @@ return {
       end,
     },
   },
-  ---@module 'nvim-autopairs
-  ---@type nvim-ts-autotag.Opts
-  opts = {
-    enable_check_bracket_line = true,
-  },
+  opts = {},
 }
