@@ -29,9 +29,6 @@ return {
     },
     -- set setup on ./file-operations.lua
     "antosha417/nvim-lsp-file-operations",
-
-    -- Useful status updates for LSP.
-    { "j-hui/fidget.nvim", opts = {} },
   },
   config = function()
     vim.api.nvim_create_autocmd("LspAttach", {
