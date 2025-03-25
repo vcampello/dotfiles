@@ -159,9 +159,7 @@ return {
       -- js/ts stuff
       -- NOTE: replaced by typescript-tools
       -- ts_ls = {},
-      volar = {
-        filetypes = { "vue" },
-      },
+      volar = {},
       eslint = {},
       graphql = {},
       html = {
@@ -277,7 +275,8 @@ return {
           -- includeInlayVariableTypeHints = true,
         },
         capabilities = capabilities,
-        -- root_dir = root_pattern_exclude({
+        -- TODO: setup deno support
+        -- root_dir = root_pattern_excludes({
         --   root = { "package.json" },
         --   exclude = { "deno.json", "deno.jsonc" },
         -- }),
