@@ -67,6 +67,7 @@ return {
         "typescript",
         "typescriptreact",
         "yaml",
+        "vue",
       })
     ),
     format_on_save = function(bufnr)
