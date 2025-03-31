@@ -311,7 +311,7 @@ config.keys = {
     key = ",",
     mods = "LEADER",
     action = wez.action.PromptInputLine({
-      description = "Enter new name for tab",
+      description = "Enter new title for tab",
       action = wez.action_callback(function(window, pane, line)
         -- line will be `nil` if they hit escape without entering anything
         -- An empty string if they just hit enter
