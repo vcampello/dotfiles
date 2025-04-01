@@ -311,7 +311,7 @@ config.keys = {
     key = ",",
     mods = "LEADER",
     action = wez.action.PromptInputLine({
-      description = "Enter new name for tab",
+      description = "Rename tab to",
       action = wez.action_callback(function(window, pane, line)
         -- line will be `nil` if they hit escape without entering anything
         -- An empty string if they just hit enter
@@ -326,7 +326,7 @@ config.keys = {
     key = ".",
     mods = "LEADER",
     action = wez.action.PromptInputLine({
-      description = "Enter new name for workspace",
+      description = "Rename workspace to",
       action = wez.action_callback(function(window, pane, line)
         -- line will be `nil` if they hit escape without entering anything
         -- An empty string if they just hit enter
