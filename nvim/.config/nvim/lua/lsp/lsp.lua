@@ -42,7 +42,7 @@ return {
         vim.lsp.inlay_hint.enable(false, inlay_hint_filter)
       end
 
-      nmap("<leader>li", function()
+      nmap("grI", function()
         local is_enabled = vim.lsp.inlay_hint.is_enabled(inlay_hint_filter)
         vim.lsp.inlay_hint.enable(not is_enabled, inlay_hint_filter)
       end, "Toggle inlay hints")
