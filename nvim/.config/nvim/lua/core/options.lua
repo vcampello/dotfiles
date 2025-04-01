@@ -64,6 +64,7 @@ vim.o.tabstop = 4
 vim.o.softtabstop = 4
 vim.o.shiftwidth = 4
 vim.o.expandtab = true
+vim.opt.formatoptions:remove({ "t" }) -- prevent breaking string literals into multiple lines when textwidth is set
 
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = "split"
@@ -84,15 +85,14 @@ vim.opt.writebackup = false -- Don't store backup while overwriting the file
 
 -- Writing
 vim.opt.spell = true
-vim.opt.formatoptions:remove({ "t" }) -- prevent breaking string literals into multiple lines when textwidth is set
 
 -- enable jumping to files in terminal output using gf
 -- may cause performance issues with :find
 vim.opt.path:append("**")
 
--- enable exrc
-vim.opt.exrc = true
-vim.opt.secure = true
+-- enable exrc: disabled for now as it's not being used
+-- vim.opt.exrc = true
+-- vim.opt.secure = true
 
 -- unique shada per directory (aka unique jumps, registers, etc)
 local workspace_path = vim.fn.getcwd()
