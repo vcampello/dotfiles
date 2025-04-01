@@ -60,18 +60,18 @@ return {
         --- these 2 are used way too often
         map("n", "gd", function()
           fzf.lsp_definitions({ jump1 = true })
-        end, "Go to Definition")
-        map("n", "gD", vim.lsp.buf.type_definition, "Go to Type Definition")
+        end, "Definitions")
+        map("n", "gD", vim.lsp.buf.type_definition, "Type Definition")
 
         -- override: vim.lsp.buf.references
         map("n", "grr", function()
           fzf.lsp_references({ jump1 = true })
-        end, "Go to References")
+        end, "References")
 
         -- override: vim.lsp.buf_impementation
         map("n", "gri", function()
           fzf.lsp_implementations({ jump1 = true })
-        end, "Goto Implementation")
+        end, "Implementation")
 
         -- override: vim.lsp.buf.document_symbols
         map("n", "gO", fzf.lsp_document_symbols, "Document Symbols")
