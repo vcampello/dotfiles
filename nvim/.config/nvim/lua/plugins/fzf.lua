@@ -105,6 +105,6 @@ return {
     end, { desc = "Search project" })
 
     -- replace original suggestions keymap
-    map("n", "z=", fzf.spell_suggest, { desc = "Search spell suggestions" })
+    map("n", "z=", fzf.spell_suggest, { desc = "Search spell suggestions", nowait = true })
   end,
 }
