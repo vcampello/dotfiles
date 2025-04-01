@@ -10,6 +10,7 @@ return {
   },
   config = function()
     require("neo-tree").setup({
+      popup_border_style = "rounded",
       sources = {
         "filesystem",
         "buffers",

@@ -57,7 +57,7 @@ vim.opt.diffopt:append("vertical")
 --  and `:help 'listchars'`
 vim.opt.list = true
 vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
-vim.o.winborder = "single"
+vim.o.winborder = "rounded"
 
 -- Saner tab/softtab defaults. 8 is too much
 vim.o.tabstop = 4
