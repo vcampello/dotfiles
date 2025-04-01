@@ -84,6 +84,7 @@ vim.opt.writebackup = false -- Don't store backup while overwriting the file
 
 -- Writing
 vim.opt.spell = true
+vim.opt.formatoptions:remove({ "t" }) -- prevent breaking string literals into multiple lines when textwidth is set
 
 -- enable jumping to files in terminal output using gf
 -- may cause performance issues with :find
