@@ -241,6 +241,11 @@ return {
       automatic_installation = false,
       handlers = {
         function(server_name)
+          -- blacklist ts_ls
+          if server_name == "ts_ls" then
+            return
+          end
+
           local server = servers[server_name] or {}
           --- overrides
           server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
