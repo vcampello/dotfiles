@@ -25,6 +25,8 @@ return {
       local fzfluapath = require("fzf-lua.path")
       local file = fzfluapath.entry_to_file(selected[1])
 
+      -- hide ui so it's easier to see the picker legends
+      fzf.win.hide()
       local win_id = picker.pick_window({
         filter_rules = {
           include_current_win = true,
@@ -34,7 +36,9 @@ return {
 
       if type(win_id) ~= "number" then
         -- should never happen
-        print("Selected window id is not a number")
+        vim.print("Selected window id is not a number")
+        -- show the ui again
+        fzf.win.unhide()
         return
       end
 
@@ -48,7 +52,7 @@ return {
 
     fzf.setup({
       winopts = {
-        fullscreen = true,
+        -- fullscreen = true,
       },
       actions = {
         -- Retain the original actions, then override (replaces all by default)
@@ -64,7 +68,8 @@ return {
     -- Keymaps
     local map = vim.keymap.set
 
-    map("n", "<leader><leader>", ":FzfLua<cr>", { desc = "FzfLua", nowait = true })
+    map("n", "<leader><leader>", fzf.buffers, { desc = "Buffers", nowait = true })
+    map("n", "<leader><leader><leader>", ":FzfLua<cr>", { desc = "FzfLua", nowait = true })
     map("v", "<leader>f", fzf.grep_visual, { desc = "Search selection" })
     map("n", "<leader>fr", fzf.resume, { desc = "Search resume" })
     map("n", "<leader>ff", fzf.files, { desc = "Search files" })
