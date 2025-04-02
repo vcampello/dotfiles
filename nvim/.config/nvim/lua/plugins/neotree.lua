@@ -35,8 +35,9 @@ return {
           hide_by_name = {
             "node_modules",
           },
-          always_show = { -- remains visible even if other settings would normally hide it
-            ".gitignored",
+          always_show_by_pattern = {
+            -- custom global .gitignore
+            "**/.local",
           },
         },
         follow_current_file = {
