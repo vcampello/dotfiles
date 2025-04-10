@@ -78,7 +78,7 @@ config.background = {
   },
   {
     source = {
-      Color = theme.COLORS.kanagawa_dragon,
+      Color = theme.COLORS.gray,
       -- Color = theme.COLORS.rosepine, --r
     },
     width = "100%",
@@ -102,9 +102,9 @@ config.tab_max_width = 60
 
 config.colors = {
   -- The color of the split lines between panes
-  split = "#523E64",
-  cursor_bg = theme.COLORS.amber,
-  cursor_fg = theme.COLORS.black,
+  split = theme.COLORS.white,
+  cursor_bg = theme.COLORS.bloodOrange,
+  cursor_fg = theme.COLORS.white,
   cursor_border = theme.COLORS.amber,
 
   -- selection_fg = "#ffffff",
@@ -180,7 +180,7 @@ wez.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
 
   local elements = shared.build_elements({ { tostring(tab.tab_index), " ", title } }, {
     -- when active set background to yellow and text to amber
-    bg = tab.is_active and theme.COLORS.amber or theme.COLORS.gray,
+    bg = tab.is_active and theme.COLORS.amber or theme.COLORS.black,
     fg = tab.is_active and theme.COLORS.black or theme.COLORS.white,
   })
 
@@ -196,8 +196,8 @@ wez.on("update-status", function(window, pane)
     { "󰞇 ", (os.getenv("USER") or "anon") },
     { "󰌢 ", stripped_cwd.hostname },
   }, {
-    bg = theme.COLORS.gray,
-    fg = theme.COLORS.white,
+    bg = theme.COLORS.white,
+    fg = theme.COLORS.black,
   })
   -- prevent errors on lua repl
   window:set_right_status(wez.format(right))
@@ -212,8 +212,8 @@ wez.on("update-status", function(window, pane)
   local default_mode = "normal"
   local mode_text = window:active_key_table() or default_mode
   local mode_icon = mode_text == default_mode and "󰨙 " or "󰔡 "
-  local mode_bg = mode_text == default_mode and theme.palette.status_bar.bg or theme.COLORS.purple
-  local mode_fg = theme.COLORS.white
+  local mode_bg = mode_text == default_mode and theme.COLORS.white or theme.COLORS.purple
+  local mode_fg = mode_text == default_mode and theme.COLORS.black or theme.COLORS.white
 
   local mode = shared.build_elements({
     { mode_icon, mode_text:upper() },
