@@ -6,7 +6,24 @@ return {
       path = 1, -- Relative path
       extensions = { "neo-tree" },
       tabline = {
-        lualine_a = { "tabs" },
+        lualine_a = {
+          {
+            show_modified_status = true, -- Shows a symbol next to the tab name if the file has been modified.
+            symbols = {
+              modified = "[+]", -- Text to show when the file is modified.
+            },
+
+            fmt = function(name, context)
+              -- Show + if buffer is modified in tab
+              local buflist = vim.fn.tabpagebuflist(context.tabnr)
+              local winnr = vim.fn.tabpagewinnr(context.tabnr)
+              local bufnr = buflist[winnr]
+              local mod = vim.fn.getbufvar(bufnr, "&mod")
+
+              return name .. (mod == 1 and " +" or "")
+            end,
+          },
+        },
         lualine_b = {
           {
             function()
@@ -23,11 +40,18 @@ return {
       },
       sections = {
         lualine_c = {
+          -- { "sumbols" },
           {
             "filename",
             file_status = true, -- Displays file status (readonly status, modified status)
             path = 1, -- 1: Relative path
           },
+        },
+        lualine_x = {
+          "encoding",
+          "fileformat",
+          "filetype",
+          "lsp_status",
         },
       },
       inactive_sections = {
