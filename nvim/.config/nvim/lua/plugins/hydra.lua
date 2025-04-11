@@ -26,6 +26,7 @@ function M.get_current()
   return M.hydras[M.current_idx]
 end
 
+-- TODO: extract this into a utility that can be used to cycle through more things
 ---Get hydra from offset. Wraps around
 ---@param opts { offset: number, dry_run?: boolean }
 ---@return Hydra current
@@ -58,7 +59,7 @@ function M.create_nav_hydra(opts)
   local heads = {
     {
       "h",
-      function(opts)
+      function(_opts)
         print(vim.v.count)
         M.get_current():exit()
         M.switch_by_offset({ offset = -1 }):activate()
@@ -186,6 +187,7 @@ return {
     end
 
     -- diagnostics
+    -- TODO: add a way to cycle through diagnostic
     table.insert(
       M.hydras,
       M.create_nav_hydra({
@@ -195,30 +197,30 @@ return {
           {
             "j",
             function()
-              vim.diagnostic.goto_next()
+              vim.diagnostic.jump({ count = 1, float = true })
             end,
             { desc = "Next", nowait = true },
           },
           {
             "k",
             function()
-              vim.diagnostic.goto_prev()
+              vim.diagnostic.jump({ count = 1, float = true })
             end,
             { desc = "Previous", nowait = true },
           },
           {
             "J",
             function()
-              vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR })
+              vim.diagnostic.jump({ count = 1, float = true, severity = vim.diagnostic.severity.ERROR })
             end,
-            { desc = "Next", nowait = true },
+            { desc = "Next error", nowait = true },
           },
           {
             "K",
             function()
-              vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR })
+              vim.diagnostic.jump({ count = 1, float = true, severity = vim.diagnostic.severity.ERROR })
             end,
-            { desc = "Previous", nowait = true },
+            { desc = "Previous error", nowait = true },
           },
         },
       })
@@ -235,7 +237,7 @@ return {
               if vim.wo.diff then
                 return "]c"
               end
-              gitsigns.next_hunk()
+              gitsigns.nav_hunk("next")
             end,
             { desc = "Next", nowait = true },
           },
@@ -245,7 +247,7 @@ return {
               if vim.wo.diff then
                 return "[c"
               end
-              gitsigns.prev_hunk()
+              gitsigns.nav_hunk("prev")
             end,
             { desc = "Previous", nowait = true },
           },
