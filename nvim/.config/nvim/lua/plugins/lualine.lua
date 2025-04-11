@@ -8,6 +8,7 @@ return {
       tabline = {
         lualine_a = {
           {
+            "tabs",
             show_modified_status = true, -- Shows a symbol next to the tab name if the file has been modified.
             symbols = {
               modified = "[+]", -- Text to show when the file is modified.
