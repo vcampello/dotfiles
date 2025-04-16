@@ -17,7 +17,13 @@ return {
     quickfile = { enabled = true },
     scope = { enabled = true },
     scroll = { enabled = false },
-    statuscolumn = { enabled = true },
+    statuscolumn = {
+      enabled = true,
+      folds = {
+        open = true, -- show open fold icons
+        git_hl = true, -- use Git Signs hl for fold icons
+      },
+    },
     words = { enabled = false },
     styles = {
       notification = {
