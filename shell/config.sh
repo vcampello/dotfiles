@@ -25,6 +25,8 @@ esac
 if [[ -z $shell_name ]]; then
     echo "Unkown shell. Zoxide and fzf shell integration will not be setup"
 else
+    # starship
+    eval "$(starship init bash)"
     # echo "Setting up zoxide and fzf to use $shell_name"
     # zoxide
     eval "$(zoxide init --cmd cd ${shell_name})"

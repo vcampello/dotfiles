@@ -24,7 +24,8 @@ brew install \
     rustup-init \
     stow \
     zoxide \
-    go
+    go \
+    starship
 
 # setup rust
 # the path will be set in config.sh
