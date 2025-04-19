@@ -8,6 +8,9 @@ export NVM_DIR="$HOME/.nvm"
 # rust
 source "$HOME/.cargo/env"
 
+# go
+export PATH="$PATH:$(go env GOPATH)/bin"
+
 # Find out if we are using bash or zsh
 shell_name=""
 case "$SHELL" in

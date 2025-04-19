@@ -23,7 +23,8 @@ brew install \
     ripgrep \
     rustup-init \
     stow \
-    zoxide
+    zoxide \
+    go
 
 # setup rust
 # the path will be set in config.sh
