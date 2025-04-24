@@ -9,13 +9,14 @@ M.COLORS = {
   purple = "#810CA8",
   red = "#750E21",
   bloodOrange = "#ff4300",
-  rosepine = "#211b29",
+  -- rosepine = "#211b29",
+  rosepine = "#191724",
 }
 
 -- TODO: create palette
 M.palette = {
   status_bar = {
-    bg = M.COLORS.gray,
+    bg = M.COLORS.rosepine,
   },
 }
 
