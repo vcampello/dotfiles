@@ -25,7 +25,8 @@ brew install \
     stow \
     zoxide \
     go \
-    starship
+    starship \
+    zsh-vi-mode
 
 # setup rust
 # the path will be set in config.sh

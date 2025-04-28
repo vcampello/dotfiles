@@ -19,6 +19,7 @@ case "$SHELL" in
     ;;
 *zsh)
     shell_name="zsh"
+    source $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
     ;;
 esac
 
@@ -26,7 +27,7 @@ if [[ -z $shell_name ]]; then
     echo "Unkown shell. Zoxide and fzf shell integration will not be setup"
 else
     # starship
-    eval "$(starship init bash)"
+    eval "$(starship init ${shell_name})"
     # echo "Setting up zoxide and fzf to use $shell_name"
     # zoxide
     eval "$(zoxide init --cmd cd ${shell_name})"
