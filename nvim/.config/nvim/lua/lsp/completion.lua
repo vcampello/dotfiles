@@ -48,8 +48,9 @@ return {
       },
     },
 
+    -- FIXME: figure out how this interacts with noice and causes two signature windows to popup
     -- experimental signature help support
-    signature = { enabled = true },
+    -- signature = { enabled = true },
     fuzzy = { implementation = "prefer_rust_with_warning" },
   },
   -- allows extending the enabled_providers array elsewhere in your config
