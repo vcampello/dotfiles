@@ -19,6 +19,9 @@ case "$SHELL" in
     ;;
 *zsh)
     shell_name="zsh"
+
+    # allow fzf and zsh-vi-mode to play nice with each other
+    export ZVM_INIT_MODE=sourcing
     source $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
     ;;
 esac
