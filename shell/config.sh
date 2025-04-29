@@ -9,7 +9,8 @@ export NVM_DIR="$HOME/.nvm"
 source "$HOME/.cargo/env"
 
 # go
-export PATH="$PATH:$(go env GOPATH)/bin"
+GOBIN_PATH="$(go env GOPATH)/bin"
+export PATH="$PATH:$GOBIN_PATH"
 
 # Find out if we are using bash or zsh
 shell_name=""
