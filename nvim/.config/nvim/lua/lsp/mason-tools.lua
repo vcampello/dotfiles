@@ -14,6 +14,7 @@ return {
       "stylua",
       "nixpkgs-fmt",
       "volar",
+      "golangci-lint-langserver",
     },
   },
 }
