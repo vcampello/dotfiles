@@ -65,7 +65,7 @@ return {
 
         -- override: vim.lsp.buf.references
         map("n", "grr", function()
-          fzf.lsp_references({ jump1 = true })
+          fzf.lsp_references({ jump1 = true, includeDeclaration = false })
         end, "References")
 
         -- override: vim.lsp.buf_impementation
