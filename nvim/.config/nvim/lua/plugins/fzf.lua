@@ -12,6 +12,7 @@ return {
     local fzf = require("fzf-lua")
     local fzfconf = require("fzf-lua.config")
     local picker = require("window-picker")
+    local fzfluapath = require("fzf-lua.path")
 
     ---Custom fzf action to pick window when opening files
     ---@diagnostic disable-next-line: unused-local
@@ -22,7 +23,6 @@ return {
       end
 
       -- Convert the entry to an actual path without the leading icon
-      local fzfluapath = require("fzf-lua.path")
       local file = fzfluapath.entry_to_file(selected[1])
 
       -- hide ui so it's easier to see the picker legends
@@ -47,8 +47,32 @@ return {
       vim.api.nvim_win_set_buf(win_id, bufnr)
     end
 
+    ---Diff files in a split view
+    local function diff_files(selected, opts)
+      -- nothing to do
+      if #selected < 2 or #selected > 2 then
+        vim.notify("Select two files to diff", vim.log.levels.WARN)
+        return fzf.actions.resume()
+      end
+
+      local files = {}
+      for _, entry in ipairs(selected) do
+        -- Convert the entry to an actual path without the leading icon
+        table.insert(files, fzfluapath.entry_to_file(entry).path)
+      end
+
+      -- explanation:
+      -- use all filepaths as arguments
+      -- open all files in a vertical split
+      -- bind the cursor on every buffer
+      -- diff all buffers
+      local cmd = "args " .. table.concat(files, " ") .. " | vertical all | windo set cursorbind | diffthis"
+      vim.cmd(cmd)
+    end
+
     -- -- Set the action name or it will show as 'table <hex code>'
     fzfconf.set_action_helpstr(pick_window, "pick_window")
+    fzfconf.set_action_helpstr(diff_files, "diff_files")
 
     fzf.setup({
       winopts = {
@@ -60,6 +84,9 @@ return {
           true, -- inherit defaults
           ["ctrl-w"] = {
             fn = pick_window,
+          },
+          ["ctrl-d"] = {
+            fn = diff_files,
           },
         },
       },
