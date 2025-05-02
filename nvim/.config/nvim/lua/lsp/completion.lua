@@ -23,7 +23,7 @@ return {
       -- Disable auto brackets
       accept = { auto_brackets = { enabled = true } },
       -- Display a preview of the selected item on the current line
-      ghost_text = { enabled = true },
+      ghost_text = { enabled = false },
       -- Show documentation when selecting a completion item
       documentation = { auto_show = true, auto_show_delay_ms = 250 },
       menu = {
