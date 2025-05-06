@@ -24,18 +24,5 @@ return {
 
     -- use the same leader pattern as other fzf keymaps
     vim.keymap.set("n", "<leader>fn", ":Noice fzf<cr>", { desc = "Search Noice", nowait = true })
-
-    -- TEMP FIX until winborder is supported by Nui https://github.com/MunifTanjim/nui.nvim/pull/403
-    -- local initialWinborder = vim.o.winborder
-    -- vim.api.nvim_create_autocmd("CmdlineEnter", {
-    --   callback = function()
-    --     vim.o.winborder = "none"
-    --   end,
-    -- })
-    -- vim.api.nvim_create_autocmd("CmdlineLeave", {
-    --   callback = function()
-    --     vim.o.winborder = initialWinborder
-    --   end,
-    -- })
   end,
 }
