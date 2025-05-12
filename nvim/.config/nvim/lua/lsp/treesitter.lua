@@ -30,6 +30,8 @@ return {
         "typescript",
         "vim",
         "vimdoc",
+        "bash",
+        "regex",
       },
       modules = {},
       ignore_install = {},
