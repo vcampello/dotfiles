@@ -132,13 +132,6 @@ return {
 
     -- Enable the following language servers
     local servers = {
-      -- terraform stuff
-      terraformls = {},
-      tflint = {},
-
-      clangd = {},
-      pyright = {},
-      rust_analyzer = {},
       gopls = {
         settings = {
           hints = {
@@ -152,21 +145,9 @@ return {
           },
         },
       },
-      sqlls = {},
-
-      -- js/ts stuff
-      -- NOTE: replaced by typescript-tools
-      -- ts_ls = {},
-      volar = {},
-      eslint = {},
-      graphql = {},
       html = {
         filetypes = { "html", "templ" },
       },
-      htmx = {
-        filetypes = { "html", "templ" },
-      },
-      emmet_language_server = {},
 
       lua_ls = {
         settings = {
@@ -209,14 +190,7 @@ return {
           },
         },
       },
-      glsl_analyzer = {},
-      nil_ls = {}, -- Nix support
     }
-
-    -- nix is required for nil_ls to be installed
-    if vim.fn.executable("nix") == 0 then
-      servers.nil_ls = nil
-    end
 
     -- broadcast addional capabilities to servers
     local default_capabilities = vim.lsp.protocol.make_client_capabilities()
