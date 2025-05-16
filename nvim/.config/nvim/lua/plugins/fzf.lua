@@ -101,18 +101,10 @@ return {
     map("n", "<leader>fr", fzf.resume, { desc = "Search resume" })
     map("n", "<leader>ff", fzf.files, { desc = "Search files" })
     map("n", "<leader>/", fzf.grep_curbuf, { desc = "Search current buffer" })
-    map("n", "<leader>fb", fzf.git_bcommits, { desc = "Blame commits" })
-    map("n", "<leader>fh", fzf.helptags, { desc = "Search help" })
-    map("n", "<leader>fH", fzf.manpages, { desc = "Search man pages" })
     map("n", "<leader>fm", fzf.marks, { desc = "Search marks" })
     map("n", "<leader>fj", fzf.jumps, { desc = "Search jumps" })
-    map("n", "<leader>fk", function()
-      fzf.fzf_exec("git show -1 --no-merges --name-only --pretty=''", {
-        prompt = "Previously changed > ",
-        actions = fzf.defaults.actions.files,
-        previewer = "builtin",
-      })
-    end, { desc = "List most recent commited file changes" })
+    map("n", "<leader>fo", fzf.git_status, { desc = "Search git status" })
+    map("n", "<leader>fO", fzf.oldfiles, { desc = "Search old files" })
     map("n", "<leader>fg", function()
       -- ignore some project files by default
       -- make it interatable through :let g:fzf_ignore_list
