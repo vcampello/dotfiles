@@ -14,6 +14,7 @@ return {
       pattern = "*.csv",
       callback = function(ev)
         vim.cmd.CsvViewEnable()
+        vim.o.wrap = false
       end,
     })
   end,
