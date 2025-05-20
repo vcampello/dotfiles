@@ -8,26 +8,13 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   end,
 })
 
-vim.api.nvim_create_autocmd("FileType", {
-  desc = "Do not auto comment next line for single comments",
-  group = core_group,
-  pattern = { "javascript", "typescript", "javascriptreact", "typescriptreact", "lua", "c" },
-  callback = function()
-    -- ignore the following matches
-    -- local blacklist = { "snack" }
-    -- for _, value in ipairs(blacklist) do
-    --   if string.find(ev.match, value) then
-    --     return
-    --   end
-    -- end
-
-    -- do not auto comment next line for single comments
-    vim.opt_local.comments:remove({
-      "://",
-      ":--",
-    })
-  end,
-})
+-- FIXME: can it be setup so if I press enter again on a comment line it removes the line?
+--[[
+-- some comment
+--
+<enter>
+-- some comment
+]]
 
 vim.api.nvim_create_autocmd("BufRead", {
   group = core_group,
