@@ -16,8 +16,8 @@ vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Focus on above window" })
 vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Focus on right window" })
 
 -- Remap for dealing with word wrap
-vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+-- vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+-- vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- Better terminal navigation and start terminal in insert mode
 vim.api.nvim_create_autocmd({ "TermOpen" }, {
