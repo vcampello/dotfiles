@@ -13,7 +13,7 @@ return {
       "prettierd",
       "stylua",
       "nixpkgs-fmt",
-      "volar",
+      "vue-language-server",
       "golangci-lint-langserver",
     },
   },
