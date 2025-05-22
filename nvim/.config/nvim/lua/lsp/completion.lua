@@ -32,7 +32,7 @@ return {
         },
       },
     },
-
+    cmdline = { completion = { ghost_text = { enabled = false } } },
     sources = {
       default = { "lsp", "path", "snippets", "buffer", "lazydev" },
       providers = {
