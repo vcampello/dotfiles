@@ -11,6 +11,13 @@ return {
     image = { enabled = false },
     indent = { enabled = true },
     input = { enabled = true },
+    lazygit = {
+      configure = true,
+      theme = {
+        -- try to always make it readable
+        selectedLineBgColor = { bg = "CursorLine" },
+      },
+    },
     notifier = {
       enabled = true,
       timeout = 3000,

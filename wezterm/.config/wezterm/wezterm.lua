@@ -14,7 +14,7 @@ local config = wez.config_builder()
 -- config.color_scheme = "Bright Lights"
 -- config.color_scheme = "Dark+"
 -- config.color_scheme = "carbonfox"
-config.color_scheme = "rose-pine"
+config.color_scheme = "nord"
 -- config.font = wezterm.font_with_fallback({
 --   -- { family = "Victor Mono", weight = "DemiBold" },
 --   { family = "JetBrainsMono Nerd Font", weight = "Regular" },
@@ -70,24 +70,24 @@ config.default_cursor_style = "BlinkingBlock"
 config.tab_bar_at_bottom = true
 
 -- TODO: add a shortcut to toggle the background
--- config.background = {
---   {
---     source = {
---       File = wez.config_dir .. "/wallpapers/dope-sukuna.png",
---     },
---     hsb = { hue = 0, saturation = 0, brightness = 0.5 },
---   },
---   {
---     source = {
---       Color = theme.COLORS.gray,
---       -- Color = theme.COLORS.rosepine, --r
---     },
---     width = "100%",
---     height = "100%",
---     opacity = 0.95,
---     -- hsb = { hue = 1, saturation = 1.0, brightness = 0.8 },
---   },
--- }
+config.background = {
+  {
+    source = {
+      File = wez.config_dir .. "/wallpapers/sunset-sakura-tree.jpg",
+    },
+    -- hsb = { hue = 0, saturation = 0, brightness = 0.5 },
+  },
+  {
+    source = {
+      Color = theme.COLORS.nord_black,
+      -- Color = theme.COLORS.rosepine, --r
+    },
+    width = "100%",
+    height = "100%",
+    opacity = 0.85,
+    hsb = { hue = 0.8, saturation = 1.8, brightness = 0.8 },
+  },
+}
 
 -- Terminal style rendering
 config.use_fancy_tab_bar = false

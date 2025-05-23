@@ -47,4 +47,35 @@ function M.nightfox()
   }
 end
 
-return M.rosepine()
+function M.nordic()
+  return {
+    "AlexvZyl/nordic.nvim",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      require("nordic").load({
+        -- configure with slightly better contrast
+        on_highlight = function(highlights, palette)
+          -- comments
+          highlights.Comment.fg = palette.gray5
+
+          -- line numbers
+          highlights.LineNr.fg = palette.gray5
+          highlights.CursorLineNr.fg = palette.fg_bright
+
+          -- current line and visual selection
+          highlights.CursorLine.bg = palette.gray1
+          highlights.Visual.bg = palette.gray1
+        end,
+        transparent = {
+          -- depends on terminal background to look nice
+          bg = true,
+          float = true,
+        },
+        bright_border = true,
+      })
+    end,
+  }
+end
+
+return M.nordic()
