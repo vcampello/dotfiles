@@ -90,6 +90,12 @@ return {
           },
         },
       },
+      previewers = {
+        builtin = {
+          -- disable image previews for now. It can cause wezterm to hang and images to be permanently drawn on the buffer/neovim
+          snacks_image = { enabled = false },
+        },
+      },
     })
 
     -- Keymaps

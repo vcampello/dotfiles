@@ -8,6 +8,7 @@ return {
     bigfile = { enabled = false },
     dashboard = { enabled = false },
     explorer = { enabled = false },
+    image = { enabled = false },
     indent = { enabled = true },
     input = { enabled = true },
     notifier = {
