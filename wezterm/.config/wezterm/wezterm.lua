@@ -79,7 +79,7 @@ config.background = {
   },
   {
     source = {
-      Color = theme.COLORS.nord_black,
+      Color = theme.COLORS.nordic_black,
       -- Color = theme.COLORS.rosepine, --r
     },
     width = "100%",
@@ -108,9 +108,8 @@ config.colors = {
   cursor_fg = theme.COLORS.white,
   cursor_border = theme.COLORS.amber,
 
-  -- selection_fg = "#ffffff",
-
-  selection_bg = "rgba(150,100,0, 0.5)", -- #3a3d41
+  selection_bg = theme.COLORS.nordic_gray1,
+  selection_fg = theme.COLORS.nordic_fg_bright,
   tab_bar = {
     background = theme.palette.status_bar.bg,
   },
