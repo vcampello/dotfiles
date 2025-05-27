@@ -1,3 +1,11 @@
+function is_recoring()
+  local reg = vim.fn.reg_recording()
+  if reg == "" then
+    return ""
+  end -- not recording
+  return "recording @" .. reg
+end
+
 return {
   -- Set lualine as statusline
   "nvim-lualine/lualine.nvim",
@@ -40,8 +48,8 @@ return {
         },
       },
       sections = {
+        lualine_b = { is_recoring },
         lualine_c = {
-          -- { "sumbols" },
           {
             "filename",
             file_status = true, -- Displays file status (readonly status, modified status)
