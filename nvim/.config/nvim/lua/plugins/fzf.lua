@@ -111,6 +111,7 @@ return {
     map("n", "<leader>fj", fzf.jumps, { desc = "Search jumps" })
     map("n", "<leader>fo", fzf.git_status, { desc = "Search git status" })
     map("n", "<leader>fO", fzf.oldfiles, { desc = "Search old files" })
+    map("n", "<leader>fq", fzf.quickfix, { desc = "Search quickfix" })
     map("n", "<leader>fg", function()
       -- ignore some project files by default
       -- make it interatable through :let g:fzf_ignore_list
