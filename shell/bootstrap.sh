@@ -28,6 +28,10 @@ brew install \
     starship \
     zsh-vi-mode
 
+echo "installing fonts"
+brew install --cask font-iosevka
+brew install --cask font-victor-mono
+
 # setup rust
 # the path will be set in config.sh
 rustup-init -y --no-modify-path
