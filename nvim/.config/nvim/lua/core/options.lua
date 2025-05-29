@@ -92,8 +92,8 @@ vim.opt.spell = true
 vim.opt.path:append("**")
 
 -- enable exrc: disabled for now as it's not being used
--- vim.opt.exrc = true
--- vim.opt.secure = true
+vim.opt.exrc = true
+vim.opt.secure = true
 
 -- unique shada per directory (aka unique jumps, registers, etc)
 local workspace_path = vim.fn.getcwd()
