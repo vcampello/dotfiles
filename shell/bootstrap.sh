@@ -25,8 +25,8 @@ brew install \
     stow \
     zoxide \
     go \
-    starship \
-    zsh-vi-mode
+    starship
+# zsh-vi-mode
 
 echo "installing fonts"
 brew install --cask font-iosevka
