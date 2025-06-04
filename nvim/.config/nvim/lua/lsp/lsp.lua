@@ -214,6 +214,11 @@ return {
     require("mason-lspconfig").setup({
       ensure_installed = vim.tbl_keys(servers),
       automatic_installation = false,
+      automatic_enable = {
+        exclude = {
+          "ts_ls", -- we need it to be installed but we'll use typescript-tools instead
+        },
+      },
       handlers = {
         function(server_name)
           -- blacklist ts_ls
