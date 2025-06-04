@@ -7,7 +7,8 @@ return {
       local lint = require("lint")
       lint.linters_by_ft = {
         markdown = { "markdownlint" },
-        go = { "golangcilint" },
+        --FIXME: this needs to be extended as it doesn't like when the go project is nested in a repo
+        -- go = { "golangcilint" },
       }
 
       local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
