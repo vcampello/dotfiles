@@ -80,8 +80,8 @@ config.background = {
     },
     width = "100%",
     height = "100%",
-    opacity = 0.85,
-    hsb = { hue = 0.8, saturation = 1.8, brightness = 0.8 },
+    opacity = 0.90,
+    -- hsb = { hue = 0.8, saturation = 1.8, brightness = 0.8 },
   },
 }
 
