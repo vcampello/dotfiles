@@ -66,6 +66,15 @@ function M.nordic()
           -- current line and visual selection
           highlights.CursorLine.bg = palette.gray1
           highlights.Visual.bg = palette.gray1
+
+          --FIXME: make a PR to fix the broken highlights. It's caused by setting `transparent.bg = true`
+          local C = palette
+          local U = require("nordic.utils")
+          local diff_blend = 0.2
+          highlights.DiffChange.bg = U.blend(C.blue1, C.black1, 0.05) --C.diff.change1
+          highlights.DiffText.bg = U.blend(C.blue2, C.black1, diff_blend) -- C.diff.change0
+          highlights.DiffAdd.bg = U.blend(C.green.base, C.black1, diff_blend) -- C.diff.add
+          highlights.DiffDelete.bg = U.blend(C.red.base, C.black1, diff_blend) -- C.diff.delete
         end,
         transparent = {
           -- depends on terminal background to look nice
