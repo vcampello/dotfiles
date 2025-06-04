@@ -132,6 +132,10 @@ return {
 
     -- Enable the following language servers
     local servers = {
+      -- install these by default
+      ts_ls = {},
+
+      -- configured servers
       gopls = {
         settings = {
           hints = {
@@ -145,10 +149,7 @@ return {
           },
         },
       },
-      html = {
-        filetypes = { "html", "templ" },
-      },
-
+      html = {},
       lua_ls = {
         settings = {
           Lua = {
