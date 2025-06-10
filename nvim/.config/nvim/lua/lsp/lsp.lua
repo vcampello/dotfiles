@@ -244,6 +244,8 @@ return {
         "vue",
       },
       settings = {
+        code_lens = "references_only",
+        disable_member_code_lens = true,
         expose_as_code_action = "all",
         tsserver_file_preferences = {
           includeInlayParameterNameHints = "all",
