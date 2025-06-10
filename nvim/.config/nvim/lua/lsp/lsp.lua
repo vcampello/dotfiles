@@ -217,15 +217,12 @@ return {
       automatic_enable = {
         exclude = {
           "ts_ls", -- we need it to be installed but we'll use typescript-tools instead
+          "htmx",
         },
       },
       handlers = {
         function(server_name)
-          -- blacklist ts_ls
-          if server_name == "ts_ls" then
-            return
-          end
-
+          ---FIXME: this no longer works as intended because of the `vim.lsp` api
           local server = servers[server_name] or {}
           --- overrides
           server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
