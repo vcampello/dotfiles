@@ -6,7 +6,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "/home/linuxbrew/.linuxbrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/home/linuxbrew/.linuxbrew/opt/nvm/etc/bash_completion.d/nvm"
 
 # rust
-source "$HOME/.cargo/env"
+export PATH="$PATH:$(brew --prefix rustup)/bin"
 
 # go
 GOBIN_PATH="$(go env GOPATH)/bin"

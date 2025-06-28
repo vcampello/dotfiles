@@ -22,6 +22,7 @@ brew install \
     nvm \
     ripgrep \
     rustup-init \
+    rust-analyzer \
     stow \
     zoxide \
     go \
