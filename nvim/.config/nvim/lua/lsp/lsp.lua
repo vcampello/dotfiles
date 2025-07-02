@@ -39,7 +39,6 @@ return {
     local on_attach = function(event)
       local bufnr = event.buf
       local client = vim.lsp.get_client_by_id(event.data.client_id)
-      print("setting up " .. client.name)
 
       ---Keymap wrapper
       ---@param mode string | string[]
@@ -137,11 +136,27 @@ return {
       callback = on_attach,
     })
 
+    -- TODO: should this even live here?
+    vim.lsp.config("circle_ci_lsp", {
+      init_options = { hostInfo = "neovim" },
+      cmd = {
+        "circleci-yaml-language-server",
+        "-stdio",
+        "-schema",
+        vim.fn.stdpath("data") .. "/mason/packages/circleci-yaml-language-server/schema.json",
+      },
+      filetypes = {
+        "yaml",
+      },
+      root_markers = { ".git", ".circleci" },
+    })
+
+    vim.lsp.enable("circle_ci_lsp")
+
     -- Enable the following language servers
     local servers = {
       -- install these by default
       ts_ls = {},
-
       -- configured servers
       gopls = {
         settings = {
