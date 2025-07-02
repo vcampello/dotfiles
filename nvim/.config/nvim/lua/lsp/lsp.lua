@@ -149,6 +149,15 @@ return {
         "yaml",
       },
       root_markers = { ".git", ".circleci" },
+      root_dir = function(bufnr, on_dir)
+        print(vim.fn.bufname(bufnr))
+        -- only start when the file is in the .circleci folder
+        local bufname = vim.fn.bufname(bufnr)
+        local is_circle_ci_config = bufname:match("%.circleci/")
+        if is_circle_ci_config then
+          on_dir(vim.fn.getcwd())
+        end
+      end,
     })
 
     vim.lsp.enable("circle_ci_lsp")
