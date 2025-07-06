@@ -1,2 +1,7 @@
 [direnv]
 disabled = false
+
+[mise]
+disabled = false
+healthy_symbol = ' '
+unhealthy_symbol = ' '

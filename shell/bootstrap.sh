@@ -14,6 +14,7 @@ fi
 # setup tools
 echo "Installing tools"
 brew install \
+    mise \
     fzf \
     git-delta \
     jq \

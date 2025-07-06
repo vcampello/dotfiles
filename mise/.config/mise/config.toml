@@ -1,0 +1,43 @@
+[tools]
+# global tool versions go here
+# you can set these with `mise use -g`
+node = 'lts'
+go = 'latest'
+rust = 'latest'
+python = 'latest'
+lua = 'latest'
+
+taplo = 'latest'
+stylua = 'latest'
+
+neovim = 'latest'
+tree-sitter = 'latest' # is this required by neovim?
+
+starship = 'latest'
+ripgrep = 'latest'
+ripgrep-all = 'latest'
+jq = 'latest'
+yq = 'latest'
+yj = 'latest'          # convert between yaml, toml, json, hcl
+
+lazygit = 'latest'
+delta = 'latest'
+
+zoxide = 'latest'
+fzf = 'latest'
+
+aws-cli = 'latest'
+aws-vault = 'latest'
+task = 'latest'      # for some projects
+
+
+[settings]
+# tools can read the versions files used by other version managers
+# for example, .nvmrc in the case of node's nvm
+idiomatic_version_file_enable_tools = ['node', 'go', 'python']
+trusted_config_paths = ['~/dev', '~/dotfiles']
+experimental = true                                            # enable hooks
+
+[env]
+# this doesn't seem to be working yet - so I'll use mise.local.toml
+_.file = ".env.json"
