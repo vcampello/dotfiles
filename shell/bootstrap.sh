@@ -10,25 +10,27 @@ else
     echo "Brew found..."
 fi
 
+# FIXME: install stow, symlink files then install the bundle
 # TODO: add confirmation prompt
+# TODO: add checks to ensure the directories are correct
 # setup tools
-echo "Installing tools"
-brew install \
-    mise \
-    stow
+echo "installing brew bundle"
 
-echo "installing fonts"
-brew install --cask font-iosevka
-brew install --cask font-victor-mono
-
-# setup rust
-# the path will be set in config.sh
-rustup-init -y --no-modify-path
+# link the brew config directory
+brew_config_dir="$XDG_CONFIG_HOME/homebrew"
+echo "Creating $brew_config_dir"
+# symlink config
+# FIXME: this feels hacky as hell
+cd ../
+ln -snv "${PWD}/homebrew/.config/homebrew/" "$brew_config_dir"
+cd ./shell
+# install bundle
+brew bundle check --global && brew bundle --global
 
 # TODO: verify if this will work on macos
 # Setup env config for the script
-BASEDIR=$(dirname "$0")
-source "${BASEDIR}/config.sh"
+# BASEDIR=$(dirname "$0")
+# source "${BASEDIR}/config.sh"
 
 # TODO: add confirmation prompt
 RED='\033[0;31m'

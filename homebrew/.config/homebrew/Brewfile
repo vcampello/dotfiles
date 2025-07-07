@@ -1,0 +1,8 @@
+brew "mise"
+brew "stow"
+brew "git"
+
+cask "wezterm@nightly"
+
+cask "font-iosevka"
+cask "font-victor-mono"

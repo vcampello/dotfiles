@@ -1,3 +1,4 @@
+# TODO: add all missing configuration
 # Find out if we are using bash or zsh
 shell_name=""
 case "$SHELL" in

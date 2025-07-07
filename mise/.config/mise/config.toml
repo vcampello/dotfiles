@@ -2,6 +2,7 @@
 # global tool versions go here
 # you can set these with `mise use -g`
 node = 'lts'
+bun = 'latest'
 go = 'latest'
 rust = 'latest'
 python = 'latest'
@@ -42,3 +43,7 @@ experimental = true                                            # enable hooks
 [env]
 # this doesn't seem to be working yet - so I'll use mise.local.toml
 _.file = ".env.json"
+
+# will only work if the directory has a mise config
+[hooks]
+enter = "mise install --quiet"
