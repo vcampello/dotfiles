@@ -33,6 +33,7 @@ delta = 'latest'
 
 aws-cli = 'latest'
 aws-vault = 'latest'
+gron = "latest"
 
 [settings]
 # tools can read the versions files used by other version managers
