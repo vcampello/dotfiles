@@ -4,7 +4,7 @@
 node = 'lts'
 bun = 'latest'
 go = 'latest'
-rust = 'latest'
+rust = { version = 'latest', components = 'rust-analyzer' }
 python = 'latest'
 lua = 'latest'
 
@@ -31,7 +31,6 @@ delta = 'latest'
 aws-cli = 'latest'
 aws-vault = 'latest'
 task = 'latest'      # for some projects
-
 
 [settings]
 # tools can read the versions files used by other version managers
