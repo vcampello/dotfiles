@@ -20,11 +20,12 @@ jq = 'latest'
 yq = 'latest'
 yj = 'latest'          # convert between yaml, toml, json, hcl
 
-lazygit = 'latest'
-delta = 'latest'
-
 zoxide = 'latest'
 fzf = 'latest'
+fd = 'latest'
+
+lazygit = 'latest'
+delta = 'latest'
 
 aws-cli = 'latest'
 aws-vault = 'latest'

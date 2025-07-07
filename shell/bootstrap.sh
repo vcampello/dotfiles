@@ -15,20 +15,7 @@ fi
 echo "Installing tools"
 brew install \
     mise \
-    fzf \
-    git-delta \
-    jq \
-    lazygit \
-    luarocks \
-    nvm \
-    ripgrep \
-    rustup-init \
-    rust-analyzer \
-    stow \
-    zoxide \
-    go \
-    starship
-# zsh-vi-mode
+    stow
 
 echo "installing fonts"
 brew install --cask font-iosevka
@@ -42,10 +29,6 @@ rustup-init -y --no-modify-path
 # Setup env config for the script
 BASEDIR=$(dirname "$0")
 source "${BASEDIR}/config.sh"
-
-# setup nvm
-nvm install 22
-nvm alias default 22
 
 # TODO: add confirmation prompt
 RED='\033[0;31m'
