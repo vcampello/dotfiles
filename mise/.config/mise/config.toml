@@ -20,17 +20,19 @@ ripgrep-all = 'latest'
 jq = 'latest'
 yq = 'latest'
 yj = 'latest'          # convert between yaml, toml, json, hcl
+jc = "latest"
 
 zoxide = 'latest'
 fzf = 'latest'
 fd = 'latest'
+task = 'latest'   # for some projects
+bat = "latest"
 
 lazygit = 'latest'
 delta = 'latest'
 
 aws-cli = 'latest'
 aws-vault = 'latest'
-task = 'latest'      # for some projects
 
 [settings]
 # tools can read the versions files used by other version managers
