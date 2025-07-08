@@ -1,4 +1,5 @@
-export XDG_CONFIG_HOME="$HOME/.config"
+set -gx XDG_CONFIG_HOME "$HOME/.config"
+set -gx SHELL fish
 
 # source brew
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
@@ -10,14 +11,14 @@ if status is-interactive
 
     # fzf
     fzf --fish | source
-    export FZF_DEFAULT_OPTS=''
+    set -gx FZF_DEFAULT_OPTS ''
 
     # zoxide
     zoxide init --cmd cd fish | source
 
     # neovim
-    export VISUAL='nvim' # default viewer
-    export EDITOR='nvim' # default editor
-    export MANPAGER='nvim +Man!' # default manpage pager
-    export MANWIDTH=999 # manpage width
+    set -gx VISUAL nvim # default viewer
+    set -gx EDITOR nvim # default editor
+    set -gx MANPAGER 'nvim +Man!' # default manpage pager
+    set -gx MANWIDTH 999 # manpage width
 end
