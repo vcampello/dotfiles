@@ -1,6 +1,7 @@
 brew "mise"
 brew "stow"
 brew "git"
+brew "fish"
 
 cask "wezterm@nightly"
 

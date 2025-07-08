@@ -27,14 +27,9 @@ cd ./shell
 # install bundle
 brew bundle check --global && brew bundle --global
 
-# TODO: verify if this will work on macos
-# Setup env config for the script
-# BASEDIR=$(dirname "$0")
-# source "${BASEDIR}/config.sh"
-
 # TODO: add confirmation prompt
 RED='\033[0;31m'
 RESET='\033[0m' # No Color
 echo
-echo -e "${RED}Don't forget to source \"${PWD}/config.sh\"${RESET}"
+echo -e "${RED}Don't forget to source \"${PWD}/start-fish.sh\"${RESET}"
 echo
