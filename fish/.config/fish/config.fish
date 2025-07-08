@@ -4,6 +4,9 @@ set -gx SHELL fish
 # source brew
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
+# activate mise by default
+mise activate fish | source
+
 # Commands to run in interactive sessions can go here
 if status is-interactive
     # starship
