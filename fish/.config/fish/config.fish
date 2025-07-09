@@ -1,6 +1,8 @@
 set -gx XDG_CONFIG_HOME "$HOME/.config"
 set -gx SHELL fish
 
+fish_add_path $HOME/bin
+
 # source brew
 if test -f /home/linuxbrew/.linuxbrew/bin/brew
     # linux
