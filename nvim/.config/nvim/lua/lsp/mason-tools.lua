@@ -12,7 +12,6 @@ return {
       "eslint_d",
       "prettierd",
       "stylua",
-      "nixpkgs-fmt",
       "vue-language-server",
       "golangci-lint-langserver",
       "circleci-yaml-language-server",
