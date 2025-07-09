@@ -2,7 +2,13 @@ set -gx XDG_CONFIG_HOME "$HOME/.config"
 set -gx SHELL fish
 
 # source brew
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+if test -f /home/linuxbrew/.linuxbrew/bin/brew
+    # linux
+    /home/linuxbrew/.linuxbrew/bin/brew shellenv | source
+else if test -f /opt/homebrew/bin/brew # macos
+    # macos
+    /opt/homebrew/bin/brew shellenv | source
+end
 
 # activate mise by default
 mise activate fish | source
