@@ -7,7 +7,7 @@ fish_add_path $HOME/bin
 if test -f /home/linuxbrew/.linuxbrew/bin/brew
     # linux
     /home/linuxbrew/.linuxbrew/bin/brew shellenv | source
-else if test -f /opt/homebrew/bin/brew # macos
+else if test -f /opt/homebrew/bin/brew 
     # macos
     /opt/homebrew/bin/brew shellenv | source
 end
