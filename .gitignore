@@ -1,1 +1,3 @@
 **/mise.local.toml
+# this is generated everytime start-fish.sh is run
+fish/.config/fish/completions/mise.fish

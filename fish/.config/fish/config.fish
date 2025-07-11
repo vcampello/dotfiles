@@ -14,7 +14,7 @@ end
 
 # activate mise by default
 mise activate fish | source
-mise completion fish >~/.config/fish/completions/mise.fish
+mise completion fish > ~/.config/fish/completions/mise.fish # TODO: cache if this ever becomes a bottleneck
 
 # Commands to run in interactive sessions can go here
 if status is-interactive
