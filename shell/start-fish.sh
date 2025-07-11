@@ -2,6 +2,13 @@
 # - fish is being installed by brew
 # - fish isn't posix compliant
 # - I don't want to deal with chsh when setting up new machines
+
+# prevent nested executions
+if [[ "$SHELL" == *fish* ]]; then
+    echo "fish is already running. exiting..."
+    exit
+fi
+
 # source brew
 if [ -f /home/linuxbrew/.linuxbrew/bin/brew ]; then
     # linux
