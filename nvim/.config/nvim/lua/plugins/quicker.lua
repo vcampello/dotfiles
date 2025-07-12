@@ -40,6 +40,7 @@ return {
       end
 
       vim.cmd.cnext()
+      vim.cmd.normal("zz") -- centralise after jumping
     end, { desc = "Previous quickfix item" })
 
     vim.keymap.set("n", "[q", function()
@@ -48,6 +49,7 @@ return {
       end
 
       vim.cmd.cprev()
+      vim.cmd.normal("zz") -- centralise after jumping
     end, { desc = "Next quickfix item" })
   end,
 }

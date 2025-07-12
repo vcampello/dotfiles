@@ -50,8 +50,12 @@ return {
       --- these 2 are used way too often
       map("n", "gd", function()
         fzf.lsp_definitions({ jump1 = true })
+        vim.cmd.normal("zz") -- centralise after jumping
       end, "Definitions")
-      map("n", "gD", vim.lsp.buf.type_definition, "Type Definition")
+      map("n", "gD", function()
+        vim.lsp.buf.type_definition()
+        vim.cmd.normal("zz") -- centralise after jumping
+      end, "Type Definition")
 
       -- override: vim.lsp.buf.references
       map("n", "grr", function()
@@ -61,6 +65,7 @@ return {
       -- override: vim.lsp.buf_impementation
       map("n", "gri", function()
         fzf.lsp_implementations({ jump1 = true })
+        vim.cmd.normal("zz") -- centralise after jumping
       end, "Implementation")
 
       -- override: vim.lsp.buf.document_symbols
