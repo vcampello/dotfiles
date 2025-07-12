@@ -1,16 +1,3 @@
--- Resolve differences between neovim nightly (version 0.11) and stable (version 0.10)
----@param client vim.lsp.Client
----@param method vim.lsp.protocol.Method
----@param bufnr? integer some lsp support methods only in specific files
----@return boolean
-local function client_supports_method(client, method, bufnr)
-  if vim.fn.has("nvim-0.11") == 1 then
-    return client:supports_method(method, bufnr)
-  else
-    return client.supports_method(method, { bufnr = bufnr })
-  end
-end
-
 return {
   -- lazy = false,
   -- LSP Configuration & Plugins
@@ -50,7 +37,7 @@ return {
       end
 
       -- setup inlay hints if available
-      if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
+      if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
         map("n", "grI", function()
           vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }))
         end, "Toggle inlay hints")
@@ -106,9 +93,7 @@ return {
       --    See `:help CursorHold` for information about when this is executed
       --
       -- When you move your cursor, the highlights will be cleared (the second autocommand).
-      if
-        client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf)
-      then
+      if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf) then
         local highlight_augroup = vim.api.nvim_create_augroup("lsp-highlight", { clear = false })
         vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
           buffer = event.buf,
