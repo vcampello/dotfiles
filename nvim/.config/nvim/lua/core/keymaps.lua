@@ -32,22 +32,10 @@ vim.api.nvim_create_autocmd({ "TermOpen" }, {
 
 -- Diagnostic keymaps
 vim.keymap.set("n", "[d", function()
-  -- TODO: remove when v11 is stable
-  -- goto_prev is deprecated in version 11
-  if vim.diagnostic.jump then
-    vim.diagnostic.jump({ count = -1, float = true })
-  else
-    vim.diagnostic.goto_prev()
-  end
+  vim.diagnostic.jump({ count = -1, float = true })
 end, { desc = "Go to previous diagnostic message" })
 vim.keymap.set("n", "]d", function()
-  -- TODO: remove when v11 is stable
-  -- goto_next is deprecated in v11
-  if vim.diagnostic.jump then
-    vim.diagnostic.jump({ count = 1, float = true })
-  else
-    vim.diagnostic.goto_next()
-  end
+  vim.diagnostic.jump({ count = 1, float = true })
 end, { desc = "Go to next diagnostic message" })
 
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
