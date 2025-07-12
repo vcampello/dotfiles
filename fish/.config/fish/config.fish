@@ -24,6 +24,11 @@ if status is-interactive
     # fzf
     fzf --fish | source
     set -gx FZF_DEFAULT_OPTS ''
+    # Preview file content using bat (https://github.com/sharkdp/bat)
+    set -gx FZF_CTRL_T_OPTS "
+      --walker-skip .git,node_modules,target
+      --preview 'bat -n --color=always {}'
+      --bind 'ctrl-/:change-preview-window(down|hidden|)'"
 
     # zoxide
     zoxide init --cmd cd fish | source
