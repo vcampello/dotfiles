@@ -6,7 +6,7 @@ usage = "latest"
 # you can set these with `mise use -g`
 node = 'lts'
 bun = 'latest'
-go = 'latest'
+go = "latest"
 rust = { version = 'latest', components = 'rust-analyzer' }
 python = 'latest'
 lua = 'latest'
