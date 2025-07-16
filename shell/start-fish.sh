@@ -3,10 +3,10 @@
 # - fish isn't posix compliant
 # - I don't want to deal with chsh when setting up new machines
 
-# prevent nested executions
+# prevent nested executions - aka what if I want to start zsh?
 if [[ "$SHELL" == *fish* ]]; then
-    echo "fish is already running. exiting..."
-    exit
+    echo -e "\033[1;33m[WARN]\033[0;m skipping start-fish.sh..."
+    return
 fi
 
 # source brew

@@ -1,5 +1,5 @@
 set -gx XDG_CONFIG_HOME "$HOME/.config"
-set -gx SHELL fish
+set -gx SHELL (which fish)
 
 fish_add_path $HOME/bin
 
