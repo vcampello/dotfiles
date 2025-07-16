@@ -58,7 +58,7 @@ return {
       local files = {}
       for _, entry in ipairs(selected) do
         -- Convert the entry to an actual path without the leading icon
-        table.insert(files, fzfluapath.entry_to_file(entry).path)
+        table.insert(files, fzfluapath.entry_to_file(entry, {}, false).path)
       end
 
       -- explanation:
