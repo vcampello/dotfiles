@@ -6,9 +6,15 @@ return {
     "nvim-treesitter/nvim-treesitter-textobjects",
     {
       "nvim-treesitter/nvim-treesitter-context",
-      opts = {
-        multiwindow = true,
-      },
+      config = function()
+        require("treesitter-context").setup({
+          multiwindow = true,
+        })
+
+        vim.keymap.set("n", "<c-;>", function()
+          require("treesitter-context").go_to_context(vim.v.count1)
+        end, { silent = true, desc = "Jump to parent context" })
+      end,
     },
   },
   build = ":TSUpdate",
@@ -61,7 +67,7 @@ return {
           init_selection = "<c-space>",
           node_incremental = "<c-space>",
           scope_incremental = "<c-s>",
-          node_decremental = "<M-space>",
+          node_decremental = "<c-;>",
         },
       },
       textobjects = {
