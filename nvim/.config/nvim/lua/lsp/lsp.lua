@@ -152,12 +152,6 @@ return {
 
     vim.lsp.enable("circle_ci_lsp")
 
-    -- Enable the following language servers
-    local servers = {
-      -- install these by default
-      ts_ls = {},
-    }
-
     -- broadcast addional capabilities to servers
     local default_capabilities = vim.lsp.protocol.make_client_capabilities()
     local cmp_capabilities = require("blink.cmp").get_lsp_capabilities(default_capabilities)
@@ -169,8 +163,7 @@ return {
 
     -- setup normal lsp configs
     require("mason-lspconfig").setup({
-      -- ensure_installed = vim.tbl_keys(servers),
-      ensure_installed = { "lua_ls", "jsonls", "yamlls", "html", "fish_lsp", "gopls" },
+      ensure_installed = { "lua_ls", "jsonls", "yamlls", "html", "fish_lsp", "gopls", "ts_ls" },
       automatic_installation = false,
       automatic_enable = {
         exclude = {
