@@ -1,15 +1,16 @@
 [tools]
-# required to make mise comletions work
+# required to make mise completions work
 usage = "latest"
 
 # global tool versions go here
 # you can set these with `mise use -g`
 node = 'lts'
 bun = 'latest'
-go = "latest"
 rust = { version = 'latest', components = 'rust-analyzer' }
 python = 'latest'
 lua = 'latest'
+
+go = "latest"
 
 taplo = 'latest'
 stylua = 'latest'
@@ -25,18 +26,19 @@ yq = 'latest'
 yj = 'latest'          # convert between yaml, toml, json, hcl
 jc = "latest"
 
+gron = "latest"
 zoxide = 'latest'
 fzf = 'latest'
 fd = 'latest'
-task = 'latest'   # for some projects
 bat = "latest"
 
 lazygit = 'latest'
 delta = 'latest'
+task = 'latest'    # for some projects
+
 
 aws-cli = 'latest'
 aws-vault = 'latest'
-gron = "latest"
 
 [settings]
 # tools can read the versions files used by other version managers
