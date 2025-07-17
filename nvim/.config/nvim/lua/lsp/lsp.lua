@@ -167,14 +167,6 @@ return {
     ---@diagnostic disable-next-line: missing-fields
     require("mason").setup({ ui = { border = "single" } })
 
-    local modifiedHandlers = {
-      ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-        border = "rounded",
-        -- Keep it open while typing
-        close_events = { "CursorMoved", "BufHidden" },
-      }),
-    }
-
     -- setup normal lsp configs
     require("mason-lspconfig").setup({
       -- ensure_installed = vim.tbl_keys(servers),
@@ -192,7 +184,7 @@ return {
           local server = servers[server_name] or {}
           --- overrides
           server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-          server.handlers = vim.tbl_deep_extend("force", {}, modifiedHandlers, server.handlers or {})
+          server.handlers = vim.tbl_deep_extend("force", {}, server.handlers or {})
           require("lspconfig")[server_name].setup(server)
         end,
       },
@@ -200,7 +192,6 @@ return {
 
     -- setup ts_ls wrapper
     require("typescript-tools").setup({
-      handlers = modifiedHandlers,
       -- on_attach = on_attach,
       filetypes = {
         "javascript",
