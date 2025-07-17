@@ -178,16 +178,6 @@ return {
           "htmx",
         },
       },
-      handlers = {
-        function(server_name)
-          ---FIXME: this no longer works as intended because of the `vim.lsp` api
-          local server = servers[server_name] or {}
-          --- overrides
-          server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-          server.handlers = vim.tbl_deep_extend("force", {}, server.handlers or {})
-          require("lspconfig")[server_name].setup(server)
-        end,
-      },
     })
 
     -- setup ts_ls wrapper
