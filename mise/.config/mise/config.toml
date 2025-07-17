@@ -11,6 +11,7 @@ python = 'latest'
 lua = 'latest'
 
 go = "latest"
+golangci-lint = 'latest'
 
 taplo = 'latest'
 stylua = 'latest'
