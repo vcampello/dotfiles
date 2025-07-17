@@ -171,20 +171,6 @@ return {
         },
       },
       html = {},
-      yamlls = {
-        settings = {
-          yaml = {
-            schemaStore = {
-              -- You must disable built-in schemaStore support if you want to use
-              -- this plugin and its advanced options like `ignore`.
-              enable = false,
-              -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
-              url = "",
-            },
-            schemas = require("schemastore").yaml.schemas(),
-          },
-        },
-      },
     }
 
     -- broadcast addional capabilities to servers
@@ -207,7 +193,7 @@ return {
     -- setup normal lsp configs
     require("mason-lspconfig").setup({
       -- ensure_installed = vim.tbl_keys(servers),
-      ensure_installed = { "lua_ls", "jsonls" },
+      ensure_installed = { "lua_ls", "jsonls", "yamlls" },
       automatic_installation = false,
       automatic_enable = {
         exclude = {
