@@ -156,20 +156,6 @@ return {
     local servers = {
       -- install these by default
       ts_ls = {},
-      -- configured servers
-      gopls = {
-        settings = {
-          hints = {
-            assignVariableTypes = true,
-            compositeLiteralFields = true,
-            compositeLiteralTypes = true,
-            constantValues = true,
-            functionTypeParameters = true,
-            parameterNames = true,
-            rangeVariableTypes = true,
-          },
-        },
-      },
     }
 
     -- broadcast addional capabilities to servers
@@ -192,7 +178,7 @@ return {
     -- setup normal lsp configs
     require("mason-lspconfig").setup({
       -- ensure_installed = vim.tbl_keys(servers),
-      ensure_installed = { "lua_ls", "jsonls", "yamlls", "html", "fish_lsp" },
+      ensure_installed = { "lua_ls", "jsonls", "yamlls", "html", "fish_lsp", "gopls" },
       automatic_installation = false,
       automatic_enable = {
         exclude = {
