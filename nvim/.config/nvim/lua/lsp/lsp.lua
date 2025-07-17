@@ -192,7 +192,7 @@ return {
     -- setup normal lsp configs
     require("mason-lspconfig").setup({
       -- ensure_installed = vim.tbl_keys(servers),
-      ensure_installed = { "lua_ls", "jsonls", "yamlls", "html" },
+      ensure_installed = { "lua_ls", "jsonls", "yamlls", "html", "fish_lsp" },
       automatic_installation = false,
       automatic_enable = {
         exclude = {
