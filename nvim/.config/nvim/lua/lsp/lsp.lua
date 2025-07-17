@@ -171,25 +171,6 @@ return {
         },
       },
       html = {},
-      lua_ls = {
-        settings = {
-          Lua = {
-            hint = { enable = true, paramType = true },
-            completion = { callSnippet = "Replace" },
-            format = {
-              enable = false,
-            },
-            workspace = { checkThirdParty = false },
-            telemetry = { enable = false },
-            diagnostics = {
-              -- Get the language server to recognize the `vim` global
-              globals = { "vim", "Snacks" },
-              -- Ignore noisy warnings
-              disable = { "missing-fields" },
-            },
-          },
-        },
-      },
       jsonls = {
         settings = {
           json = {
@@ -233,7 +214,8 @@ return {
 
     -- setup normal lsp configs
     require("mason-lspconfig").setup({
-      ensure_installed = vim.tbl_keys(servers),
+      -- ensure_installed = vim.tbl_keys(servers),
+      ensure_installed = { "lua_ls" },
       automatic_installation = false,
       automatic_enable = {
         exclude = {
