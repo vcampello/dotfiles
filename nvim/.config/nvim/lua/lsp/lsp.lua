@@ -170,7 +170,6 @@ return {
           },
         },
       },
-      html = {},
     }
 
     -- broadcast addional capabilities to servers
@@ -193,7 +192,7 @@ return {
     -- setup normal lsp configs
     require("mason-lspconfig").setup({
       -- ensure_installed = vim.tbl_keys(servers),
-      ensure_installed = { "lua_ls", "jsonls", "yamlls" },
+      ensure_installed = { "lua_ls", "jsonls", "yamlls", "html" },
       automatic_installation = false,
       automatic_enable = {
         exclude = {
