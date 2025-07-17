@@ -7,11 +7,10 @@ return {
       "bash-language-server",
       "shfmt",
       "gopls",
-      "gotests",
       "shellcheck",
       "eslint_d",
       "prettierd",
-      "stylua",
+      -- "stylua", -- provided by mise
       "vue-language-server",
       "golangci-lint-langserver",
       "circleci-yaml-language-server",
