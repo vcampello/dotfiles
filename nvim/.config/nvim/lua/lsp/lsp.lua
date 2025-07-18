@@ -125,37 +125,22 @@ return {
       group = vim.api.nvim_create_augroup("InitLspOnAttach", { clear = true }),
       callback = on_attach,
     })
-
-    -- TODO: should this even live here?
-    vim.lsp.config("circle_ci_lsp", {
-      init_options = { hostInfo = "neovim" },
-      cmd = {
-        "circleci-yaml-language-server",
-        "-stdio",
-        "-schema",
-        vim.fn.stdpath("data") .. "/mason/packages/circleci-yaml-language-server/schema.json",
-      },
-      filetypes = {
-        "yaml",
-      },
-      root_markers = { ".git", ".circleci" },
-      root_dir = function(bufnr, on_dir)
-        print(vim.fn.bufname(bufnr))
-        -- only start when the file is in the .circleci folder
-        local bufname = vim.fn.bufname(bufnr)
-        -- won't start if I cd  into .circleci
-        local is_circle_ci_config = bufname:match("%.circleci/")
-        if is_circle_ci_config then
-          on_dir(vim.fn.getcwd())
-        end
-      end,
-    })
-
-    vim.lsp.enable("circle_ci_lsp")
+    -- manual
+    vim.lsp.enable("circleci_lsp")
 
     -- setup normal lsp configs
     require("mason-lspconfig").setup({
-      ensure_installed = { "lua_ls", "jsonls", "yamlls", "html", "fish_lsp", "gopls", "ts_ls" },
+      ensure_installed = {
+        "fish_lsp",
+        "golangci_lint_ls",
+        "gopls",
+        "html",
+        "jsonls",
+        "lua_ls",
+        "taplo",
+        "ts_ls",
+        "yamlls",
+      },
       automatic_installation = false,
       automatic_enable = {
         exclude = {
