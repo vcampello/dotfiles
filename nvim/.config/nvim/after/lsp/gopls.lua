@@ -1,4 +1,4 @@
-vim.lsp.config("gopls", {
+return {
   settings = {
     hints = {
       assignVariableTypes = true,
@@ -10,4 +10,4 @@ vim.lsp.config("gopls", {
       rangeVariableTypes = true,
     },
   },
-})
+}

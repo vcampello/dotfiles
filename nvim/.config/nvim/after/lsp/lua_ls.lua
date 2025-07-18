@@ -1,5 +1,5 @@
-vim.lsp.config("lua_ls", {
-  {
+return {
+  settings = {
     Lua = {
       hint = { enable = true, paramType = true },
       completion = { callSnippet = "Replace" },
@@ -16,4 +16,4 @@ vim.lsp.config("lua_ls", {
       },
     },
   },
-})
+}
