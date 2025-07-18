@@ -101,7 +101,7 @@ local cache_dir = vim.fn.stdpath("data")
 local unique_id = vim.fn.fnamemodify(workspace_path, ":t") .. "_" .. vim.fn.sha256(workspace_path):sub(1, 8) ---@type string
 vim.opt.shadafile = cache_dir .. "/myshada/" .. unique_id .. ".shada"
 
--- vim.lsp.set_log_level("trace")
+-- vim.lsp.set_log_level("debug")
 vim.lsp.log.set_format_func(vim.inspect)
 
 -- diagnostics
