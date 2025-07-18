@@ -102,10 +102,11 @@ local unique_id = vim.fn.fnamemodify(workspace_path, ":t") .. "_" .. vim.fn.sha2
 vim.opt.shadafile = cache_dir .. "/myshada/" .. unique_id .. ".shada"
 
 -- vim.lsp.set_log_level("trace")
-require("vim.lsp.log").set_format_func(vim.inspect)
+vim.lsp.log.set_format_func(vim.inspect)
 
 -- diagnostics
 vim.diagnostic.config({
+  virtual_lines = false, -- TODO: set it up so it's shown when inspecting the line (aka hovering)
   severity_sort = true,
   float = { border = "rounded", source = "if_many" },
   underline = { severity = vim.diagnostic.severity.ERROR },

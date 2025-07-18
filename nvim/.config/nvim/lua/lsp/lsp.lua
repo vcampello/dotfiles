@@ -152,58 +152,13 @@ return {
 
     vim.lsp.enable("circle_ci_lsp")
 
-    -- broadcast addional capabilities to servers
-    local default_capabilities = vim.lsp.protocol.make_client_capabilities()
-    local cmp_capabilities = require("blink.cmp").get_lsp_capabilities(default_capabilities)
-    local file_ops_capabilities = require("lsp-file-operations").default_capabilities()
-    local capabilities = vim.tbl_deep_extend("force", default_capabilities, cmp_capabilities, file_ops_capabilities)
-
-    ---@diagnostic disable-next-line: missing-fields
-    require("mason").setup({ ui = { border = "single" } })
-
     -- setup normal lsp configs
     require("mason-lspconfig").setup({
       ensure_installed = { "lua_ls", "jsonls", "yamlls", "html", "fish_lsp", "gopls", "ts_ls" },
       automatic_installation = false,
       automatic_enable = {
         exclude = {
-          "ts_ls", -- we need it to be installed but we'll use typescript-tools instead
           "htmx",
-        },
-      },
-    })
-
-    -- setup ts_ls wrapper
-    require("typescript-tools").setup({
-      -- on_attach = on_attach,
-      filetypes = {
-        "javascript",
-        "javascriptreact",
-        "typescript",
-        "typescriptreact",
-        "vue",
-      },
-      settings = {
-        code_lens = "references_only",
-        disable_member_code_lens = true,
-        expose_as_code_action = "all",
-        tsserver_file_preferences = {
-          includeInlayParameterNameHints = "all",
-          includeInlayEnumMemberValueHints = true,
-          includeInlayFunctionLikeReturnTypeHints = true,
-          includeInlayFunctionParameterTypeHints = true,
-          includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-          includeInlayPropertyDeclarationTypeHints = true,
-          -- includeInlayVariableTypeHints = true,
-        },
-        capabilities = capabilities,
-        -- TODO: setup deno support
-        -- root_dir = root_pattern_excludes({
-        --   root = { "package.json" },
-        --   exclude = { "deno.json", "deno.jsonc" },
-        -- }),
-        tsserver_plugins = {
-          "@vue/typescript-plugin",
         },
       },
     })
