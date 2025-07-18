@@ -143,6 +143,7 @@ return {
         print(vim.fn.bufname(bufnr))
         -- only start when the file is in the .circleci folder
         local bufname = vim.fn.bufname(bufnr)
+        -- won't start if I cd  into .circleci
         local is_circle_ci_config = bufname:match("%.circleci/")
         if is_circle_ci_config then
           on_dir(vim.fn.getcwd())
