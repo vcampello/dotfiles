@@ -125,7 +125,7 @@ return {
         ignore_opt = string.format("%s --glob '%s'", ignore_opt, value)
       end
 
-      fzf.live_grep_glob({
+      fzf.live_grep({
         rg_opts = string.format("%s %s", ignore_opt, fzf.defaults.grep.rg_opts),
       })
     end, { desc = "Search project" })
