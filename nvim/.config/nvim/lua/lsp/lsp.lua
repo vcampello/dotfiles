@@ -78,8 +78,8 @@ return {
       -- map("i", "<c-k>", vim.lsp.buf.signature_help, "Signature Documentation")
 
       -- Lesser used LSP functionality
-      map("n", "grA", vim.lsp.buf.add_workspace_folder, "Workspace Add Folder")
-      map("n", "grR", vim.lsp.buf.remove_workspace_folder, "Workspace Remove Folder")
+      map("n", "grw", vim.lsp.buf.add_workspace_folder, "Workspace Add Folder")
+      map("n", "grW", vim.lsp.buf.remove_workspace_folder, "Workspace Remove Folder")
       map("n", "grL", function()
         vim.print(vim.lsp.buf.list_workspace_folders())
       end, "Workspace List Folders")
