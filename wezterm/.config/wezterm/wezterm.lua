@@ -14,8 +14,6 @@ config.color_scheme = "nord"
 
 -- font config + other fonts I like
 config.font = wez.font("Victor Mono", { weight = "DemiBold", stretch = "Normal", style = "Normal" })
--- config.font = wez.font("Iosevka Term Curly Slab", { weight = "Regular", stretch = "Normal", style = "Normal" })
--- config.font = wez.font("Iosevka", { weight = "Regular", stretch = "Normal", style = "Normal" })
 
 -- Disable as the pop-up comes up way too often
 config.warn_about_missing_glyphs = false
