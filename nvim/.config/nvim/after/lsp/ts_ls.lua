@@ -1,7 +1,17 @@
--- TODO: figure out how I can merge with the default_config from lspconfig instead of having to copy it here
-local lspconfig_ts_ls = {
+return {
+  --- tsserver options go here.
+  --- @see https://github.com/typescript-language-server/typescript-language-server/blob/master/docs/configuration.md
   init_options = {
     hostInfo = "neovim",
+    preferences = {
+      includeInlayParameterNameHints = "all",
+      includeInlayEnumMemberValueHints = true,
+      includeInlayFunctionLikeReturnTypeHints = true,
+      includeInlayFunctionParameterTypeHints = true,
+      includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+      includeInlayPropertyDeclarationTypeHints = true,
+      -- includeInlayVariableTypeHints = true,
+    },
   },
   cmd = { "typescript-language-server", "--stdio" },
   filetypes = {
@@ -13,18 +23,6 @@ local lspconfig_ts_ls = {
     "typescript.tsx",
   },
   root_markers = { "tsconfig.json", "jsconfig.json", "package.json", ".git" },
-
-  settings = {
-    preferences = {
-      includeInlayParameterNameHints = "all",
-      includeInlayEnumMemberValueHints = true,
-      includeInlayFunctionLikeReturnTypeHints = true,
-      includeInlayFunctionParameterTypeHints = true,
-      includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-      includeInlayPropertyDeclarationTypeHints = true,
-      -- includeInlayVariableTypeHints = true,
-    },
-  },
   handlers = {
     -- handle rename request for certain code actions like extracting functions / types
     ["_typescript.rename"] = function(_, result, ctx)
@@ -69,35 +67,21 @@ local lspconfig_ts_ls = {
   on_attach = function(client, bufnr)
     -- ts_ls provides `source.*` code actions that apply to the whole file. These only appear in
     -- `vim.lsp.buf.code_action()` if specified in `context.only`.
-    vim.api.nvim_buf_create_user_command(bufnr, "LspTypescriptSourceAction", function()
-      local source_actions = vim.tbl_filter(function(action)
-        return vim.startswith(action, "source.")
-      end, client.server_capabilities.codeActionProvider.codeActionKinds)
+    local source_actions = vim.tbl_filter(function(action)
+      return vim.startswith(action, "source.")
+    end, client.server_capabilities.codeActionProvider.codeActionKinds)
 
-      -- TODO: figure out how to merge this with fzf code actions.
+    -- vim.print(source_actions)
+    local extra_code_actions = function()
       vim.lsp.buf.code_action({
         context = {
           only = source_actions,
         },
       })
-    end, {})
+    end
+
+    -- TODO: execute these on save before formatting
+    vim.api.nvim_buf_create_user_command(bufnr, "ExtraCodeActions", extra_code_actions, {})
+    vim.keymap.set("n", "grA", extra_code_actions, { desc = "LSP: Extra Code Actions" })
   end,
 }
-
-local custom_config = {
-  init_options = {
-    --- tsserver options go here.
-    --- @see https://github.com/typescript-language-server/typescript-language-server/blob/master/docs/configuration.md
-    preferences = {
-      includeInlayParameterNameHints = "all",
-      includeInlayEnumMemberValueHints = true,
-      includeInlayFunctionLikeReturnTypeHints = true,
-      includeInlayFunctionParameterTypeHints = true,
-      includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-      includeInlayPropertyDeclarationTypeHints = true,
-      -- includeInlayVariableTypeHints = true,
-    },
-  },
-}
-
-return vim.tbl_deep_extend("force", {}, lspconfig_ts_ls, custom_config)
