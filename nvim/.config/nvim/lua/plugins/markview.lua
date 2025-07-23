@@ -1,11 +1,12 @@
 return {
   enabled = true,
+  lazy = false,
   "OXY2DEV/markview.nvim",
-  lazy = true,
-  ft = "markdown",
-
-  dependencies = {
-    "nvim-treesitter/nvim-treesitter",
-    "nvim-tree/nvim-web-devicons",
-  },
+  config = function()
+    require("markview").setup({
+      preview = {
+        icon_provider = "devicons", -- "mini" or "devicons"
+      },
+    })
+  end,
 }
