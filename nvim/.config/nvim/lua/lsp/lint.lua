@@ -6,8 +6,9 @@ return {
     config = function()
       local lint = require("lint")
       lint.linters_by_ft = {
-        markdown = { "markdownlint" },
-        --FIXME: this needs to be extended as it doesn't like when the go project is nested in a repo
+        -- NOTE: this far more annoying than it is useful
+        -- markdown = { "markdownlint" },
+        -- FIXME: this needs to be extended as it doesn't like when the go project is nested in a repo
         -- go = { "golangcilint" },
       }
 
