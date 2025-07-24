@@ -33,23 +33,5 @@ return {
         },
       },
     })
-
-    vim.keymap.set("n", "]q", function()
-      if #vim.fn.getqflist() == 0 then
-        return
-      end
-
-      vim.cmd.cnext()
-      vim.cmd.normal("zz") -- centralise after jumping
-    end, { desc = "Previous quickfix item" })
-
-    vim.keymap.set("n", "[q", function()
-      if #vim.fn.getqflist() == 0 then
-        return
-      end
-
-      vim.cmd.cprev()
-      vim.cmd.normal("zz") -- centralise after jumping
-    end, { desc = "Next quickfix item" })
   end,
 }
