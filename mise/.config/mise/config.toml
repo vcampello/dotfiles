@@ -40,6 +40,7 @@ task = 'latest'    # for some projects
 
 aws-cli = 'latest'
 aws-vault = 'latest'
+watchexec = "latest"
 
 [settings]
 # tools can read the versions files used by other version managers
