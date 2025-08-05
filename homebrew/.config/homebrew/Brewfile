@@ -1,8 +1,8 @@
-brew mise
-brew stow
-brew git
-brew fish
+brew 'mise'
+brew 'stow'
+brew 'git'
+brew 'fish'
 
-cask wezterm@nightly
+cask 'wezterm@nightly'
 
-cask font-victor-mono
+cask 'font-victor-mono'
