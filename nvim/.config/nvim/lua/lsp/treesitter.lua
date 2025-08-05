@@ -2,6 +2,7 @@ return {
   lazy = false,
   -- Highlight, edit, and navigate code
   "nvim-treesitter/nvim-treesitter",
+  branch = "main",
   dependencies = {
     "nvim-treesitter/nvim-treesitter-textobjects",
     {
