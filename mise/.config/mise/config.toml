@@ -37,8 +37,7 @@ bat = "latest"
 
 lazygit = 'latest'
 delta = 'latest'
-task = 'latest'           # for some projects
-"pipx:posting" = "latest" # http client
+task = 'latest'    # for some projects
 
 aws-cli = 'latest'
 aws-vault = 'latest'
