@@ -1,145 +1,37 @@
 return {
-  lazy = false,
-  -- Highlight, edit, and navigate code
   "nvim-treesitter/nvim-treesitter",
+  lazy = false,
   branch = "main",
-  dependencies = {
-    "nvim-treesitter/nvim-treesitter-textobjects",
-    {
-      "nvim-treesitter/nvim-treesitter-context",
-      config = function()
-        require("treesitter-context").setup({
-          multiwindow = true,
-          separator = "─",
-        })
-
-        vim.keymap.set("n", "<c-;>", function()
-          require("treesitter-context").go_to_context(vim.v.count1)
-        end, { silent = true, desc = "Jump to parent context" })
-      end,
-    },
-    {
-      "jmbuhr/otter.nvim",
-      config = function()
-        vim.api.nvim_create_autocmd({ "FileType" }, {
-          pattern = { "toml" },
-          group = vim.api.nvim_create_augroup("EmbedToml", {}),
-          callback = function()
-            require("otter").activate()
-          end,
-        })
-      end,
-    },
-  },
   build = ":TSUpdate",
+  dependencies = {
+    "jmbuhr/otter.nvim",
+  },
   config = function()
-    require("nvim-treesitter.configs").setup({
-      ensure_installed = {
-        "c",
-        "cpp",
-        "diff",
-        "go",
-        "html",
-        "css",
-        "javascript",
-        "json",
-        "lua",
-        "luadoc",
-        "markdown",
-        "markdown_inline",
-        "python",
-        "query",
-        "rust",
-        "templ",
-        "terraform",
-        "tsx",
-        "typescript",
-        "vim",
-        "vimdoc",
-        "bash",
-        "regex",
-      },
-      modules = {},
-      ignore_install = {},
-      auto_install = true,
-      sync_install = false,
-      highlight = {
-        enable = true,
-        -- disable slow treesitter highlight for large files
-        disable = function(lang, buf)
-          local max_filesize = 100 * 1024 -- 100 KB
-          local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-          if ok and stats and stats.size > max_filesize then
-            return true
+    ---@type table<string, boolean>
+    local enable_otter = {
+      toml = true,
+    }
+
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = "*",
+      callback = function(ev)
+        local lang = ev.match
+
+        -- we cannot auto install it
+        if require("nvim-treesitter.parsers")[lang] == nil then
+          return
+        end
+
+        -- schedule the auto install to prevent locking up neovim
+        return vim.schedule(function()
+          require("nvim-treesitter").install(lang):wait()
+          vim.treesitter.start(ev.buf, lang)
+
+          if enable_otter[lang] then
+            require("otter").activate()
           end
-        end,
-      },
-      indent = { enable = false },
-      incremental_selection = {
-        enable = true,
-        keymaps = {
-          init_selection = "<c-space>",
-          node_incremental = "<c-space>",
-          scope_incremental = "<c-s>",
-          node_decremental = "<c-;>",
-        },
-      },
-      textobjects = {
-        select = {
-          enable = true,
-          lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
-          keymaps = {
-            ["aa"] = "@parameter.outer",
-            ["ia"] = "@parameter.inner",
-            ["af"] = "@function.outer",
-            ["if"] = "@function.inner",
-            ["ac"] = "@class.outer",
-            ["ic"] = "@class.inner",
-            ["ii"] = "@conditional.inner",
-            ["ai"] = "@conditional.outer",
-            ["il"] = "@loop.inner",
-            ["al"] = "@loop.outer",
-            ["ag"] = "@comment.outer",
-          },
-        },
-        move = {
-          enable = true,
-          set_jumps = true, -- whether to set jumps in the jumplist
-          goto_next_start = {
-            ["]m"] = "@function.outer",
-            ["]]"] = "@class.outer",
-          },
-          goto_next_end = {
-            ["]M"] = "@function.outer",
-            ["]["] = "@class.outer",
-          },
-          goto_previous_start = {
-            ["[m"] = "@function.outer",
-            ["[["] = "@class.outer",
-          },
-          goto_previous_end = {
-            ["[M"] = "@function.outer",
-            ["[]"] = "@class.outer",
-          },
-        },
-        swap = {
-          enable = true,
-          swap_next = {
-            ["<leader>a"] = "@parameter.inner",
-          },
-          swap_previous = {
-            ["<leader>A"] = "@parameter.inner",
-          },
-        },
-        lsp_interop = {
-          enable = true,
-          border = "rounded",
-          peek_definition_code = {
-            ["<leader>df"] = "@function.outer",
-            ["<leader>dF"] = "@class.outer",
-          },
-        },
-      },
+        end)
+      end,
     })
   end,
 }

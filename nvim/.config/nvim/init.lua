@@ -27,7 +27,7 @@ require("lazy").setup({
   },
   -- NOTE: automatically add plugins, configuration, etc from `lua/plugins/*.lua`
   spec = {
-    { import = "plugins" },
     { import = "lsp" },
+    { import = "plugins" },
   },
 })
