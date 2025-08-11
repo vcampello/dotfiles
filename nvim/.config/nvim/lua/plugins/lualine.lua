@@ -33,17 +33,15 @@ return {
             end,
           },
         },
-        lualine_b = {
+        lualine_z = {
           {
             function()
-              local navic = require("nvim-navic")
-              return navic.get_location()
+              return string.format("env = %s", (os.getenv("MISE_ENV") or ""))
             end,
             cond = function()
-              local navic = require("nvim-navic")
-              local loc = navic.get_location()
-              return navic.is_available() and #loc > 0
+              return #(os.getenv("MISE_ENV") or "") > 0
             end,
+            color = { fg = "black", bg = "#ffbf00" },
           },
         },
       },
