@@ -1,10 +1,9 @@
-right_format = """
-${env_var.MISE_ENV}$mise$all
-"""
 
 format = """
 $fill
-$directory$character
+${env_var.MISE_ENV}$mise$all\
+$directory
+$character
 """
 
 [fill]
