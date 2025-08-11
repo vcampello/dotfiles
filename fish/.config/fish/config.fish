@@ -41,4 +41,9 @@ if status is-interactive
 
     # grc
     source $HOMEBREW_PREFIX/etc/grc.fish
+
+    function dots
+        cd ~/dotfiles
+        nvim +"FzfLua combine pickers=files"
+    end
 end
