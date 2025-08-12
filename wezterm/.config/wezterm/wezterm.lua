@@ -270,11 +270,6 @@ config.keys = {
     action = wez.action.CloseCurrentPane({ confirm = true }),
   },
   {
-    key = "z",
-    mods = "LEADER",
-    action = wez.action.TogglePaneZoomState,
-  },
-  {
     key = "r",
     mods = "LEADER",
     action = wez.action.ActivateKeyTable({ name = "resize_pane", one_shot = false }),
@@ -360,6 +355,10 @@ config.keys = {
         end
       end),
     }),
+  },
+  {
+    key = "F11",
+    action = wez.action.TogglePaneZoomState,
   },
   {
     key = "F12",
