@@ -77,6 +77,7 @@ return {
     fzf.setup({
       winopts = {
         -- fullscreen = true,
+        relativenumber = false,
       },
       actions = {
         -- Retain the original actions, then override (replaces all by default)
@@ -96,6 +97,11 @@ return {
           snacks_image = { enabled = false },
         },
       },
+      grep = {
+        rg_opts = "--column --line-number --no-heading --color=always --smart-case --max-columns=4096 -g '!.git' -g '!node_modules' -g '!package-lock.json' -g '!yarn.lock' -e",
+        hidden = true,
+        follow = true,
+      },
     })
 
     -- Keymaps
@@ -112,23 +118,7 @@ return {
     map("n", "<leader>fo", fzf.git_status, { desc = "Search git status" })
     map("n", "<leader>fO", fzf.oldfiles, { desc = "Search old files" })
     map("n", "<leader>fq", fzf.quickfix, { desc = "Search quickfix" })
-    map("n", "<leader>fg", function()
-      -- ignore some project files by default
-      -- make it interatable through :let g:fzf_ignore_list
-      local fzf_ignore_list = vim.g.fzf_ignore_list or { "!package-lock.json", "!yarn.lock" }
-      if not vim.g.fzf_ignore_list then
-        vim.g.fzf_ignore_list = fzf_ignore_list
-      end
-      local ignore_opt = ""
-
-      for _, value in ipairs(fzf_ignore_list) do
-        ignore_opt = string.format("%s --glob '%s'", ignore_opt, value)
-      end
-
-      fzf.live_grep({
-        rg_opts = string.format("%s %s", ignore_opt, fzf.defaults.grep.rg_opts),
-      })
-    end, { desc = "Search project" })
+    map("n", "<leader>fg", fzf.live_grep, { desc = "Search project" })
 
     -- replace original suggestions keymap
     map("n", "z=", fzf.spell_suggest, { desc = "Search spell suggestions", nowait = true })
