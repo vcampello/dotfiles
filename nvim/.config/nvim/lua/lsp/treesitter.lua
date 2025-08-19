@@ -23,7 +23,7 @@ function M:update(ft, entry)
     installed = false,
   }
 
-  local new_config = vim.tbl_extend("force", defaults, M.configs[ft] or {}, opts)
+  local new_config = vim.tbl_extend("force", M.configs[ft] or defaults, opts)
   self.configs[ft] = new_config
 
   return new_config
