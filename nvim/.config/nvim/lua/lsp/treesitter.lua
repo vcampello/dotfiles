@@ -33,6 +33,7 @@ end
 M:update("javascriptreact", { maps_to = "jsx" })
 M:update("typescriptreact", { maps_to = "tsx" })
 M:update("toml", { enable_otter = true })
+M:update("mermaid") -- embedded into markdown
 
 return {
   "nvim-treesitter/nvim-treesitter",
