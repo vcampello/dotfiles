@@ -1,4 +1,4 @@
-vim.lsp.config("circleci_lsp", {
+return {
   cmd = {
     "circleci-yaml-language-server",
     "-stdio",
@@ -17,4 +17,4 @@ vim.lsp.config("circleci_lsp", {
       on_dir(vim.fn.getcwd())
     end
   end,
-})
+}
