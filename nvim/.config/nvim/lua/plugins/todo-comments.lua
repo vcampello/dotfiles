@@ -9,6 +9,10 @@ return {
         color = "#27e2e8",
         alt = { "REVIEW" },
       },
+      REFACTOR = {
+        icon = "󰓾 ",
+        color = "#c072f2",
+      },
     },
   },
 }
