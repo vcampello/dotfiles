@@ -38,6 +38,7 @@ return {
           always_show_by_pattern = {
             -- custom global .gitignore
             "**/.local",
+            "**/mise.*.toml",
           },
         },
         follow_current_file = {
