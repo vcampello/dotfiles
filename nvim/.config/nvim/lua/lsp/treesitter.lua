@@ -5,7 +5,7 @@
 ---@field installed boolean Prevent reprocessing and infinite calls when sending notifications inside of the autocmd
 
 local M = {}
----@type ConfigEntry[]
+---@type table<string, ConfigEntry>
 M.configs = {}
 
 ---@param ft string
@@ -33,6 +33,7 @@ end
 M:update("javascriptreact", { maps_to = "jsx" })
 M:update("typescriptreact", { maps_to = "tsx" })
 M:update("toml", { enable_otter = true })
+M:update("bash") -- embedded in mise files
 M:update("mermaid") -- embedded into markdown
 
 return {
@@ -44,6 +45,21 @@ return {
     "jmbuhr/otter.nvim",
   },
   config = function()
+    -- cache installed parsers
+    for _, value in ipairs(require("nvim-treesitter.config").get_installed()) do
+      -- assume that the parser names match the file types
+      M:update(value, { installed = true })
+    end
+
+    -- install missing parsers (it should only happen once or on changes)
+    for key, value in pairs(M.configs) do
+      if not value.installed then
+        -- it's slow but it's a noop if the parser is already installed
+        require("nvim-treesitter.install").install(value.maps_to):wait()
+        M:update(key, { installed = true })
+      end
+    end
+
     vim.api.nvim_create_autocmd("FileType", {
       pattern = "*",
       callback = function(ev)
@@ -57,7 +73,7 @@ return {
 
         -- it cannot be auto installed
         if not config.installed and require("nvim-treesitter.parsers")[config.maps_to] == nil then
-          M:update(ft, { ignore = true, installed = true })
+          M:update(ft, { ignore = true })
           return
         end
 
