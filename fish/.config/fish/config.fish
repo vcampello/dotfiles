@@ -46,4 +46,7 @@ if status is-interactive
         cd ~/dotfiles
         nvim +"FzfLua combine pickers=files"
     end
+
+    # recursively install node packages
+    abbr npma fd package.json --exec npm install --prefix={//}
 end
