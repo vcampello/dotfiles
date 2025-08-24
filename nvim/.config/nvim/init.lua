@@ -23,7 +23,8 @@ require("lazy").setup({
     border = "single",
   },
   change_detection = {
-    notify = false,
+    notify = true,
+    enabled = false,
   },
   -- NOTE: automatically add plugins, configuration, etc from `lua/plugins/*.lua`
   spec = {
