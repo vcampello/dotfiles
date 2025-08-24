@@ -57,3 +57,18 @@ _.file = ".env.json"
 # will only work if the directory has a mise config
 [hooks]
 enter = "mise install --quiet"
+
+[tasks.confiure-lily]
+description = "Reconfigure Lily58 keyboard on linux (this is not required on MacOS)"
+shell = "bash -eou pipefail -c"
+run = '''
+    # This script reconfigures my split keyboard when it conflicts.
+    # It could do with better error handling but this is here only so I don't forget how to do it.
+
+    # find the keyboard. There should be 3 - it's the one without anything extra
+    device_id=$(xinput list --id-only 'Mechboards UK Lily58 R2G')
+
+    # set the layout to us and remove the swapcaps option (the layout always has caps in a different place)
+    setxkbmap -verbose -device "$device_id" -layout us -option ""
+    echo "Successfuly configured Lily58: $device_id"
+'''
