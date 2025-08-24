@@ -42,11 +42,25 @@ if status is-interactive
     # grc
     source $HOMEBREW_PREFIX/etc/grc.fish
 
+    # recursively install node packages
+    abbr npma fd package.json --exec npm install --prefix={//}
+
     function dots
         cd ~/dotfiles
         nvim +"FzfLua combine pickers=files"
     end
 
-    # recursively install node packages
-    abbr npma fd package.json --exec npm install --prefix={//}
+    function lily
+        # This script reconfigures my split keyboard when it conflicts.
+        # It could do with better error handling but this is here only so I don't forget how to do it.
+
+        # find the keyboard. There should be 3 - it's the one without anything extra
+        set -f device_id $(xinput list --id-only 'Mechboards UK Lily58 R2G')
+        if test $status -eq 0
+            # set the layout to us and remove the swapcaps option (the layout always has caps in a different place)
+            echo setxkbmap -verbose -device "$device_id" -layout us -option ""
+            echo "Successfuly configured Lily58: $device_id"
+        end
+    end
+
 end
