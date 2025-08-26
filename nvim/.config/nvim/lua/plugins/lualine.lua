@@ -60,6 +60,10 @@ return {
           "filetype",
           "lsp_status",
         },
+        lualine_z = {
+          "location",
+          "selectioncount",
+        },
       },
       inactive_sections = {
         lualine_a = {
