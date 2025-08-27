@@ -62,7 +62,27 @@ return {
         },
         lualine_z = {
           "location",
-          "selectioncount",
+          {
+            -- better selection count for lines and chars
+            -- original: https://github.com/nvim-lualine/lualine.nvim/blob/b8c23159c0161f4b89196f74ee3a6d02cdc3a955/lua/lualine/components/selectioncount.lua#L1-L16
+            function()
+              local mode = vim.fn.mode(true)
+              local line_start, col_start = vim.fn.line("v"), vim.fn.col("v")
+              local line_end, col_end = vim.fn.line("."), vim.fn.col(".")
+
+              -- box (no need for a character count in this case)
+              if mode:match("") then
+                return string.format("%dx%d", math.abs(line_start - line_end) + 1, math.abs(col_start - col_end) + 1)
+              -- multi line
+              elseif mode:match("[vV]") or line_start ~= line_end then
+                local lines = math.abs(line_start - line_end) + 1
+                local chars = vim.fn.wordcount().visual_chars
+                return string.format("󰉻   %d 󰬴  %d", lines, chars)
+              else
+                return ""
+              end
+            end,
+          },
         },
       },
       inactive_sections = {
