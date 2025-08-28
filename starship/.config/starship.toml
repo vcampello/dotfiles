@@ -9,6 +9,9 @@ $character
 [fill]
 symbol = "─"
 
+[directory]
+truncate_to_repo = false
+
 [git_metrics]
 disabled = false
 
