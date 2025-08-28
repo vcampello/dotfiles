@@ -51,8 +51,8 @@ experimental = true                                            # enable hooks
 
 [env]
 GOTOOLCHAIN = "local"
-# this doesn't seem to be working yet - so I'll use mise.local.toml
-_.file = ".env.json"
+AWS_VAULT_BACKEND = 'pass'
+
 
 # will only work if the directory has a mise config
 [hooks]
