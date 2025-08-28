@@ -1,3 +1,5 @@
+# upgrade git to the latest version
+brew 'git'
 brew 'mise'
 brew 'stow'
 brew 'git'
