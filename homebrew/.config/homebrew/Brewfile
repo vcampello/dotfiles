@@ -2,6 +2,7 @@ brew 'mise'
 brew 'stow'
 brew 'git'
 brew 'fish'
+brew 'pass'
 
 cask 'wezterm@nightly'
 

@@ -53,7 +53,6 @@ experimental = true                                            # enable hooks
 GOTOOLCHAIN = "local"
 AWS_VAULT_BACKEND = 'pass'
 
-
 # will only work if the directory has a mise config
 [hooks]
 enter = "mise install --quiet"
