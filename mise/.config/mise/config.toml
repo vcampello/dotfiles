@@ -8,7 +8,7 @@ uv = "latest"        # faster backend for pipx
 # you can set these with `mise use -g`
 node = 'lts'
 bun = 'latest'
-rust = { version = 'latest', components = 'rust-analyzer' }
+rust = "latest"
 python = 'latest'
 lua = 'latest'
 
