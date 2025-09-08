@@ -1,7 +1,7 @@
 
 format = """
 $fill
-${env_var.MISE_ENV}$mise$all\
+${env_var.MISE_ENV}$mise${custom.git_root}$git_branch$all\
 $directory
 $character
 """
@@ -25,3 +25,20 @@ healthy_symbol = " "
 unhealthy_symbol = "󰗖 "
 symbol = ""
 style = "bold #FFBF00 "
+
+[custom.git_root]
+# it's very slow when running on fish
+shell = ["sh"]
+# get git repo root directory
+command = "git rev-parse --git-common-dir | xargs -n1 realpath | xargs -n1 dirname | xargs -n1 basename"
+when = true
+require_repo = true
+symbol = "󱢿 "
+format = "[$symbol ($output)]($style) "
+style = "bold #ff8866"
+
+# ------------------------------------------------------------------------------
+# disabled modules
+# ------------------------------------------------------------------------------
+[package]
+disabled = true
