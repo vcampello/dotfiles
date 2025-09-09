@@ -2,8 +2,8 @@
 format = """
 $fill
 $directory
-${custom.git_root}$git_branch$all\
-$mise${env_var.MISE_ENV}$character
+${custom.git_root}$git_branch$git_metrics$git_status$mise${env_var.MISE_ENV}$all\
+$character
 """
 
 [fill]

@@ -33,3 +33,7 @@ RESET='\033[0m' # No Color
 echo
 echo -e "${RED}Don't forget to source \"${PWD}/start-fish.sh\"${RESET}"
 echo
+
+# FIXME: find a better way to document this
+# Restore bare repo references
+git config --global remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
