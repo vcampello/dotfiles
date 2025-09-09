@@ -1,9 +1,9 @@
 
 format = """
 $fill
-${env_var.MISE_ENV}$mise${custom.git_root}$git_branch$all\
 $directory
-$character
+${custom.git_root}$git_branch$all\
+$mise${env_var.MISE_ENV}$character
 """
 
 [fill]
@@ -11,6 +11,8 @@ symbol = "─"
 
 [directory]
 truncate_to_repo = false
+format = '[  $path]($style)[$read_only]($read_only_style) '
+truncation_length = 5
 
 [git_metrics]
 disabled = false
@@ -33,7 +35,7 @@ shell = ["sh"]
 command = "git rev-parse --git-common-dir | xargs -n1 realpath | xargs -n1 dirname | xargs -n1 basename"
 when = true
 require_repo = true
-symbol = "󱢿 "
+symbol = " "
 format = "[$symbol ($output)]($style) "
 style = "bold #ff8866"
 
