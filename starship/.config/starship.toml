@@ -1,18 +1,17 @@
 
 format = """
-$fill
-$directory
-${custom.git_root}$git_branch$git_metrics$git_status$mise${env_var.MISE_ENV}$all\
-$character
+┌─ $directory$fill
+│  ${custom.git_root}$git_branch$git_metrics$git_status$mise${env_var.MISE_ENV}$all\
+└─ $character
 """
 
 [fill]
 symbol = "─"
 
 [directory]
-truncate_to_repo = false
 format = '[  $path]($style)[$read_only]($read_only_style) '
 truncation_length = 5
+truncate_to_repo = false
 
 [git_metrics]
 disabled = false
