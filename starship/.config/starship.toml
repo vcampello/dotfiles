@@ -1,7 +1,7 @@
 
 format = """
 ┌─ $directory$fill
-│  ${custom.git_root}$git_branch$git_metrics$git_status$mise${env_var.MISE_ENV}$all\
+│  ${custom.git_root}${custom.git_branch}$git_metrics$git_status$mise${env_var.MISE_ENV}$all\
 └─ $character
 """
 
@@ -38,8 +38,23 @@ symbol = " "
 format = "[$symbol ($output)]($style) "
 style = "bold #ff8866"
 
+[custom.git_branch]
+description = "A basic version of the git_branch module that doesn't show on bare repos"
+# it's very slow when running on fish
+shell = ["sh"]
+require_repo = true
+# don't show on bare repos
+when = '''if [[ $(git rev-parse --is-bare-repository) = "true" ]]; then exit 1; else exit 0; fi'''
+command = "git rev-parse --abbrev-ref HEAD"
+format = 'on [$symbol$output]($style) '
+symbol = ' '
+style = 'bold purple'
+
 # ------------------------------------------------------------------------------
 # disabled modules
 # ------------------------------------------------------------------------------
 [package]
+disabled = true
+
+[git_branch]
 disabled = true
