@@ -7,6 +7,7 @@ return {
     require("treesitter-context").setup({
       multiwindow = true,
       separator = "─",
+      multiline_threshold = 2,
     })
 
     vim.keymap.set("n", "<c-;>", function()
