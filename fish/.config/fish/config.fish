@@ -50,6 +50,45 @@ if status is-interactive
         nvim +"FzfLua combine pickers=files"
     end
 
+    # git clone --bare repo and do some minor setup
+    function gitc
+        if not set -q argv[1]
+            echo "No repository provided"
+            return 1
+        end
+
+        if git rev-parse --git-dir >/dev/null 2>&1
+            echo "Aborting. Already in a repository"
+            return 1
+        end
+
+        set -f URL $argv[1]
+        # extract repo name using shell expansion
+        # the below is equivalent to the following bash parameter expansion `DIR="${URL#*/}"` 
+        set -f DIR (string replace --regex '^[^/]*/' '' $URL)
+
+        if test -d "$DIR"
+            echo "$PWD/$DIR already exits"
+            return 1
+        end
+
+        echo "Cloning bare repo to $DIR"
+        git clone --bare "$URL" "$DIR/.git"
+
+        # remove empty dir if it failed
+        if test $status -ne 0
+            rmdir "$DIR"
+            return 1
+        end
+
+        # Explicitly sets the remote origin fetch so we can fetch remote branches
+        cd "$DIR"
+        git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
+
+        # Gets all branches from origin
+        git fetch origin
+    end
+
     function lily
         # This script reconfigures my split keyboard when it conflicts.
         # It could do with better error handling but this is here only so I don't forget how to do it.
