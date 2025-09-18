@@ -72,7 +72,6 @@ if status is-interactive
             return 1
         end
 
-        echo "Cloning bare repo to $DIR"
         git clone --bare "$URL" "$DIR/.git"
 
         # remove empty dir if it failed
