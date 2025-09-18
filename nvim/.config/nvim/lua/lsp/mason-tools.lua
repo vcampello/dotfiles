@@ -11,7 +11,7 @@ return {
       "eslint_d",
       "prettierd",
       -- "stylua", -- provided by mise
-      "vue-language-server",
+      -- "vue-language-server",
       "golangci-lint-langserver",
       "circleci-yaml-language-server",
     },
