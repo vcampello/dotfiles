@@ -43,11 +43,11 @@ end
 
 ---Build status bar for wezterm
 ---@param components string[][]
----@param opts { bg: string, fg: string }
+---@param opts { bg: string, fg: string, italic?: boolean }
 function M.build_elements(components, opts)
   local elements = {}
 
-  table.insert(elements, { Attribute = { Italic = true } })
+  table.insert(elements, { Attribute = { Italic = opts.italic or false } })
 
   for _, component in ipairs(components) do
     M.insert_gap(elements, { position = "left", bg = theme.palette.status_bar.bg, fg = opts.bg })
