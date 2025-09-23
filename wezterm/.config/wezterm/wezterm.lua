@@ -25,6 +25,7 @@ config.strikethrough_position = "0.6cell"
 if wez.target_triple == "aarch64-apple-darwin" or wez.target_triple == "x86_64-apple-darwin" then
   -- macOS detected
   config.font_size = 14
+  config.default_prog = { "/opt/homebrew/bin/fish", "-l" }
 elseif wez.target_triple == "x86_64-unknown-linux-gnu" then
   -- linux detected
   config.font_size = 10.5
