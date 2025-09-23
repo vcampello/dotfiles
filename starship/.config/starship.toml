@@ -1,6 +1,6 @@
 
 format = """
-┌─ $directory$fill
+┌─ $directory
 │  ${custom.git_root}${custom.git_branch}$git_metrics$git_status$mise${env_var.MISE_ENV}$all\
 └─ $character
 """
