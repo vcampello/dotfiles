@@ -37,6 +37,11 @@ return {
         end
       end,
     },
+
+    {
+      "SmiteshP/nvim-navic",
+      requires = "neovim/nvim-lspconfig",
+    },
   },
   config = function()
     local on_attach = function(event)
@@ -53,10 +58,16 @@ return {
       end
 
       -- setup inlay hints if available
-      if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
-        map("n", "grI", function()
-          vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }))
-        end, "Toggle inlay hints")
+      if client then
+        if client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
+          map("n", "grI", function()
+            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }))
+          end, "Toggle inlay hints")
+        end
+
+        if client.server_capabilities.documentSymbolProvider then
+          require("nvim-navic").attach(client, bufnr)
+        end
       end
 
       local fzf = require("fzf-lua")

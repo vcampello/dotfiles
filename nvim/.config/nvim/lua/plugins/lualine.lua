@@ -13,6 +13,7 @@ return {
     require("lualine").setup({
       path = 1, -- Relative path
       extensions = { "neo-tree" },
+      winbar = {},
       tabline = {
         lualine_a = {
           {
@@ -31,6 +32,13 @@ return {
 
               return name .. (mod == 1 and " +" or "")
             end,
+          },
+        },
+        lualine_b = {
+          {
+            "navic",
+            color_correction = nil,
+            navic_opts = { click = true },
           },
         },
         lualine_z = {
