@@ -1,8 +1,3 @@
-set -gx XDG_CONFIG_HOME "$HOME/.config"
-set -gx SHELL (which fish)
-
-fish_add_path $HOME/bin
-
 # source brew
 if test -f /home/linuxbrew/.linuxbrew/bin/brew
     # linux
@@ -11,6 +6,10 @@ else if test -f /opt/homebrew/bin/brew
     # macos
     /opt/homebrew/bin/brew shellenv | source
 end
+
+fish_add_path $HOME/bin
+set -gx SHELL (which fish) # only set after the initial setup above or this will not be set correctly 
+set -gx XDG_CONFIG_HOME "$HOME/.config"
 
 # activate mise by default
 mise activate fish | source
