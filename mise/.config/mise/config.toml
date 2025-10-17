@@ -18,9 +18,9 @@ golangci-lint = 'latest'
 taplo = 'latest'
 stylua = 'latest'
 
-neovim = 'latest'
-# "asdf:neovim" = "ref:nightly"
-tree-sitter = 'latest' # is this required by neovim?
+# neovim = 'latest'
+"asdf:neovim" = "ref:nightly"
+tree-sitter = 'latest'        # is this required by neovim?
 
 starship = 'latest'
 ripgrep = 'latest'
