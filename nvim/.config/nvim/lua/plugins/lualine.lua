@@ -1,11 +1,3 @@
-function is_recoring()
-  local reg = vim.fn.reg_recording()
-  if reg == "" then
-    return ""
-  end -- not recording
-  return "recording @" .. reg
-end
-
 return {
   -- Set lualine as statusline
   "nvim-lualine/lualine.nvim",
@@ -53,7 +45,15 @@ return {
         },
       },
       sections = {
-        lualine_b = { is_recoring },
+        lualine_b = {
+          function()
+            local reg = vim.fn.reg_recording()
+            if reg == "" then
+              return ""
+            end -- not recording
+            return "recording @" .. reg
+          end,
+        },
         lualine_c = {
           {
             "filename",
