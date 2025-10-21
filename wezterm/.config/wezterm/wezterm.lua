@@ -68,19 +68,18 @@ config.tab_bar_at_bottom = true
 config.background = {
   {
     source = {
-      File = wez.config_dir .. "/wallpapers/sunset-sakura-tree.jpg",
+      File = wez.config_dir .. "/wallpapers/dark-souls-ii-17.jpg",
     },
     -- hsb = { hue = 0, saturation = 0, brightness = 0.5 },
   },
   {
     source = {
-      Color = theme.COLORS.nordic_black,
-      -- Color = theme.COLORS.rosepine, --r
+      Color = theme.COLORS.nordic_gray1,
     },
     width = "100%",
     height = "100%",
-    opacity = 0.90,
-    -- hsb = { hue = 0.8, saturation = 1.8, brightness = 0.8 },
+    opacity = 0.95,
+    hsb = { hue = 1, saturation = 1.2, brightness = 0.3 },
   },
 }
 

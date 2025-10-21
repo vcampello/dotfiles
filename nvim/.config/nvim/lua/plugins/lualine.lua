@@ -22,7 +22,6 @@ return {
             symbols = {
               modified = "[+]", -- Text to show when the file is modified.
             },
-
             fmt = function(name, context)
               -- Show + if buffer is modified in tab
               local buflist = vim.fn.tabpagebuflist(context.tabnr)
