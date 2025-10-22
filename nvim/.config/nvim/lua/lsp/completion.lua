@@ -14,6 +14,11 @@ return {
   ---@module 'blink.cmp'
   ---@type blink.cmp.Config
   opts = {
+
+    -- Exceptions: vim.bo.filetype == 'dap-repl'
+    enabled = function()
+      return not vim.tbl_contains({ "fyler" }, vim.bo.filetype:lower())
+    end,
     keymap = { preset = "default" },
     appearance = {
       use_nvim_cmp_as_default = true,
