@@ -118,6 +118,7 @@ return {
     map("n", "<leader>fO", fzf.oldfiles, { desc = "Search old files" })
     map("n", "<leader>fq", fzf.quickfix, { desc = "Search quickfix" })
     map("n", "<leader>fg", fzf.live_grep, { desc = "Search project" })
+    map("n", "<leader>fd", fzf.lsp_workspace_diagnostics, { desc = "Search diagnostics" })
 
     -- replace original suggestions keymap
     map("n", "z=", fzf.spell_suggest, { desc = "Search spell suggestions", nowait = true })
