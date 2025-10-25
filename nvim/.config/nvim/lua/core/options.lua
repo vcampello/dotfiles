@@ -104,12 +104,12 @@ vim.opt.shadafile = cache_dir .. "/myshada/" .. unique_id .. ".shada"
 -- vim.lsp.set_log_level("debug")
 vim.lsp.log.set_format_func(vim.inspect)
 
--- diagnostics
+-- diagnostics - this may be overridden elsewhere
 vim.diagnostic.config({
-  virtual_lines = false, -- TODO: set it up so it's shown when inspecting the line (aka hovering)
+  virtual_lines = false,
   severity_sort = true,
   float = { border = "rounded", source = "if_many" },
-  underline = { severity = vim.diagnostic.severity.ERROR },
+  underline = { severity = vim.diagnostic.severity.WARN },
   signs = {
     text = {
       [vim.diagnostic.severity.ERROR] = "󰅚 ",

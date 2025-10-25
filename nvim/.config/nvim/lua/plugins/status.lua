@@ -1,7 +1,20 @@
 return {
   -- Set lualine as statusline
   "nvim-lualine/lualine.nvim",
+  dependencies = {
+    {
+      "f-person/git-blame.nvim",
+      opts = {
+        display_virtual_text = false, -- we'll use lualine instead
+        set_extmark_options = {
+          hl_mode = "combine",
+        },
+      },
+    },
+  },
   config = function()
+    local git_blame = require("gitblame")
+
     require("lualine").setup({
       path = 1, -- Relative path
       extensions = { "neo-tree" },
@@ -32,16 +45,8 @@ return {
             navic_opts = { click = true },
           },
         },
-        lualine_z = {
-          {
-            function()
-              return string.format("env = %s", (os.getenv("MISE_ENV") or ""))
-            end,
-            cond = function()
-              return #(os.getenv("MISE_ENV") or "") > 0
-            end,
-            color = { fg = "black", bg = "#ffbf00" },
-          },
+        lualine_y = {
+          { git_blame.get_current_blame_text, cond = git_blame.is_blame_text_available },
         },
       },
       sections = {
