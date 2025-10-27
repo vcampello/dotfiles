@@ -6,55 +6,55 @@ uv = "latest"        # faster backend for pipx
 
 # global tool versions go here
 # you can set these with `mise use -g`
-node = 'lts'
-bun = 'latest'
+node = "lts"
+bun = "latest"
 rust = "latest"
-python = 'latest'
-lua = 'latest'
+python = "latest"
+lua = "latest"
 
 go = "latest"
-golangci-lint = 'latest'
+golangci-lint = "latest"
 
-taplo = 'latest'
-stylua = 'latest'
+taplo = "latest"
+stylua = "latest"
 
-# neovim = 'latest'
+# neovim = "latest"
 "asdf:neovim" = "ref:nightly"
-tree-sitter = 'latest'        # is this required by neovim?
+tree-sitter = "latest"        # is this required by neovim?
 
-starship = 'latest'
-ripgrep = 'latest'
-ripgrep-all = 'latest'
-jq = 'latest'
-yq = 'latest'
-yj = 'latest'          # convert between yaml, toml, json, hcl
+starship = "latest"
+ripgrep = "latest"
+ripgrep-all = "latest"
+jq = "latest"
+yq = "latest"
+yj = "latest"          # convert between yaml, toml, json, hcl
 jc = "latest"
 
 gron = "latest"
-zoxide = 'latest'
-fzf = 'latest'
-fd = 'latest'
+zoxide = "latest"
+fzf = "latest"
+fd = "latest"
 bat = "latest"
 
-lazygit = 'latest'
-delta = 'latest'
-task = 'latest'    # for some projects
+lazygit = "latest"
+delta = "latest"
+task = "latest"    # for some projects
 tokei = "latest"
 
-aws-cli = 'latest'
-aws-vault = 'latest'
+aws-cli = "latest"
+aws-vault = "latest"
 terraform = "latest"
 
 [settings]
 # tools can read the versions files used by other version managers
-# for example, .nvmrc in the case of node's nvm
-idiomatic_version_file_enable_tools = ['node', 'go', 'python']
-trusted_config_paths = ['~/dev', '~/dotfiles']
+# for example, .nvmrc in the case of node"s nvm
+idiomatic_version_file_enable_tools = ["node", "go", "python"]
+trusted_config_paths = ["~/dev", "~/dotfiles"]
 experimental = true                                            # enable hooks
 
 [env]
 GOTOOLCHAIN = "local"
-AWS_VAULT_BACKEND = 'pass'
+AWS_VAULT_BACKEND = "pass"
 
 # will only work if the directory has a mise config
 [hooks]
