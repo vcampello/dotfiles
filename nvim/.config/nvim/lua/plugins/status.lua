@@ -6,6 +6,9 @@ return {
       "f-person/git-blame.nvim",
       opts = {
         display_virtual_text = false, -- we'll use lualine instead
+        message_template = "<date> • <author> • <summary>",
+        date_format = "%Y-%m-%d at %H:%M:%S",
+        max_commit_summary_length = 100,
         set_extmark_options = {
           hl_mode = "combine",
         },
