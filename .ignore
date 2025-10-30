@@ -1,8 +1,15 @@
+# -------------------------------------------------
 # always include from search
+# -------------------------------------------------
 !**/.local/**
 !**/mise.*.toml
 !**/.env*
 
+# -------------------------------------------------
 # always exclude from search
+# -------------------------------------------------
 **/package-lock.json
 **/yarn.lock
+
+# for some this gets picked up by fd sometimes
+**/.git/
