@@ -75,9 +75,6 @@ return {
           },
         },
         lualine_y = {
-          "encoding",
-          "fileformat",
-          "filetype",
           "lsp_status",
         },
         lualine_z = {
