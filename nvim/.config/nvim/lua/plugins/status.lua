@@ -48,8 +48,13 @@ return {
             navic_opts = { click = true },
           },
         },
-        lualine_y = {
+        lualine_x = {
           { git_blame.get_current_blame_text, cond = git_blame.is_blame_text_available },
+        },
+        lualine_y = {
+          "branch",
+          "diff",
+          "diagnostics",
         },
       },
       sections = {
@@ -69,7 +74,7 @@ return {
             path = 1, -- 1: Relative path
           },
         },
-        lualine_x = {
+        lualine_y = {
           "encoding",
           "fileformat",
           "filetype",
