@@ -14,6 +14,7 @@ return {
       -- "vue-language-server",
       "golangci-lint-langserver",
       "circleci-yaml-language-server",
+      "biome",
     },
   },
 }

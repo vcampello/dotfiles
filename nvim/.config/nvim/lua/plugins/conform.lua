@@ -1,4 +1,4 @@
-local prettier = require("lib.prettier")
+local format_utils = require("lib.format_utils")
 
 -- disable format on save
 vim.api.nvim_create_user_command("FormatDisable", function()
@@ -14,10 +14,11 @@ end, {
   desc = "Re-enable autoformat-on-save for buffer",
 })
 
----Configure languages to use prettier
+---Configure multiple language with the same formatter
+---@param formatters conform.FiletypeFormatter
 ---@param langs string[]
 ---@return table
-local function use_prettier(langs)
+local function use_formatter_for(formatters, langs)
   if langs == nil then
     langs = {}
   end
@@ -25,7 +26,7 @@ local function use_prettier(langs)
   local mapped = {}
 
   for _, value in ipairs(langs) do
-    mapped[value] = { "prettierd", "prettier", stop_after_first = true }
+    mapped[value] = formatters
   end
 
   return mapped
@@ -33,16 +34,30 @@ end
 
 return {
   "stevearc/conform.nvim",
+  ---@module 'conform'
+  ---@type conform.setupOpts
   opts = {
     log_level = vim.log.levels.DEBUG,
     formatters = {
       prettierd = {
+        -- Should be a function so it executes with the correct context
         env = function()
-          -- Should be a function so it executes with the correct context
-          local config = prettier.get_config_for_filetype(vim.bo.filetype)
-          -- print("default formatter rc: " .. config)
+          local config = format_utils.prettier.get_config_for_filetype(vim.bo.filetype)
           return {
             PRETTIERD_DEFAULT_CONFIG = config,
+          }
+        end,
+      },
+      biome = {
+        -- Should be a function so it executes with the correct context
+        env = function()
+          -- NOTE: setting BIOME_CONFIG_PATH causes errors if the project has a biome config
+          if format_utils.has_biome_config() then
+            return {}
+          end
+
+          return {
+            BIOME_CONFIG_PATH = format_utils.store.biome,
           }
         end,
       },
@@ -51,12 +66,12 @@ return {
       "force",
       {
         lua = { "stylua" },
-        python = { "isort", "black" },
+        python = { "isort", "black", stop_after_first = true },
         rust = { "rustfmt" },
         shell = { "shellcheck" },
-        templ = { "templ" },
       },
-      use_prettier({
+      -- core prettier languages
+      use_formatter_for({ "prettierd", "prettier", stop_after_first = true }, {
         "graphql",
         "html",
         "javascript",
@@ -68,7 +83,20 @@ return {
         "typescriptreact",
         "yaml",
         "vue",
-      })
+      }),
+      -- override prettier config with biome when prettier is missing
+      format_utils.has_prettier_config() and {}
+        or use_formatter_for({ "biome", "biome-organize-imports", stop_after_first = false }, {
+          "graphql",
+          "html",
+          "javascript",
+          "javascriptreact",
+          "json",
+          "jsonc",
+          "typescript",
+          "typescriptreact",
+          "vue",
+        })
     ),
     format_on_save = function(bufnr)
       -- Disable with a global or buffer-local variable
