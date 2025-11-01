@@ -5,9 +5,8 @@ local conf_path = vim.fn.stdpath("config")
 
 ---List of prettier configurations
 M.store = {
-  prettier = tostring(vim.fn.expand(conf_path .. "/other-configs/prettierrc-default.json")),
-  prettier_short_indent = tostring(vim.fn.expand(conf_path .. "/other-configs/prettierrc-short-indent.json")),
-  biome = tostring(vim.fn.expand(conf_path .. "/other-configs/biome-default.json")),
+  prettier = tostring(vim.fn.expand(conf_path .. "/other-configs/prettierrc.jsonc")),
+  biome = tostring(vim.fn.expand(conf_path .. "/other-configs/biome.jsonc")),
 }
 
 ---Validate known prettier configurations
@@ -19,14 +18,6 @@ function M.validate_config_store()
     vim.notify(string.format("- [%s] %s: %s", status, key, value), vim.log.levels.INFO)
   end
 end
-
----prettierrc by filetype
-M.prettier.config_by_ft = {
-  html = M.store.prettier_short_indent,
-  json = M.store.prettier_short_indent,
-  jsonc = M.store.prettier_short_indent,
-  yaml = M.store.prettier_short_indent,
-}
 
 ---Find matching prettierc or return the default
 ---@param ft string filetype

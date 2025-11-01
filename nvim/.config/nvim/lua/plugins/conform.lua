@@ -42,9 +42,8 @@ return {
       prettierd = {
         -- Should be a function so it executes with the correct context
         env = function()
-          local config = format_utils.prettier.get_config_for_filetype(vim.bo.filetype)
           return {
-            PRETTIERD_DEFAULT_CONFIG = config,
+            PRETTIERD_DEFAULT_CONFIG = format_utils.store.prettier,
           }
         end,
       },
