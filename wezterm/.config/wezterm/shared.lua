@@ -61,19 +61,4 @@ function M.build_elements(components, opts)
   return elements
 end
 
----Concatenate array
----@param ... any[] other tables to be merged
----@return table out single table with all elements
-function M.concat_array(...)
-  local args = { ... }
-  local out = {}
-
-  for _, tbl in ipairs(args) do
-    for _, v in ipairs(tbl) do
-      table.insert(out, v)
-    end
-  end
-  return out
-end
-
 return M

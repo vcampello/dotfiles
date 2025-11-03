@@ -1,18 +1,16 @@
--- Pull in the wezterm API
+-- wezterm api
 local wez = require("wezterm")
 local mux = wez.mux
 
+-- my stuff
 local shared = require("shared")
 local theme = require("theme")
+local utils = require("utils")
 
 -- This table will hold the configuration.
 local config = wez.config_builder()
 
--- This is where you actually apply your config choices
-
 config.color_scheme = "nord"
-
--- font config + other fonts I like
 config.font = wez.font("Victor Mono", { weight = "DemiBold", stretch = "Normal", style = "Normal" })
 
 -- Disable as the pop-up comes up way too often
@@ -22,15 +20,15 @@ config.warn_about_missing_glyphs = false
 -- might not work at all until this is set -> https://wezfurlong.org/wezterm/faq.html#how-do-i-enable-undercurl-curly-underlines
 config.strikethrough_position = "0.6cell"
 
-if wez.target_triple == "aarch64-apple-darwin" or wez.target_triple == "x86_64-apple-darwin" then
+if utils.is_macos(wez.target_triple) then
   -- macOS detected
   config.font_size = 14
   config.default_prog = { "/opt/homebrew/bin/fish", "-l" }
-elseif wez.target_triple == "x86_64-unknown-linux-gnu" then
+elseif utils.is_linux(wez.target_triple) then
   -- linux detected
   config.font_size = 10.5
-  -- config.window_decorations = "RESIZE"
-elseif wez.target_triple == "x86_64-pc-windows-msvc" then
+  config.window_decorations = "RESIZE"
+elseif utils.is_windows(wez.target_triple) then
   -- windows detected
   config.font_size = 10
   -- config.cell_width = 1
@@ -216,7 +214,7 @@ wez.on("update-status", function(window, pane)
     fg = mode_fg,
   })
 
-  local left = shared.concat_array(mode, workspaces)
+  local left = utils.concat_array(mode, workspaces)
 
   window:set_left_status(wez.format(left))
 end)
