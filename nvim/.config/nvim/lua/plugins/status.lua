@@ -54,6 +54,8 @@ return {
         lualine_y = {
           "diagnostics",
           "diff",
+        },
+        lualine_z = {
           "branch",
         },
       },
