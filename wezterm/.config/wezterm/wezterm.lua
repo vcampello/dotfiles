@@ -3,7 +3,7 @@ local wez = require("wezterm")
 local mux = wez.mux
 
 -- my stuff
-local shared = require("shared")
+local status = require("status")
 local theme = require("theme")
 local utils = require("utils")
 
@@ -170,7 +170,7 @@ end
 wez.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
   local title = tab_title(tab)
 
-  local elements = shared.build_elements({ { tostring(tab.tab_index), " ", title } }, {
+  local elements = status.build_elements({ { tostring(tab.tab_index), " ", title } }, {
     -- when active set background to yellow and text to amber
     bg = tab.is_active and theme.COLORS.amber or theme.COLORS.black,
     fg = tab.is_active and theme.COLORS.black or theme.COLORS.white,
@@ -183,7 +183,7 @@ wez.on("update-status", function(window, pane)
   local cwd_uri = pane:get_current_working_dir()
   local stripped_cwd = get_stripped_current_working_dir(cwd_uri)
 
-  local right = shared.build_elements({
+  local right = status.build_elements({
     { "󰉌 ", stripped_cwd.cwd },
     { "󰞇 ", (os.getenv("USER") or "anon") },
     { "󰌢 ", stripped_cwd.hostname },
@@ -194,7 +194,7 @@ wez.on("update-status", function(window, pane)
   -- prevent errors on lua repl
   window:set_right_status(wez.format(right))
 
-  local workspaces = shared.build_elements({
+  local workspaces = status.build_elements({
     { tostring(#mux.get_workspace_names()), " ", window:active_workspace() },
   }, {
     bg = theme.COLORS.red,
@@ -207,7 +207,7 @@ wez.on("update-status", function(window, pane)
   local mode_bg = mode_text == default_mode and theme.COLORS.white or theme.COLORS.purple
   local mode_fg = mode_text == default_mode and theme.COLORS.black or theme.COLORS.white
 
-  local mode = shared.build_elements({
+  local mode = status.build_elements({
     { mode_icon, mode_text:upper() },
   }, {
     bg = mode_bg,
