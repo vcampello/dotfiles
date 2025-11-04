@@ -91,6 +91,11 @@ return {
           require("nvim-treesitter").install(config.maps_to):wait()
           M:update(ft, { ignore = false, installed = true })
 
+          if not vim.api.nvim_buf_is_valid(bufnr) then
+            vim.log(vim.log.levels.WARN, ("Invalid buffer %d. Aborting treesitter start"):format(bufnr))
+            return
+          end
+
           -- enable on original buffer
           vim.treesitter.start(bufnr, config.maps_to)
         end)
