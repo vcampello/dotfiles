@@ -8,6 +8,7 @@ return {
   },
   -- load immediately
   lazy = false,
+  priority = 1000,
   config = function()
     local fzf = require("fzf-lua")
     local fzfconf = require("fzf-lua.config")
@@ -75,6 +76,7 @@ return {
     fzfconf.set_action_helpstr(diff_files, "diff_files")
 
     fzf.setup({
+      defaults = { silent = true },
       winopts = {
         -- fullscreen = true,
         relativenumber = false,
@@ -102,6 +104,8 @@ return {
         follow = true,
       },
     })
+
+    fzf.register_ui_select()
 
     -- Keymaps
     local map = vim.keymap.set
