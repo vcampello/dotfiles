@@ -10,17 +10,10 @@ return {
     -- configured in: ./cmp.lua
     "saghen/blink.cmp",
     {
-      --extended TS server functionality
-      "pmizio/typescript-tools.nvim",
-      dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-    },
-    {
       "mrcjkb/rustaceanvim",
       version = "^6", -- Recommended
       lazy = false, -- This plugin is already lazy
     },
-    -- set setup on ./file-operations.lua
-    "antosha417/nvim-lsp-file-operations",
     -- fix react comment string
     {
       "JoosepAlviste/nvim-ts-context-commentstring",
