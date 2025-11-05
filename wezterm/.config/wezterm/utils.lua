@@ -44,4 +44,15 @@ function M.concat_array(...)
   return out
 end
 
+---Concatenate array
+---@param list any[]
+---@param ... any other tables to be merged
+function M.insert_many(list, ...)
+  local args = { ... }
+
+  for _, v in ipairs(args) do
+    table.insert(list, v)
+  end
+end
+
 return M
