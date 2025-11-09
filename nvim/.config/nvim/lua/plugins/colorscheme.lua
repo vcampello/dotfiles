@@ -65,4 +65,25 @@ function M.nordic()
   }
 end
 
-return M.nordic()
+function M.nightfly()
+  return {
+    "bluz71/vim-nightfly-colors",
+    name = "nightfly",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      -- Lua initialization file
+      vim.g.nightflyTransparent = true
+      vim.g.nightflyNormalFloat = true
+
+      require("nightfly").custom_colors({
+        red = "#ba302c",
+      })
+
+      vim.cmd.colorscheme("nightfly")
+    end,
+  }
+end
+
+return M.nightfly()
+-- return M.nordic()

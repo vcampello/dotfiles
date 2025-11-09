@@ -10,7 +10,7 @@ local utils = require("utils")
 -- This table will hold the configuration.
 local config = wez.config_builder()
 
-config.color_scheme = "nord"
+config.color_scheme = "nightfly"
 config.font = wez.font("Victor Mono", { weight = "DemiBold", stretch = "Normal", style = "Normal" })
 
 -- Disable as the pop-up comes up way too often
@@ -72,12 +72,13 @@ config.background = {
   },
   {
     source = {
-      Color = theme.COLORS.nordic_gray1,
+      Color = theme.palette.background,
+      -- Color = theme.COLORS.nordic_gray1,
     },
     width = "100%",
     height = "100%",
     opacity = 0.95,
-    hsb = { hue = 1, saturation = 1.2, brightness = 0.3 },
+    hsb = { hue = 1, saturation = 0.8, brightness = 0.9 },
   },
 }
 
