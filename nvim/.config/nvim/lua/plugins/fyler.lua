@@ -4,12 +4,20 @@ return {
   -- opts = {},
   config = function()
     local fyler = require("fyler")
-    fyler.setup({ default_explorer = true, icon_provider = "nvim_web_devicons" })
+    fyler.setup({
+      views = {
+        finder = {
+          default_explorer = true,
+        },
+      },
+      integrations = {
+        icon = "nvim_web_devicons",
+      },
+    })
     vim.keymap.set({ "n" }, "<leader>o", function()
       fyler.open({ kind = "float" })
     end, {
       desc = "Open Fyler",
-    }
-)
+    })
   end,
 }
