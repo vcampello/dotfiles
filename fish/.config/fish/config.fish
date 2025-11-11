@@ -100,4 +100,9 @@ if status is-interactive
         end
     end
 
+    # zellij 
+    # set -gx ZELLIJ_AUTO_ATTACH true
+    # set -gx ZELLIJ_AUTO_EXIT true
+    zellij setup --generate-completion fish | source
+    eval (zellij setup --generate-auto-start fish | string collect)
 end

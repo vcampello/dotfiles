@@ -46,6 +46,8 @@ aws-vault = "latest"
 terraform = "latest"
 "npm:@github/copilot" = "latest"
 
+zellij = "latest"
+
 [settings]
 # tools can read the versions files used by other version managers
 # for example, .nvmrc in the case of node"s nvm
