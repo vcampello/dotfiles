@@ -92,7 +92,7 @@ return {
           M:update(ft, { ignore = false, installed = true })
 
           if not vim.api.nvim_buf_is_valid(bufnr) then
-            vim.log(vim.log.levels.WARN, ("Invalid buffer %d. Aborting treesitter start"):format(bufnr))
+            vim.notify(("Invalid buffer %d. Aborting treesitter start"):format(bufnr), vim.log.levels.DEBUG)
             return
           end
 
