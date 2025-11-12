@@ -52,11 +52,16 @@ keybinds clear-defaults=true {
 
         // tab management
         bind "Alt t" { NewTab; }
-        bind "Alt e" { GoToPreviousTab; }
-        bind "Alt r" { GoToNextTab; }
+        bind "Alt i" { GoToPreviousTab;  }
+        bind "Alt o" { GoToNextTab;  }
+        bind "Alt 1" { GoToTab 1;  }
+        bind "Alt 2" { GoToTab 2;  }
+        bind "Alt 3" { GoToTab 3;  }
+        bind "Alt 4" { GoToTab 4;  }
+        bind "Alt 5" { GoToTab 5;  }
 
         // session management
-        bind "Alt o" {
+        bind "Alt w" {
             LaunchOrFocusPlugin "session-manager" {
                 floating true
                 move_to_focused_tab true
