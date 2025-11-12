@@ -47,6 +47,9 @@ keybinds clear-defaults=true {
         // quick mode access
         bind "Ctrl g" { SwitchToMode "normal"; }
 
+        // copy mode
+        bind "Alt x" { EditScrollback; }
+
         // tab management
         bind "Alt t" { NewTab; }
         bind "Alt e" { GoToPreviousTab; }
