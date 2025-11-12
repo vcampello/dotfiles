@@ -30,14 +30,17 @@ web_client {
  
 show_startup_tips false
 
+theme "nightfox"
+
 // keep all the defaults and overload the locked mode with pseudo-mode-less keybindings
 default_mode "locked"
 
 keybinds clear-defaults=true {
     shared {
-        // preserve some defaults while statying in locked mode
+        // preserve some defaults while staying in locked mode
         bind "Alt f" { ToggleFloatingPanes; }
         bind "Alt n" { NewPane; }
+        bind "Alt c" { CloseFocus; }
         bind "Alt z" { ToggleFocusFullscreen; }
     }
     locked {
@@ -55,6 +58,7 @@ keybinds clear-defaults=true {
                 floating true
                 move_to_focused_tab true
             }
+            SwitchToMode "locked";
         }
 
         // panel + neovim navigation
