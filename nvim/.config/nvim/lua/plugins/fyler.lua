@@ -8,6 +8,11 @@ return {
       views = {
         finder = {
           default_explorer = true,
+          win = {
+            win_opts = {
+              relativenumber = true,
+            },
+          },
         },
       },
       integrations = {
