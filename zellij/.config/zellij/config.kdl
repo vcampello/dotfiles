@@ -27,8 +27,8 @@ load_plugins {
 web_client {
     font "monospace"
 }
- 
 show_startup_tips false
+copy_on_select true
 
 theme "nightfox"
 
