@@ -5,7 +5,7 @@ local conf_path = vim.fn.stdpath("config")
 
 ---List of prettier configurations
 M.store = {
-  prettier = tostring(vim.fn.expand(conf_path .. "/other-configs/prettierrc.jsonc")),
+  prettier = tostring(vim.fn.expand(conf_path .. "/other-configs/prettierrc.json")),
   biome = tostring(vim.fn.expand(conf_path .. "/other-configs/biome.jsonc")),
 }
 
