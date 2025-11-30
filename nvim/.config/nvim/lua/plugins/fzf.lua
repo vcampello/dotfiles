@@ -110,7 +110,7 @@ return {
     -- Keymaps
     local map = vim.keymap.set
 
-    map("n", "<leader><leader>", fzf.buffers, { desc = "Buffers", nowait = true })
+    map("n", "<leader><leader>", fzf.global, { desc = "Global search", nowait = true })
     map("n", "<leader><leader><leader>", ":FzfLua<cr>", { desc = "FzfLua", nowait = true })
     map("v", "<leader>f", fzf.grep_visual, { desc = "Search selection" })
     map("n", "<leader>fr", fzf.resume, { desc = "Search resume" })
