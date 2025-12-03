@@ -39,7 +39,6 @@ bat = "latest"
 lazygit = "latest"
 delta = "latest"
 task = "latest"    # for some projects
-tokei = "latest"
 
 aws-cli = "latest"
 aws-vault = "latest"
