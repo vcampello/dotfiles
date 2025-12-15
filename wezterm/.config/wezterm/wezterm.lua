@@ -24,6 +24,9 @@ if utils.is_macos(wez.target_triple) then
   -- macOS detected
   config.font_size = 14
   config.default_prog = { "/opt/homebrew/bin/fish", "-l" }
+  -- prevent post suspend crash on macos
+  -- https://github.com/wezterm/wezterm/issues/7291
+  config.front_end = "WebGpu"
 elseif utils.is_linux(wez.target_triple) then
   -- linux detected
   config.font_size = 10.5
