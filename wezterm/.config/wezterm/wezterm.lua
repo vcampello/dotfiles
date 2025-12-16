@@ -71,7 +71,7 @@ config.background = {
     source = {
       File = wez.config_dir .. "/wallpapers/dark-souls-ii-17.jpg",
     },
-    -- hsb = { hue = 0, saturation = 0, brightness = 0.5 },
+    hsb = { hue = 1, saturation = 1.5, brightness = 0.3 },
   },
   {
     source = {
