@@ -32,6 +32,7 @@ end
 -- overrides
 M:update("javascriptreact", { maps_to = "jsx" })
 M:update("typescriptreact", { maps_to = "tsx" })
+M:update("jsonc", { maps_to = "json" })
 M:update("toml", { enable_otter = true })
 M:update("bash") -- embedded in mise files
 M:update("mermaid") -- embedded into markdown
