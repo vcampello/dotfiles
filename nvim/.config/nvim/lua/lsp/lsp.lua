@@ -171,6 +171,7 @@ return {
         "taplo",
         "ts_ls",
         "yamlls",
+        "terraformls",
       },
       automatic_installation = false,
       automatic_enable = {
