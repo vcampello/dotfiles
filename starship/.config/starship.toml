@@ -41,16 +41,6 @@ symbol = " "
 format = "[$symbol ($output)]($style) "
 style = "bold #ff8866"
 
-[custom.npm_version]
-# this seems to align with the node module automatically
-shell = "sh"
-command = """version=$(npm --version) && echo v$version"""
-require_repo = true
-# use the same trigger as nodejs
-detect_folders = ['node_modules']
-style = "red"
-symbol = " "
-
 # ------------------------------------------------------------------------------
 # disabled modules
 # ------------------------------------------------------------------------------
