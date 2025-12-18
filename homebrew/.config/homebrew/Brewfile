@@ -2,7 +2,7 @@
 brew 'git'
 brew 'mise'
 brew 'stow'
-brew 'git'
+brew 'grc'
 brew 'fish'
 brew 'pass'
 
