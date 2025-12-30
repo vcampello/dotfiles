@@ -95,7 +95,7 @@ if status is-interactive
         set -f device_id $(xinput list --id-only 'Mechboards UK Lily58 R2G')
         if test $status -eq 0
             # set the layout to us and remove the swapcaps option (the layout always has caps in a different place)
-            echo setxkbmap -verbose -device "$device_id" -layout us -option ""
+            setxkbmap -verbose -device "$device_id" -layout us -option ""
             echo "Successfuly configured Lily58: $device_id"
         end
     end
