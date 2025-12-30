@@ -29,7 +29,7 @@ if utils.is_macos(wez.target_triple) then
   config.front_end = "WebGpu"
 elseif utils.is_linux(wez.target_triple) then
   -- linux detected
-  config.font_size = 10
+  config.font_size = 11
   config.window_decorations = "RESIZE"
 elseif utils.is_windows(wez.target_triple) then
   -- windows detected
