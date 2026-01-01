@@ -169,7 +169,7 @@ return {
         "jsonls",
         "lua_ls",
         "taplo",
-        "ts_ls",
+        "tsgo",
         "yamlls",
         "terraformls",
       },
@@ -177,6 +177,7 @@ return {
       automatic_enable = {
         exclude = {
           "htmx",
+          "ts_ls", -- exclude if tsgo is installed
         },
       },
     })
