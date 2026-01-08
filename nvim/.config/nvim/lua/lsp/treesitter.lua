@@ -68,6 +68,11 @@ return {
         local bufnr = ev.buf
         local config = M:update(ft)
 
+        -- enable folds
+        vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
+        vim.wo[0][0].foldmethod = "expr"
+        vim.wo[0][0].foldlevel = 99
+
         if config.ignore then
           return
         end
