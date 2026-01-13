@@ -159,7 +159,7 @@ return {
     -- manual
     vim.lsp.enable("circleci_lsp")
 
-    -- setup normal lsp configs
+    -- setup normal LSP configs
     require("mason-lspconfig").setup({
       ensure_installed = {
         "fish_lsp",
@@ -172,6 +172,7 @@ return {
         "tsgo",
         "yamlls",
         "terraformls",
+        "harper_ls",
       },
       automatic_installation = false,
       automatic_enable = {
