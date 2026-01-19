@@ -115,14 +115,13 @@ return {
     map("v", "<leader>f", fzf.grep_visual, { desc = "Search selection" })
     map("n", "<leader>fr", fzf.resume, { desc = "Search resume" })
     map("n", "<leader>ff", fzf.files, { desc = "Search files" })
-    map("n", "<leader>/", fzf.grep_curbuf, { desc = "Search current buffer" })
     map("n", "<leader>fm", fzf.marks, { desc = "Search marks" })
     map("n", "<leader>fj", fzf.jumps, { desc = "Search jumps" })
     map("n", "<leader>fo", fzf.git_status, { desc = "Search git status" })
     map("n", "<leader>fO", fzf.oldfiles, { desc = "Search old files" })
     map("n", "<leader>fq", fzf.quickfix, { desc = "Search quickfix" })
     map("n", "<leader>fg", fzf.live_grep, { desc = "Search project" })
-    map("n", "<leader>fd", fzf.lsp_workspace_diagnostics, { desc = "Search diagnostics" })
+    map("n", "<leader>/", fzf.lsp_workspace_diagnostics, { desc = "Search diagnostics" })
 
     -- replace original suggestions keymap
     map("n", "z=", fzf.spell_suggest, { desc = "Search spell suggestions", nowait = true })
