@@ -106,6 +106,8 @@ vim.lsp.log.set_format_func(vim.inspect)
 
 -- diagnostics - this may be overridden elsewhere
 vim.diagnostic.config({
+  -- skip hints and go to the important stuff instead
+  jump = { severity = { min = vim.diagnostic.severity.INFO } },
   virtual_lines = false,
   severity_sort = true,
   float = { border = "rounded", source = "if_many" },
@@ -132,3 +134,12 @@ vim.diagnostic.config({
     end,
   },
 })
+
+-- Allow jumping back and forth between hints as they are disabled by the diagnostic filter
+vim.keymap.set({ "n" }, "[h", function()
+  vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.HINT, wrap = true })
+end, { desc = "Previous hint diagnostic" })
+
+vim.keymap.set({ "n" }, "]h", function()
+  vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.HINT, wrap = true })
+end, { desc = "Next hint diagnostic" })
