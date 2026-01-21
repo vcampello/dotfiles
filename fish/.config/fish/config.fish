@@ -11,12 +11,16 @@ fish_add_path $HOME/bin
 set -gx SHELL (which fish) # only set after the initial setup above or this will not be set correctly 
 set -gx XDG_CONFIG_HOME "$HOME/.config"
 
+# disable greeting
+set -g fish_greeting
+
 # activate mise by default
 mise activate fish | source
 mise completion fish >~/.config/fish/completions/mise.fish # TODO: cache if this ever becomes a bottleneck
 
 # Commands to run in interactive sessions can go here
 if status is-interactive
+
     # starship
     starship init fish | source
 
