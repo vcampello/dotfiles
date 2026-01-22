@@ -22,7 +22,7 @@ config.strikethrough_position = "0.6cell"
 
 if utils.is_macos(wez.target_triple) then
   -- macOS detected
-  config.font_size = 16
+  config.font_size = 14
   config.default_prog = { "/opt/homebrew/bin/fish", "-l" }
   -- prevent post suspend crash on macos
   -- https://github.com/wezterm/wezterm/issues/7291
