@@ -41,7 +41,6 @@ delta = "latest"
 task = "latest"    # for some projects
 
 aws-cli = "latest"
-aws-vault = "latest"
 terraform = "latest"
 "npm:@github/copilot" = "latest"
 
