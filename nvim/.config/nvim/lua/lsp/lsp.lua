@@ -179,6 +179,7 @@ return {
         exclude = {
           "htmx",
           "ts_ls", -- exclude if tsgo is installed
+          "harper_ls", -- disabling it for now
         },
       },
     })
