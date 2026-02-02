@@ -45,8 +45,8 @@ if status is-interactive
     # grc
     source $HOMEBREW_PREFIX/etc/grc.fish
 
-    # recursively install node packages
-    abbr npma fd package.json --exec npm install --prefix={//}
+    # recursively install node packages while respecting the nvmrc
+    abbr npma fd package.json --exec mise exec --cd={//} -- npm install
 
     function dots
         cd ~/dotfiles
