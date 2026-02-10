@@ -43,6 +43,10 @@ keybinds clear-defaults=true {
         bind "Alt c" { CloseFocus; }
         bind "Alt z" { ToggleFocusFullscreen; }
     }
+    normal {
+        // send ctrl+g when unlocked
+        bind "Ctrl g" { Write 7; SwitchToMode "locked"; }
+    }
     locked {
         // quick mode access
         bind "Ctrl g" { SwitchToMode "normal"; }
@@ -279,6 +283,7 @@ keybinds clear-defaults=true {
         bind "Alt p" { TogglePaneInGroup; }
         bind "Alt Shift p" { ToggleGroupMarking; }
         bind "Ctrl q" { Quit; }
+        // don't share this across every mode or esc won't work in other apps like vim
         bind "esc" { SwitchToMode "locked"; }
     }
     shared_except "locked" "move" {
