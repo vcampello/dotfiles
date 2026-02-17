@@ -170,6 +170,7 @@ return {
         "lua_ls",
         "taplo",
         "tsgo",
+        "basedpyright",
         "yamlls",
         "terraformls",
         "harper_ls",

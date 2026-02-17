@@ -65,7 +65,7 @@ return {
       "force",
       {
         lua = { "stylua" },
-        python = { "isort", "black", stop_after_first = true },
+        python = { "ruff", stop_after_first = true },
         rust = { "rustfmt" },
         shell = { "shellcheck" },
       },

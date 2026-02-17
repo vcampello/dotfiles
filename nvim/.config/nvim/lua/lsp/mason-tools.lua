@@ -15,6 +15,7 @@ return {
       "golangci-lint-langserver",
       "circleci-yaml-language-server",
       "biome",
+      "ruff",
     },
   },
 }
