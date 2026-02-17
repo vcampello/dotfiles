@@ -1,11 +1,10 @@
 # upgrade git to the latest version
-brew 'git'
-brew 'mise'
-brew 'stow'
-brew 'grc'
 brew 'fish'
+brew 'git'
+brew 'grc'
+brew 'mise'
 brew 'pass'
+brew 'stow'
 
 cask 'wezterm@nightly'
-
 cask 'font-victor-mono'
