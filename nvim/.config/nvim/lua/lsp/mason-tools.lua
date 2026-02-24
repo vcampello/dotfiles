@@ -16,6 +16,7 @@ return {
       "circleci-yaml-language-server",
       "biome",
       "ruff",
+      "typstyle",
     },
   },
 }
