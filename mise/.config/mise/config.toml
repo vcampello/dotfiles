@@ -42,7 +42,7 @@ task = "latest"    # for some projects
 
 aws-cli = "latest"
 terraform = "latest"
-"npm:@github/copilot" = "latest"
+"npm:@google/gemini-cli" = "latest"
 
 zellij = "latest"
 
