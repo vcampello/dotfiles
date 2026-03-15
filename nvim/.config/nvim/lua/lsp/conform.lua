@@ -68,6 +68,7 @@ return {
         python = { "ruff", stop_after_first = true },
         rust = { "rustfmt" },
         shell = { "shellcheck" },
+        typst = { "typstyle" },
       },
       -- core prettier languages
       use_formatter_for({ "prettierd", "prettier", stop_after_first = true }, {
