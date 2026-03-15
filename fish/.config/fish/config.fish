@@ -7,6 +7,8 @@ else if test -f /opt/homebrew/bin/brew
     /opt/homebrew/bin/brew shellenv | source
 end
 
+# set fish_trace 1
+
 fish_add_path $HOME/bin
 set -gx SHELL (which fish) # only set after the initial setup above or this will not be set correctly 
 set -gx XDG_CONFIG_HOME "$HOME/.config"
@@ -43,7 +45,13 @@ if status is-interactive
     set -gx MANWIDTH 999 # manpage width
 
     # grc
-    source $HOMEBREW_PREFIX/etc/grc.fish
+    if test -f /etc/grc.fish
+        # when installed by the system
+        source /etc/grc.fish
+    else if test -f $HOMEBREW_PREFIX/etc/grc.fish
+        # when installed by homebrew
+        source $HOMEBREW_PREFIX/etc/grc.fish
+    end
 
     # recursively install node packages while respecting the nvmrc
     abbr npma fd package.json --exec mise exec --cd={//} -- npm install
