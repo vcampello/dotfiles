@@ -36,6 +36,7 @@ M:update("jsonc", { maps_to = "json" })
 M:update("toml", { enable_otter = true })
 M:update("bash") -- embedded in mise files
 M:update("mermaid") -- embedded into markdown
+M:update("jsdoc") -- embedded into JS/TS docs
 
 return {
   "nvim-treesitter/nvim-treesitter",
