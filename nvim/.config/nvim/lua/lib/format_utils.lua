@@ -34,13 +34,13 @@ end
 ---Check if project root has a prettier config
 ---@return boolean
 function M.has_prettier_config()
-  return #vim.fn.glob(".prettierrc*") > 0
+  return #vim.fn.glob("*.prettierrc*") > 0
 end
 
 ---Check if project root has a biome config
 ---@return boolean
 function M.has_biome_config()
-  return #vim.fn.glob("biome.{json,jsonc}") > 0
+  return #vim.fn.glob("*biome.{json,jsonc}") > 0
 end
 
 return M
