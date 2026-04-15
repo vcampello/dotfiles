@@ -70,7 +70,11 @@ return {
         end
 
         if client.server_capabilities.documentSymbolProvider then
-          require("nvim-navic").attach(client, bufnr)
+          -- Only attach navic if it's NOT otter
+          local otter_ls_name = "otter-ls"
+          if client.name:sub(1, #otter_ls_name) == otter_ls_name then
+            require("nvim-navic").attach(client, bufnr)
+          end
         end
       end
 
