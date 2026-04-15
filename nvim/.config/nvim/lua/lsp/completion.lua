@@ -14,21 +14,10 @@ return {
   ---@module 'blink.cmp'
   ---@type blink.cmp.Config
   opts = {
-
-    -- Exceptions: vim.bo.filetype == 'dap-repl'
-    enabled = function()
-      return not vim.tbl_contains({ "fyler" }, vim.bo.filetype:lower())
-    end,
-    keymap = { preset = "default" },
-    appearance = {
-      use_nvim_cmp_as_default = true,
-      nerd_font_variant = "mono",
-    },
     completion = {
-      -- Disable auto brackets
-      accept = { auto_brackets = { enabled = true } },
-      -- Display a preview of the selected item on the current line
-      ghost_text = { enabled = false },
+      -- Don't select by default, auto insert on selection
+      list = { selection = { preselect = false, auto_insert = true } },
+      ghost_text = { enabled = true },
       -- Show documentation when selecting a completion item
       documentation = { auto_show = true, auto_show_delay_ms = 250 },
       menu = {
