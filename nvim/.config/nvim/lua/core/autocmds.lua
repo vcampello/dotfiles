@@ -8,15 +8,8 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   end,
 })
 
--- FIXME: can it be setup so if I press enter again on a comment line it removes the line?
---[[
--- some comment
---
-<enter>
--- some comment
-]]
-
 vim.api.nvim_create_autocmd("BufRead", {
+  desc = "format large json files to prevent freezing neovim",
   group = core_group,
   pattern = "*.json",
   callback = function(ev)
