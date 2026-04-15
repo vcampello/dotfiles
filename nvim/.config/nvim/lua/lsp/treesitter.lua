@@ -47,8 +47,11 @@ return {
     "jmbuhr/otter.nvim",
   },
   config = function()
+    local ts = require("nvim-treesitter")
+    local ts_config = require("nvim-treesitter.config")
+    local ts_parsers = require("nvim-treesitter.parsers")
     -- cache installed parsers
-    for _, value in ipairs(require("nvim-treesitter.config").get_installed()) do
+    for _, value in ipairs(ts_config.get_installed()) do
       -- assume that the parser names match the file types
       M:update(value, { installed = true })
     end
@@ -57,7 +60,7 @@ return {
     for key, value in pairs(M.configs) do
       if not value.installed then
         -- it's slow but it's a noop if the parser is already installed
-        require("nvim-treesitter.install").install(value.maps_to):wait()
+        ts.install(value.maps_to):wait()
         M:update(key, { installed = true })
       end
     end
@@ -70,16 +73,16 @@ return {
         local config = M:update(ft)
 
         -- enable folds
-        vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
-        vim.wo[0][0].foldmethod = "expr"
-        vim.wo[0][0].foldlevel = 99
+        vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+        vim.wo.foldmethod = "expr"
+        vim.wo.foldlevel = 99
 
         if config.ignore then
           return
         end
 
         -- it cannot be auto installed
-        if not config.installed and require("nvim-treesitter.parsers")[config.maps_to] == nil then
+        if not config.installed and ts_parsers[config.maps_to] == nil then
           M:update(ft, { ignore = true })
           return
         end
@@ -95,7 +98,7 @@ return {
         -- try to install it without blocking and prevent reprocessing
         -- otter will only be enabled in the next run
         vim.schedule(function()
-          require("nvim-treesitter").install(config.maps_to):wait()
+          ts.install(config.maps_to):wait()
           M:update(ft, { ignore = false, installed = true })
 
           if not vim.api.nvim_buf_is_valid(bufnr) then
