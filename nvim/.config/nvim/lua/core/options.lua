@@ -136,11 +136,5 @@ vim.diagnostic.config({
   },
 })
 
--- Allow jumping back and forth between hints as they are disabled by the diagnostic filter
--- vim.keymap.set({ "n" }, "[h", function()
---   vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.HINT, wrap = true })
--- end, { desc = "Previous hint diagnostic" })
---
--- vim.keymap.set({ "n" }, "]h", function()
---   vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.HINT, wrap = true })
--- end, { desc = "Next hint diagnostic" })
+-- experimetal UI
+require("vim._core.ui2").enable({})
