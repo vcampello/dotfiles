@@ -1,30 +1,5 @@
 local M = {}
 
-function M.nightfox()
-  return {
-    "EdenEast/nightfox.nvim",
-    lazy = false,
-    priority = 1000,
-    config = function()
-      local palette = require("nightfox.palette").load("carbonfox")
-      -- print(vim.inspect(palette))
-      require("nightfox").setup({
-        options = {
-          transparent = true,
-        },
-        groups = {
-          all = {
-            -- NormalFloat = { bg = palette.bg1, fg = palette.fg1 },
-            NeotreeTitleBar = { bg = palette.bg2 },
-            WinSeparator = { fg = palette.fg1 },
-          },
-        },
-      })
-      vim.cmd.colorscheme("carbonfox")
-    end,
-  }
-end
-
 function M.nordic()
   return {
     "AlexvZyl/nordic.nvim",
@@ -61,34 +36,6 @@ function M.nordic()
         },
         bright_border = true,
       })
-    end,
-  }
-end
-
-function M.everviolet()
-  return {
-    "everviolet/nvim",
-    name = "evergarden",
-    priority = 1000, -- Colorscheme plugin is loaded first before any other plugins
-    config = function()
-      require("evergarden").setup({
-        theme = {
-          variant = "fall", -- 'winter'|'fall'|'spring'|'summer'
-          accent = "green",
-        },
-        editor = {
-          transparent_background = true,
-          sign = { color = "none" },
-          float = {
-            color = "mantle",
-            solid_border = false,
-          },
-          completion = {
-            color = "surface0",
-          },
-        },
-      })
-      vim.cmd.colorscheme("evergarden")
     end,
   }
 end
