@@ -22,7 +22,7 @@ vim.opt.showmode = false
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
 vim.schedule(function()
-  vim.opt.clipboard = "unnamedplus"
+    vim.opt.clipboard = "unnamedplus"
 end)
 
 -- Enable break indent
@@ -107,33 +107,33 @@ vim.opt.shadafile = cache_dir .. "/myshada/" .. unique_id .. ".shada"
 
 -- diagnostics - this may be overridden elsewhere
 vim.diagnostic.config({
-  -- skip hints and go to the important stuff instead
-  -- jump = { severity = { min = vim.diagnostic.severity.INFO } },
-  virtual_lines = false,
-  severity_sort = true,
-  float = { border = "rounded", source = "if_many" },
-  underline = { severity = vim.diagnostic.severity.WARN },
-  signs = {
-    text = {
-      [vim.diagnostic.severity.ERROR] = "󰅚 ",
-      [vim.diagnostic.severity.WARN] = "󰀪 ",
-      [vim.diagnostic.severity.INFO] = "󰋽 ",
-      [vim.diagnostic.severity.HINT] = "󰌶 ",
+    -- skip hints and go to the important stuff instead
+    -- jump = { severity = { min = vim.diagnostic.severity.INFO } },
+    virtual_lines = false,
+    severity_sort = true,
+    float = { border = "rounded", source = "if_many" },
+    underline = { severity = vim.diagnostic.severity.WARN },
+    signs = {
+        text = {
+            [vim.diagnostic.severity.ERROR] = "󰅚 ",
+            [vim.diagnostic.severity.WARN] = "󰀪 ",
+            [vim.diagnostic.severity.INFO] = "󰋽 ",
+            [vim.diagnostic.severity.HINT] = "󰌶 ",
+        },
     },
-  },
-  virtual_text = {
-    source = "if_many",
-    spacing = 2,
-    format = function(diagnostic)
-      local diagnostic_message = {
-        [vim.diagnostic.severity.ERROR] = diagnostic.message,
-        [vim.diagnostic.severity.WARN] = diagnostic.message,
-        [vim.diagnostic.severity.INFO] = diagnostic.message,
-        [vim.diagnostic.severity.HINT] = diagnostic.message,
-      }
-      return diagnostic_message[diagnostic.severity]
-    end,
-  },
+    virtual_text = {
+        source = "if_many",
+        spacing = 2,
+        format = function(diagnostic)
+            local diagnostic_message = {
+                [vim.diagnostic.severity.ERROR] = diagnostic.message,
+                [vim.diagnostic.severity.WARN] = diagnostic.message,
+                [vim.diagnostic.severity.INFO] = diagnostic.message,
+                [vim.diagnostic.severity.HINT] = diagnostic.message,
+            }
+            return diagnostic_message[diagnostic.severity]
+        end,
+    },
 })
 
 -- experimetal UI

@@ -20,14 +20,14 @@ vim.keymap.set("v", "<", "<gv", { desc = "Decrease indent" })
 
 -- Better terminal navigation and start terminal in insert mode
 vim.api.nvim_create_autocmd({ "TermOpen" }, {
-  group = vim.api.nvim_create_augroup("InitTerminal", { clear = true }),
-  callback = function()
-    vim.keymap.set("t", "<C-H>", "<C-\\><C-N><C-H>", { desc = "Escape term and focus on left window" })
-    vim.keymap.set("t", "<C-J>", "<C-\\><C-N><C-J>", { desc = "Escape term and focus on below window" })
-    vim.keymap.set("t", "<C-K>", "<C-\\><C-N><C-K>", { desc = "Escape term and focus on above window" })
-    vim.keymap.set("t", "<C-L>", "<C-\\><C-N><C-L>", { desc = "Escape term and focus on right window" })
-    vim.cmd.startinsert()
-  end,
+    group = vim.api.nvim_create_augroup("InitTerminal", { clear = true }),
+    callback = function()
+        vim.keymap.set("t", "<C-H>", "<C-\\><C-N><C-H>", { desc = "Escape term and focus on left window" })
+        vim.keymap.set("t", "<C-J>", "<C-\\><C-N><C-J>", { desc = "Escape term and focus on below window" })
+        vim.keymap.set("t", "<C-K>", "<C-\\><C-N><C-K>", { desc = "Escape term and focus on above window" })
+        vim.keymap.set("t", "<C-L>", "<C-\\><C-N><C-L>", { desc = "Escape term and focus on right window" })
+        vim.cmd.startinsert()
+    end,
 })
 
 vim.keymap.set("x", "g/", "<Esc>/\\%V", { desc = "Search visual selection" })

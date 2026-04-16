@@ -1,10 +1,10 @@
 return {
-  settings = {
-    ["harper-ls"] = {
-      dialect = "British",
-      linters = {
-        SentenceCapitalization = false,
-      },
+    settings = {
+        ["harper-ls"] = {
+            dialect = "British",
+            linters = {
+                SentenceCapitalization = false,
+            },
+        },
     },
-  },
 }

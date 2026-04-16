@@ -1,18 +1,18 @@
 return {
-  "folke/todo-comments.nvim",
-  dependencies = { "nvim-lua/plenary.nvim" },
-  ---@module 'todo-comments.config'
-  opts = {
-    keywords = {
-      CHECK = {
-        icon = " ",
-        color = "#27e2e8",
-        alt = { "REVIEW" },
-      },
-      REFACTOR = {
-        icon = "󰓾 ",
-        color = "#c072f2",
-      },
+    "folke/todo-comments.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    ---@module 'todo-comments.config'
+    opts = {
+        keywords = {
+            CHECK = {
+                icon = " ",
+                color = "#27e2e8",
+                alt = { "REVIEW" },
+            },
+            REFACTOR = {
+                icon = "󰓾 ",
+                color = "#c072f2",
+            },
+        },
     },
-  },
 }

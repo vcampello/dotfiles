@@ -1,5 +1,5 @@
 return {
-  "nvim-mini/mini.splitjoin",
-  version = false,
-  opts = {},
+    "nvim-mini/mini.splitjoin",
+    version = false,
+    opts = {},
 }
