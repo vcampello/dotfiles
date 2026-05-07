@@ -9,14 +9,14 @@ uv = "latest"        # faster backend for pipx
 node = "lts"
 bun = "latest"
 rust = { version = "latest", components = "rust-analyzer" }
-python = "latest"
+
 lua = "latest"
+stylua = "latest"
 
 go = "latest"
 golangci-lint = "latest"
 
 taplo = "latest"
-stylua = "latest"
 
 neovim = "latest"
 # "asdf:neovim" = "ref:nightly" # for some reason eslint doesn't work with nightly
@@ -38,24 +38,18 @@ bat = "latest"
 
 lazygit = "latest"
 delta = "latest"
-task = "latest"    # for some projects
-
-aws-cli = "latest"
-terraform = "latest"
-"npm:@google/gemini-cli" = "latest"
 
 zellij = "latest"
 
 [settings]
 # tools can read the versions files used by other version managers
 # for example, .nvmrc in the case of node"s nvm
-idiomatic_version_file_enable_tools = ["node", "go", "python"]
+idiomatic_version_file_enable_tools = ["node", "go", "python", "rust"]
 trusted_config_paths = ["~/dev", "~/dotfiles"]
-experimental = true                                            # enable hooks
+experimental = true
 
 [env]
 GOTOOLCHAIN = "local"
-AWS_VAULT_BACKEND = "pass"
 
 # will only work if the directory has a mise config
 [hooks]
