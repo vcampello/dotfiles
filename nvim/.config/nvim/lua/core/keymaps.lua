@@ -31,3 +31,15 @@ vim.api.nvim_create_autocmd({ "TermOpen" }, {
 })
 
 vim.keymap.set("x", "g/", "<Esc>/\\%V", { desc = "Search visual selection" })
+
+-- copy to clipboard
+vim.keymap.set("v", "<leader>y", '"+y', { desc = "Copy selection to clipboard", noremap = true })
+vim.keymap.set("n", "<leader>Y", '"+yg_', { desc = "Copy to end of line (without newline)", noremap = true })
+vim.keymap.set("n", "<leader>y", '"+y', { desc = "Copy to clipboard", noremap = true })
+vim.keymap.set("n", "<leader>yy", '"+yy', { desc = "Copy line to clipboard", noremap = true })
+
+-- paste from clipboard
+vim.keymap.set("n", "<leader>p", '"+p', { desc = "Paste from clipboard (after)", noremap = true })
+vim.keymap.set("n", "<leader>P", '"+P', { desc = "Paste from clipboard (before)", noremap = true })
+vim.keymap.set("v", "<leader>p", '"+p', { desc = "Paste from clipboard over selection (after)", noremap = true })
+vim.keymap.set("v", "<leader>P", '"+P', { desc = "Paste from clipboard over selection (before)", noremap = true })
