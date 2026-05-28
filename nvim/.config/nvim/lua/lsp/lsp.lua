@@ -1,3 +1,18 @@
+function restartLsps()
+    local clients = vim.lsp.get_clients({ bufnr = 0 })
+
+    for i, v in ipairs(clients) do
+        v:stop()
+    end
+    vim.cmd.update()
+    vim.defer_fn(vim.cmd.edit, 1000)
+end
+
+vim.api.nvim_create_user_command("LspRestart", restartLsps, {
+    desc = "Restart all LSPs attached to the currect buffer",
+    nargs = 0,
+})
+
 return {
     -- lazy = false,
     -- LSP Configuration & Plugins
