@@ -10,10 +10,8 @@ return {
             "shellcheck",
             "eslint_d",
             "prettierd",
-            -- "stylua", -- provided by mise
-            -- "vue-language-server",
             "golangci-lint-langserver",
-            "circleci-yaml-language-server",
+            -- "circleci-yaml-language-server",
             "biome",
             "ruff",
         },

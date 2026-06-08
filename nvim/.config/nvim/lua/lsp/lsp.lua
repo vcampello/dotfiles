@@ -179,7 +179,7 @@ return {
             callback = on_attach,
         })
         -- manual
-        vim.lsp.enable("circleci_lsp")
+        -- vim.lsp.enable("circleci_lsp")
 
         -- setup normal LSP configs
         require("mason-lspconfig").setup({
