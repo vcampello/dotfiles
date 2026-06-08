@@ -196,7 +196,6 @@ return {
                 "yamlls",
                 "terraformls",
                 "harper_ls",
-                "tinymist",
             },
             automatic_installation = false,
             automatic_enable = {
