@@ -196,6 +196,7 @@ return {
                 "yamlls",
                 "terraformls",
                 "harper_ls",
+                "protols",
             },
             automatic_installation = false,
             automatic_enable = {
