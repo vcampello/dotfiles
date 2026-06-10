@@ -1,32 +1,54 @@
----@diagnostic disable: missing-fields
 return {
     "saghen/blink.cmp",
-    lazy = false, -- lazy loading handled internally
+
     -- optional: provides snippets for the snippet source
     dependencies = {
         "rafamadriz/friendly-snippets",
         "folke/lazydev.nvim",
+        "xzbdmw/colorful-menu.nvim",
     },
 
     -- use a release tag to download pre-built binaries
-    version = "v0.*",
+    version = "v1.*",
 
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
     opts = {
+        keymap = { preset = "default" },
+
         completion = {
-            -- Don't select by default, auto insert on selection
-            list = { selection = { preselect = false, auto_insert = true } },
-            ghost_text = { enabled = true },
-            -- Show documentation when selecting a completion item
-            documentation = { auto_show = true, auto_show_delay_ms = 250 },
+            documentation = {
+                auto_show = false,
+                auto_show_delay_ms = 100,
+            },
+            ghost_text = {
+                enabled = true,
+            },
+            list = {
+                selection = {
+                    preselect = false,
+                    auto_insert = false,
+                },
+            },
             menu = {
                 draw = {
-                    treesitter = { "lsp" },
+                    -- We don't need label_description now because label and label_description are already
+                    -- combined together in label by colorful-menu.nvim.
+                    columns = { { "kind_icon" }, { "label", gap = 1 } },
+                    components = {
+                        label = {
+                            text = function(ctx)
+                                return require("colorful-menu").blink_components_text(ctx)
+                            end,
+                            highlight = function(ctx)
+                                return require("colorful-menu").blink_components_highlight(ctx)
+                            end,
+                        },
+                    },
                 },
             },
         },
-        cmdline = { completion = { ghost_text = { enabled = false } } },
+
         sources = {
             default = { "lsp", "path", "snippets", "buffer", "lazydev" },
             providers = {
@@ -42,12 +64,8 @@ return {
             },
         },
 
-        -- FIXME: figure out how this interacts with noice and causes two signature windows to popup
-        -- experimental signature help support
-        -- signature = { enabled = true },
+        -- See the fuzzy documentation for more information
         fuzzy = { implementation = "prefer_rust_with_warning" },
     },
-    -- allows extending the enabled_providers array elsewhere in your config
-    -- without having to redefine it
     opts_extend = { "sources.default" },
 }
