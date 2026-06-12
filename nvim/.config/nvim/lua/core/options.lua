@@ -109,10 +109,24 @@ vim.opt.shadafile = cache_dir .. "/myshada/" .. unique_id .. ".shada"
 vim.diagnostic.config({
     -- skip hints and go to the important stuff instead
     -- jump = { severity = { min = vim.diagnostic.severity.INFO } },
-    virtual_lines = false,
+    virtual_lines = true,
     severity_sort = true,
     float = { border = "rounded", source = "if_many" },
     underline = { severity = vim.diagnostic.severity.WARN },
+    virtual_text = false,
+    -- virtual_text = {
+    --     source = "if_many",
+    --     spacing = 2,
+    --     format = function(diagnostic)
+    --         local diagnostic_message = {
+    --             [vim.diagnostic.severity.ERROR] = diagnostic.message,
+    --             [vim.diagnostic.severity.WARN] = diagnostic.message,
+    --             [vim.diagnostic.severity.INFO] = diagnostic.message,
+    --             [vim.diagnostic.severity.HINT] = diagnostic.message,
+    --         }
+    --         return diagnostic_message[diagnostic.severity]
+    --     end,
+    -- },
     signs = {
         text = {
             [vim.diagnostic.severity.ERROR] = "󰅚 ",
@@ -120,19 +134,6 @@ vim.diagnostic.config({
             [vim.diagnostic.severity.INFO] = "󰋽 ",
             [vim.diagnostic.severity.HINT] = "󰌶 ",
         },
-    },
-    virtual_text = {
-        source = "if_many",
-        spacing = 2,
-        format = function(diagnostic)
-            local diagnostic_message = {
-                [vim.diagnostic.severity.ERROR] = diagnostic.message,
-                [vim.diagnostic.severity.WARN] = diagnostic.message,
-                [vim.diagnostic.severity.INFO] = diagnostic.message,
-                [vim.diagnostic.severity.HINT] = diagnostic.message,
-            }
-            return diagnostic_message[diagnostic.severity]
-        end,
     },
 })
 
