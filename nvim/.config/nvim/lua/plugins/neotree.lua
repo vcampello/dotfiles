@@ -1,44 +1,18 @@
 return {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v3.x",
+    lazy = false,
     dependencies = {
         "nvim-lua/plenary.nvim",
-        "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
         "MunifTanjim/nui.nvim",
-        "s1n7ax/nvim-window-picker",
+        "nvim-tree/nvim-web-devicons",
+        -- TODO: figure out why I cannot setup nvim-lsp-file-operations
     },
     config = function()
         require("neo-tree").setup({
-            popup_border_style = "rounded",
-            sources = {
-                "filesystem",
-                "buffers",
-                "git_status",
-            },
-            source_selector = {
-                winbar = true,
-                sources = {
-                    { source = "filesystem" },
-                    { source = "buffers" },
-                    { source = "git_status" },
-                },
-            },
-            -- Close Neo-tree if it is the last window left in the tab
-            close_if_last_window = true,
-            window = {
-                position = "right",
-            },
             filesystem = {
                 filtered_items = {
                     hide_dotfiles = false,
-                    hide_by_name = {
-                        "node_modules",
-                    },
-                    always_show_by_pattern = {
-                        -- custom global .gitignore
-                        "**/.local",
-                        "**/mise.*.toml",
-                    },
                 },
                 follow_current_file = {
                     enabled = true,
@@ -46,17 +20,6 @@ return {
                 -- This will use the OS level file watchers to detect changes
                 -- instead of relying on nvim autocmd events.
                 use_libuv_file_watcher = true,
-            },
-            buffers = {
-                follow_current_file = {
-                    enabled = true, -- This will find and focus the file in the active buffer every time
-                },
-            },
-            -- requires plugin 'mrbjarksen/neo-tree-diagnostics.nvim'
-            diagnostics = {
-                auto_preview = { -- May also be set to `true` or `false`
-                    enabled = true,
-                },
             },
             event_handlers = {
                 {
@@ -85,7 +48,6 @@ return {
         })
 
         -- Mappings
-        -- vim.cmd([[nnoremap \ :Neotree reveal<cr>]])
         vim.keymap.set("n", "<leader>o", "<cmd>:Neotree reveal float<cr>", { desc = "Neotree (float)" })
         vim.keymap.set("n", "<leader>O", "<cmd>:Neotree reveal right<cr>", { desc = "Neotree (right)" })
     end,
