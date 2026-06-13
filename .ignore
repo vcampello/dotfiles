@@ -1,3 +1,8 @@
+# This file contains a list of files that should either be ignored, or shown by
+# search tools like fd and rg. It has the opposite effect of .gitignore (it shows
+# ignored files, and hide some of the versioned ones)
+
+
 # -------------------------------------------------
 # always include from search
 # -------------------------------------------------
@@ -10,6 +15,7 @@
 # -------------------------------------------------
 **/package-lock.json
 **/yarn.lock
+**/node_modules
 
 # for some this gets picked up by fd sometimes
 **/.git/
