@@ -1,5 +1,4 @@
 require("core.options")
 require("core.autocmds")
 require("core.keymaps")
-require("core.todo-list").setup()
 require("core.copy-filepath").setup()
