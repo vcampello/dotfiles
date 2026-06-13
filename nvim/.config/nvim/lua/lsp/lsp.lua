@@ -1,7 +1,7 @@
-function restartLsps()
+local function restartLsps()
     local clients = vim.lsp.get_clients({ bufnr = 0 })
 
-    for i, v in ipairs(clients) do
+    for _, v in ipairs(clients) do
         v:stop()
     end
     vim.cmd.update()
