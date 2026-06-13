@@ -65,7 +65,7 @@ return {
             "force",
             {
                 lua = { "stylua" },
-                python = { "ruff", stop_after_first = true },
+                python = { "ruff" },
                 rust = { "rustfmt" },
                 shell = { "shellcheck" },
             },
@@ -80,7 +80,6 @@ return {
                 "markdown",
                 "typescript",
                 "typescriptreact",
-                "yaml",
                 "vue",
             }),
             -- override prettier config with biome when prettier is missing
