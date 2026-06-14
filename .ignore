@@ -9,6 +9,7 @@
 !**/.local/**
 !**/mise.*.toml
 !**/.env*
+!**/dotfiles/**/.config
 
 # -------------------------------------------------
 # always exclude from search
