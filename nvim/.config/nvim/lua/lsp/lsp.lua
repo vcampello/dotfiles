@@ -51,17 +51,6 @@ return {
             "SmiteshP/nvim-navic",
             requires = "neovim/nvim-lspconfig",
         },
-        -- {
-        --     "rachartier/tiny-inline-diagnostic.nvim",
-        --     -- event = "VeryLazy",
-        --     -- priority = 1000,
-        --     config = function()
-        --         require("tiny-inline-diagnostic").setup({
-        --             preset = "simple",
-        --         })
-        --         vim.diagnostic.config({ virtual_text = false }) -- Disable Neovim's default virtual text diagnostics
-        --     end,
-        -- },
     },
     config = function()
         local on_attach = function(event)
@@ -88,7 +77,7 @@ return {
                 if client.server_capabilities.documentSymbolProvider then
                     -- Only attach navic if it's NOT otter
                     local otter_ls_name = "otter-ls"
-                    if client.name:sub(1, #otter_ls_name) == otter_ls_name then
+                    if client.name:sub(1, #otter_ls_name) ~= otter_ls_name then
                         require("nvim-navic").attach(client, bufnr)
                     end
                 end
