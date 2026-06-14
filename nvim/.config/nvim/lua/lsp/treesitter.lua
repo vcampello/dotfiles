@@ -5,6 +5,23 @@ return {
     config = function()
         require("tree-sitter-manager").setup({
             auto_install = true,
+            ensure_installed = {
+                "bash",
+                "c",
+                "diff",
+                "html",
+                "lua",
+                "luadoc",
+                "markdown",
+                "markdown_inline",
+                "rust",
+                "go",
+                "typescript",
+                "tsx",
+                "query",
+                "vim",
+                "vimdoc",
+            },
         })
     end,
 
