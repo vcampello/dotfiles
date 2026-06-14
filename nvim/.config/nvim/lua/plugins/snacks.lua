@@ -6,7 +6,6 @@ return {
     ---@type snacks.Config
     opts = {
         indent = { enabled = true },
-        input = { enabled = true },
         lazygit = {
             configure = true,
             theme = {
