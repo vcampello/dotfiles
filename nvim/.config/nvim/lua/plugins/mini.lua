@@ -6,6 +6,11 @@ return {
         require("mini.splitjoin").setup()
         require("mini.ai").setup()
 
+        -- setup diff
+        require("mini.diff").setup()
+        vim.keymap.set("n", "<leader>gt", require("mini.diff").toggle_overlay, { desc = "Toggle inline git diff" })
+
+        -- setup highlighter
         local hipatterns = require("mini.hipatterns")
         hipatterns.setup({
             highlighters = {
