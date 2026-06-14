@@ -19,7 +19,6 @@ return {
         local git_blame = require("gitblame")
 
         require("lualine").setup({
-            path = 1, -- Relative path
             extensions = { "neo-tree" },
             winbar = {},
             tabline = {
