@@ -10,6 +10,9 @@ return {
     },
     config = function()
         require("neo-tree").setup({
+            source_selector = {
+                winbar = true,
+            },
             filesystem = {
                 filtered_items = {
                     hide_dotfiles = false,
