@@ -92,8 +92,9 @@ return {
                 fzf.lsp_definitions({ jump1 = true })
                 vim.cmd.normal("zz") -- centralise after jumping
             end, "Definitions")
+
             map("n", "gD", function()
-                vim.lsp.buf.type_definition()
+                fzf.lsp_typedefs({ jump1 = true })
                 vim.cmd.normal("zz") -- centralise after jumping
             end, "Type Definition")
 
