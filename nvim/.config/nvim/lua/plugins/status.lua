@@ -23,49 +23,23 @@ return {
             winbar = {},
             tabline = {
                 lualine_a = {
-                    {
-                        "tabs",
-                        show_modified_status = true, -- Shows a symbol next to the tab name if the file has been modified.
-                        symbols = {
-                            modified = "[+]", -- Text to show when the file is modified.
-                        },
-                        fmt = function(name, context)
-                            -- Show + if buffer is modified in tab
-                            local buflist = vim.fn.tabpagebuflist(context.tabnr)
-                            local winnr = vim.fn.tabpagewinnr(context.tabnr)
-                            local bufnr = buflist[winnr]
-                            local mod = vim.fn.getbufvar(bufnr, "&mod")
-
-                            return name .. (mod == 1 and " +" or "")
-                        end,
-                    },
+                    { "tabs", show_modified_status = true },
                 },
                 lualine_b = {
-                    {
-                        "navic",
-                        color_correction = nil,
-                        navic_opts = { click = true },
-                    },
+                    { "navic", color_correction = nil, navic_opts = { click = true } },
                 },
                 lualine_x = {
                     { git_blame.get_current_blame_text, cond = git_blame.is_blame_text_available },
                 },
-                lualine_y = {
-                    "diagnostics",
-                    "diff",
-                },
-                lualine_z = {
-                    "branch",
-                },
+                lualine_y = { "diagnostics", "diff" },
+                lualine_z = { "branch" },
             },
             sections = {
                 lualine_b = {
                     function()
+                        ---@type string
                         local reg = vim.fn.reg_recording()
-                        if reg == "" then
-                            return ""
-                        end -- not recording
-                        return "recording @" .. reg
+                        return reg ~= "" and "recording @" or ""
                     end,
                 },
                 lualine_c = {
@@ -75,9 +49,7 @@ return {
                         path = 1, -- 1: Relative path
                     },
                 },
-                lualine_y = {
-                    "lsp_status",
-                },
+                lualine_y = { "lsp_status" },
                 lualine_z = {
                     "location",
                     {
