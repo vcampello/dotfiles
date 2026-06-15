@@ -30,7 +30,7 @@ web_client {
 show_startup_tips false
 copy_on_select true
 
-theme "nightfox"
+theme "iceberg-dark"
 
 // keep all the defaults and overload the locked mode with pseudo-mode-less keybindings
 default_mode "locked"

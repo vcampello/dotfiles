@@ -75,7 +75,7 @@ config.audible_bell = "Disabled"
 --------------------------------------------------------------------------------
 --- theming
 --------------------------------------------------------------------------------
-config.color_scheme = "nord"
+config.color_scheme = "Eldritch"
 -- Can be overridden by editors and other applications
 config.default_cursor_style = "BlinkingBlock"
 
@@ -104,12 +104,12 @@ config.background = {
     },
     {
         source = {
-            Color = theme.COLORS.nordic_gray1,
+            Color = theme.COLORS.eldritch_bg,
         },
         width = "100%",
         height = "100%",
         opacity = 0.85,
-        hsb = { hue = 1, saturation = 1.2, brightness = 0.3 },
+        hsb = { hue = 1.0, saturation = 1.0, brightness = 0.3 },
     },
 }
 
