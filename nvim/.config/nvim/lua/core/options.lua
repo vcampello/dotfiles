@@ -108,7 +108,8 @@ vim.opt.shadafile = cache_dir .. "/myshada/" .. unique_id .. ".shada"
 -- diagnostics - this may be overridden elsewhere
 vim.diagnostic.config({
     severity_sort = true,
-    underline = { severity = vim.diagnostic.severity.WARN },
+    float = false,
+    underline = { severity = { min = vim.diagnostic.severity.WARN } },
     virtual_lines = { current_line = true },
     virtual_text = { current_line = false },
     signs = {
