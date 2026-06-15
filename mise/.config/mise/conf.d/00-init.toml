@@ -1,0 +1,17 @@
+[tools]
+# required to make some parts of mise work
+usage = "latest"
+watchexec = "latest"
+uv = "latest"        # faster backend for pipx
+
+[settings]
+# tools can read the versions files used by other version managers
+# for example, .nvmrc in the case of node"s nvm
+idiomatic_version_file_enable_tools = ["node", "go", "python", "rust"]
+trusted_config_paths = ["~/dev", "~/dotfiles"]
+experimental = true
+
+[env]
+# will only work if the directory has a mise config
+[hooks]
+enter = "mise install --quiet"

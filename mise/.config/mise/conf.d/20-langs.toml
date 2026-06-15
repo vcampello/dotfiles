@@ -1,0 +1,22 @@
+[tools]
+# golang
+go = "latest"
+golangci-lint = "latest"
+
+# js/ts
+node = "lts"
+bun = "latest"
+
+# rust
+rust = { version = "latest", components = "rust-analyzer" }
+
+# lua
+lua = "latest"
+stylua = "latest"
+
+# toml
+taplo = "latest"
+
+[env]
+# disable go's internal toolchain installer
+GOTOOLCHAIN = "local"

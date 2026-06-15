@@ -1,0 +1,21 @@
+[tools]
+# editor
+neovim = "latest"      # "asdf:neovim" = "ref:nightly" 
+tree-sitter = "latest"
+
+# dev experience
+bat = "latest"
+fzf = "latest"
+starship = "latest"
+zellij = "latest"
+zoxide = "latest"
+
+# data scrubbing
+ripgrep = "latest"
+fd = "latest"
+jq = "latest"
+gron = "latest"
+
+# git utils
+delta = "latest"
+lazygit = "latest"
