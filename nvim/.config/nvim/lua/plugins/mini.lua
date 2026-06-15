@@ -5,6 +5,7 @@ return {
         require("mini.indentscope").setup()
         require("mini.splitjoin").setup()
         require("mini.ai").setup()
+        require("mini.bracketed").setup()
 
         -- setup diff
         require("mini.diff").setup()

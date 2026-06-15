@@ -48,6 +48,9 @@ function M.eldritch()
         config = function()
             require("eldritch").setup({
                 transparent = true,
+                on_highlights = function(hl, colors)
+                    hl.CursorLineNr.bg = colors.bg_highlight
+                end,
             })
             vim.cmd.colorscheme("eldritch-dark")
         end,
