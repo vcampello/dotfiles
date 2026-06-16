@@ -157,21 +157,19 @@ return {
             group = vim.api.nvim_create_augroup("InitLspOnAttach", { clear = true }),
             callback = on_attach,
         })
-        -- manual
-        -- vim.lsp.enable("circleci_lsp")
+        -- enable a bunch here for simplicity. If an filetype needs extensive config, use `after/ftplugin/*.lua`
         vim.lsp.enable({
+            "basedpyright",
             "fish_lsp",
             "golangci_lint_ls",
             "gopls",
             "html",
             "jsonls",
             "lua_ls",
+            "protols",
             "taplo",
             "tsgo",
-            "basedpyright",
             "yamlls",
-            -- "harper_ls",
-            "protols",
         })
     end,
 }

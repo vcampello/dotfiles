@@ -123,4 +123,4 @@ vim.diagnostic.config({
 })
 
 -- experimetal UI
-require("vim._core.ui2").enable({})
+require("vim._core.ui2").enable()
