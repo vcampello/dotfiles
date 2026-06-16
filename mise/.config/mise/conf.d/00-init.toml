@@ -14,4 +14,4 @@ experimental = true
 [env]
 # will only work if the directory has a mise config
 [hooks]
-enter = "mise install"
+enter = "mise install --quiet"
