@@ -77,6 +77,7 @@ return {
                             end
                         end,
                     },
+                    "searchcount",
                 },
             },
             inactive_sections = {
