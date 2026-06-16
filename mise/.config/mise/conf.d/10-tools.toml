@@ -19,3 +19,6 @@ gron = "latest"
 # git utils
 delta = "latest"
 lazygit = "latest"
+
+# shell
+"npm:fish-lsp" = "latest"
