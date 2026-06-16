@@ -18,12 +18,9 @@ return {
     -- LSP Configuration & Plugins
     "neovim/nvim-lspconfig",
     dependencies = {
-        -- Automatically install LSPs to stdpath for neovim
-        { "williamboman/mason.nvim", opts = {} },
-        "williamboman/mason-lspconfig.nvim",
+        -- required to extend yamlls and jsonls
         "b0o/schemastore.nvim",
-        -- configured in: ./cmp.lua
-        "saghen/blink.cmp",
+        "SmiteshP/nvim-navic",
         {
             "mrcjkb/rustaceanvim",
             version = "^9", -- Recommended
@@ -45,11 +42,6 @@ return {
                         or get_option(filetype, option)
                 end
             end,
-        },
-
-        {
-            "SmiteshP/nvim-navic",
-            requires = "neovim/nvim-lspconfig",
         },
     },
     config = function()
@@ -167,32 +159,19 @@ return {
         })
         -- manual
         -- vim.lsp.enable("circleci_lsp")
-
-        -- setup normal LSP configs
-        require("mason-lspconfig").setup({
-            ensure_installed = {
-                "fish_lsp",
-                "golangci_lint_ls",
-                "gopls",
-                "html",
-                "jsonls",
-                "lua_ls",
-                "taplo",
-                "tsgo",
-                "basedpyright",
-                "yamlls",
-                "terraformls",
-                "harper_ls",
-                "protols",
-            },
-            automatic_installation = false,
-            automatic_enable = {
-                exclude = {
-                    "htmx",
-                    "ts_ls", -- exclude if tsgo is installed
-                    "harper_ls", -- disabling it for now
-                },
-            },
+        vim.lsp.enable({
+            "fish_lsp",
+            "golangci_lint_ls",
+            "gopls",
+            "html",
+            "jsonls",
+            "lua_ls",
+            "taplo",
+            "tsgo",
+            "basedpyright",
+            "yamlls",
+            -- "harper_ls",
+            "protols",
         })
     end,
 }
