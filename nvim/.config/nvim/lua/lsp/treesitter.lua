@@ -43,29 +43,6 @@ return {
             },
         },
 
-        -- nested LSPs
-        {
-            "jmbuhr/otter.nvim",
-            dependencies = { ts_manager_uri },
-
-            config = function()
-                require("otter").setup({
-                    verbose = {
-                        no_code_found = true,
-                    },
-                })
-                -- enable otter for toml files (more specifically mise configs)
-                local aucmd_group = vim.api.nvim_create_augroup("my.otter-setup", { clear = true })
-                vim.api.nvim_create_autocmd({ "FileType" }, {
-                    pattern = { "toml" },
-                    group = aucmd_group,
-                    callback = function()
-                        require("otter").activate()
-                    end,
-                })
-            end,
-        },
-
         -- pretty render markdown
         {
             "MeanderingProgrammer/render-markdown.nvim",
