@@ -8,7 +8,7 @@ return {
         require("mini.bracketed").setup()
 
         -- setup diff
-        require("mini.diff").setup()
+        require("mini.diff").setup({ view = { style = "sign" } })
         vim.keymap.set("n", "<leader>gt", require("mini.diff").toggle_overlay, { desc = "Toggle inline git diff" })
 
         -- setup highlighter

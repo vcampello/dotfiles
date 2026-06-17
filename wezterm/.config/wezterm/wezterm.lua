@@ -98,7 +98,8 @@ config.background = {
     {
         source = {
             -- File = wez.config_dir .. "/wallpapers/dark-souls-ii-17.jpg",
-            File = wez.config_dir .. "/wallpapers/sunset-sakura-tree.jpg",
+            -- File = wez.config_dir .. "/wallpapers/sunset-sakura-tree.jpg",
+            File = wez.config_dir .. "/wallpapers/cosmic-horror.jpg",
         },
         hsb = { hue = 1, saturation = 1, brightness = 0.4 },
     },
@@ -108,8 +109,8 @@ config.background = {
         },
         width = "100%",
         height = "100%",
-        opacity = 0.85,
-        hsb = { hue = 1.0, saturation = 1.0, brightness = 0.3 },
+        opacity = 0.80,
+        hsb = { hue = 1.0, saturation = 1.0, brightness = 0.4 },
     },
 }
 
