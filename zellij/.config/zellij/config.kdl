@@ -37,11 +37,7 @@ default_mode "locked"
 
 keybinds clear-defaults=true {
     shared {
-        // preserve some defaults while staying in locked mode
         bind "Alt f" { ToggleFloatingPanes; }
-        bind "Alt n" { NewPane; }
-        bind "Alt c" { CloseFocus; }
-        bind "Alt z" { ToggleFocusFullscreen; }
     }
     normal {
         // send ctrl+g when unlocked
