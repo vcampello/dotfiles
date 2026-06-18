@@ -97,6 +97,11 @@ return {
                 })
         ),
         format_on_save = function(bufnr)
+            -- do not format if the file has not been modified before
+            if not vim.bo.modifiable or not vim.bo.modified then
+                return
+            end
+
             -- Disable with a global or buffer-local variable
             if vim.b[bufnr].disable_autoformat then
                 vim.g.disable_autoformat = false
