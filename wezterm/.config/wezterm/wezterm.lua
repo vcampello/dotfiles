@@ -101,7 +101,7 @@ config.background = {
             -- File = wez.config_dir .. "/wallpapers/sunset-sakura-tree.jpg",
             File = wez.config_dir .. "/wallpapers/cosmic-horror.jpg",
         },
-        hsb = { hue = 1, saturation = 1, brightness = 0.4 },
+        hsb = { hue = 1, saturation = 1.5, brightness = 0.4 },
     },
     {
         source = {
@@ -109,8 +109,8 @@ config.background = {
         },
         width = "100%",
         height = "100%",
-        opacity = 0.80,
-        hsb = { hue = 1.0, saturation = 1.0, brightness = 0.4 },
+        opacity = 0.85,
+        hsb = { hue = 1.0, saturation = 1.5, brightness = 0.5 },
     },
 }
 
