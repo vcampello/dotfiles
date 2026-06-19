@@ -19,6 +19,10 @@ gron = "latest"
 # git utils
 delta = "latest"
 lazygit = "latest"
+"cargo:sem-cli" = "latest"
+
+# llm
+opencode = "latest"
 
 # shell
 "npm:fish-lsp" = "latest"
