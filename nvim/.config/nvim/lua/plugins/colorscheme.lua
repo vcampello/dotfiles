@@ -1,20 +1,46 @@
 local M = {}
 
-function M.eldritch()
+function M.monokai()
     return {
-        "eldritch-theme/eldritch.nvim",
+        "loctvl842/monokai-pro.nvim",
         lazy = false,
         priority = 1000,
         config = function()
-            require("eldritch").setup({
-                transparent = true,
-                on_highlights = function(hl, colors)
-                    hl.CursorLineNr.bg = colors.bg_highlight
+            require("monokai-pro").setup({
+                transparent_background = true,
+
+                override = function()
+                    -- clear some background colours
+                    return {
+                        NormalFloat = { bg = "" },
+                        Pmenu = { bg = "" },
+                        PmenuBorder = { bg = "" },
+                        BlinkCmpMenu = { bg = "" },
+                        SpellBad = { fg = "" },
+                        PmenuSel = { fg = "" },
+                        ["@lsp.type.variable"] = { fg = "#ffbf00" },
+                    }
                 end,
             })
-            vim.cmd.colorscheme("eldritch-dark")
+            vim.cmd.colorscheme("monokai-pro-ristretto")
         end,
     }
 end
 
-return M.eldritch()
+function M.kintsugi()
+    return {
+        "metalelf0/kintsugi-nvim",
+        lazy = false,
+        priority = 1000,
+        config = function()
+            require("kintsugi").setup({
+                variant = "flared", -- "dark" | "flared"
+                transparent = true,
+                bold_keywords = true,
+            })
+            vim.cmd.colorscheme("kintsugi-flared") -- or "kintsugi-flared"
+        end,
+    }
+end
+
+return M.kintsugi()

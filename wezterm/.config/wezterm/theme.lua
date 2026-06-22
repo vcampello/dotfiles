@@ -15,6 +15,7 @@ M.COLORS = {
     nordic_gray1 = "#2E3440",
     nordic_fg_bright = "#D8DEE9",
     eldritch_bg = "#212337",
+    brown = "#2D1801",
 }
 
 -- TODO: create palette
