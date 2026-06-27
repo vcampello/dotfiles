@@ -16,6 +16,7 @@ bun = "latest"
 
 # rust
 rust = { version = "latest", components = "rust-analyzer" }
+sccache = "latest"
 
 # lua
 lua = "latest"
@@ -43,3 +44,4 @@ shellcheck = "latest"
 [env]
 # disable go's internal toolchain installer
 GOTOOLCHAIN = "local"
+RUSTC_WRAPPER = "sccache"
