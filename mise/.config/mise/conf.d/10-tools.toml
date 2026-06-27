@@ -20,6 +20,7 @@ gron = "latest"
 delta = "latest"
 lazygit = "latest"
 "cargo:sem-cli" = "latest"
+jj = "latest"
 
 # llm
 opencode = "latest"
