@@ -355,8 +355,7 @@ keybinds clear-defaults=true {
         bind "[" { SwitchToMode "scroll"; }
 
         bind "c" { CloseFocus; }
-        bind "s" { NewPane "down"; SwitchToMode "locked"; }
-        bind "v" { NewPane "right"; SwitchToMode "locked"; }
+        bind "d" { NewPane "down"; SwitchToMode "locked"; }
         bind "n" { NewPane "right"; SwitchToMode "locked"; }
 
         bind "t" { NewTab; SwitchToMode "locked"; }
