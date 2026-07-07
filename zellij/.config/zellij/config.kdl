@@ -354,7 +354,7 @@ keybinds clear-defaults=true {
         bind "p" { EditScrollback; SwitchToMode "locked"; }
         bind "[" { SwitchToMode "scroll"; }
 
-        bind "c" { CloseFocus; }
+        bind "c" { CloseFocus; SwitchToMode "locked" }
         bind "d" { NewPane "down"; SwitchToMode "locked"; }
         bind "n" { NewPane "right"; SwitchToMode "locked"; }
 
