@@ -5,7 +5,8 @@ local M = {}
 
 ---Default settings
 ---@return Config
-function M.defaults()
+function M.new()
+    setmetatable(M, { __index = M })
     ---@type Config
     local o = {}
 
@@ -14,4 +15,4 @@ function M.defaults()
     return o
 end
 
-_G.Config = M.defaults()
+_G.Config = M.new()
