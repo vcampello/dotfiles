@@ -97,6 +97,11 @@ return {
                 })
         ),
         format_on_save = function(bufnr)
+            if not Config.auto_format then
+                vim.notify("autoformat is disabled", vim.log.levels.INFO)
+                return
+            end
+
             -- do not format if the file has not been modified before
             if not vim.bo.modifiable or not vim.bo.modified then
                 return
