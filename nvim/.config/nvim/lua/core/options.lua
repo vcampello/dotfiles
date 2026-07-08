@@ -84,6 +84,12 @@ vim.opt.swapfile = false
 vim.opt.backup = false -- Don't store backup while overwriting the file
 vim.opt.writebackup = false -- Don't store backup while overwriting the file
 
+-- Folds
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldlevel = 99 -- start unfolded
+vim.opt.foldlevelstart = 99
+
 -- Writing
 -- vim.opt.spell = true
 
