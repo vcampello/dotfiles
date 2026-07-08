@@ -18,8 +18,8 @@ if utils.is_macos(wez.target_triple) then
     config.front_end = "WebGpu"
 elseif utils.is_linux(wez.target_triple) then
     -- linux detected
-    config.font_size = 10.5
-    config.line_height = 1.2
+    config.font_size = 11
+    config.line_height = 1.0
     config.window_decorations = "RESIZE"
 elseif utils.is_windows(wez.target_triple) then
     -- windows detected
@@ -46,7 +46,7 @@ config.unix_domains = {
 --------------------------------------------------------------------------------
 -- Disable as the pop-up comes up way too often
 config.warn_about_missing_glyphs = false
-config.font = wez.font("Victor Mono", { weight = "DemiBold", stretch = "Normal", style = "Normal" })
+config.font = wez.font("IoskeleyMono Nerd Font")
 -- fix strike through position
 -- might not work at all until this is set -> https://wezfurlong.org/wezterm/faq.html#how-do-i-enable-undercurl-curly-underlines
 config.strikethrough_position = "0.6cell"
