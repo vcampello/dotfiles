@@ -1,5 +1,4 @@
 local M = {}
-M.prettier = {}
 
 local conf_path = vim.fn.stdpath("config")
 
@@ -17,18 +16,6 @@ function M.validate_config_store()
         local status = vim.fn.filereadable(value) and "valid" or "invalid"
         vim.notify(string.format("- [%s] %s: %s", status, key, value), vim.log.levels.INFO)
     end
-end
-
----Find matching prettierc or return the default
----@param ft string filetype
----@return string filepath
-function M.prettier.get_config_for_filetype(ft)
-    local specifc_config = M.prettier.config_by_ft[ft]
-    if specifc_config then
-        return specifc_config
-    end
-
-    return M.store.prettier
 end
 
 ---Check if project root has a prettier config

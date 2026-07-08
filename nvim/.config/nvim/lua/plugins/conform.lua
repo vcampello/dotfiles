@@ -1,19 +1,5 @@
 local format_utils = require("lib.format_utils")
 
--- disable format on save
-vim.api.nvim_create_user_command("FormatDisable", function()
-    vim.b.disable_autoformat = true
-end, {
-    desc = "Disable autoformat-on-save for buffer",
-})
-
--- enable format on save
-vim.api.nvim_create_user_command("FormatEnable", function()
-    vim.b.disable_autoformat = false
-end, {
-    desc = "Re-enable autoformat-on-save for buffer",
-})
-
 ---Configure multiple language with the same formatter
 ---@param formatters conform.FiletypeFormatter
 ---@param langs string[]
@@ -65,9 +51,9 @@ return {
             "force",
             {
                 lua = { "stylua" },
-                python = { "ruff" },
+                python = { "ruff_fix", "ruff_format" },
                 rust = { "rustfmt" },
-                shell = { "shellcheck" },
+                sh = { "shfmt" },
             },
             -- core prettier languages
             use_formatter_for({ "prettierd", "prettier", stop_after_first = true }, {
@@ -96,7 +82,7 @@ return {
                     "vue",
                 })
         ),
-        format_on_save = function(bufnr)
+        format_on_save = function()
             if not Config.auto_format then
                 vim.notify("autoformat is disabled", vim.log.levels.INFO)
                 return
@@ -107,12 +93,7 @@ return {
                 return
             end
 
-            -- Disable with a global or buffer-local variable
-            if vim.b[bufnr].disable_autoformat then
-                vim.g.disable_autoformat = false
-                return
-            end
-            return { timeout_ms = 500, lsp_fallback = true }
+            return { timeout_ms = 500, lsp_format = "fallback" }
         end,
         init = function()
             -- If you want the formatexpr, here is the place to set it

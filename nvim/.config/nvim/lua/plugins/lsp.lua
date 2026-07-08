@@ -100,7 +100,7 @@ return {
 
             -- TODO: improve this
             local function format()
-                require("conform").format({ async = true, lsp_fallback = true })
+                require("conform").format({ async = true, lsp_format = "fallback" })
             end
 
             vim.api.nvim_buf_create_user_command(bufnr, "Format", format, { desc = "Format current buffer with LSP" })
