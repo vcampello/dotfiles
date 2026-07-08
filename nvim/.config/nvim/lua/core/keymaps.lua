@@ -7,8 +7,6 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Scroll up (centralised)" })
 vim.keymap.set("n", "n", "nzzzv", { desc = "Next search match (centralised)" })
 vim.keymap.set("n", "N", "Nzzzv", { desc = "Previous search match (centralised)" })
 
-vim.keymap.set("x", "<leader>p", [["_dP]], { desc = "Delete into the void and paste without losing buffer" })
-
 -- Window navigation (will get overridden by smart-splits)
 vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Focus on left window" })
 vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Focus on below window" })

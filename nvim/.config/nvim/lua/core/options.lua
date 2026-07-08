@@ -85,13 +85,12 @@ vim.opt.backup = false -- Don't store backup while overwriting the file
 vim.opt.writebackup = false -- Don't store backup while overwriting the file
 
 -- Writing
-vim.opt.spell = true
+-- vim.opt.spell = true
 
 -- enable jumping to files in terminal output using gf
 -- may cause performance issues with :find
 vim.opt.path:append("**")
 
--- enable exrc: disabled for now as it's not being used
 vim.opt.exrc = true
 vim.opt.secure = true
 
@@ -112,7 +111,6 @@ vim.diagnostic.config({
     underline = { severity = { min = vim.diagnostic.severity.WARN } },
     -- virtual_lines = true, -- { current_line = true },
     virtual_text = { source = "if_many" },
-    -- Auto open the float, so you can easily read the errors when jumping with `[d` and `]d`
     signs = {
         text = {
             [vim.diagnostic.severity.ERROR] = "󰅚 ",
