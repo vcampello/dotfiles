@@ -152,7 +152,7 @@ return {
             "jsonls",
             "lua_ls",
             "protols",
-            "taplo",
+            "tombi",
             "tsgo",
             "yamlls",
         })

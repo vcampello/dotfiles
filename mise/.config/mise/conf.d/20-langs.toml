@@ -24,7 +24,7 @@ stylua = "latest"
 lua-language-server = "latest"
 
 # toml
-taplo = "latest"
+tombi = "latest"
 
 # yamll
 "npm:yaml-language-server" = "latest"
