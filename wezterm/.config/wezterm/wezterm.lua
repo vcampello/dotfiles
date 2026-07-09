@@ -47,7 +47,11 @@ config.unix_domains = {
 --------------------------------------------------------------------------------
 -- Disable as the pop-up comes up way too often
 config.warn_about_missing_glyphs = false
-config.font = wez.font("IoskeleyMono Nerd Font")
+config.font = wez.font("IoskeleyMono Nerd Font", {
+    weight = "Regular",
+    stretch = "SemiCondensed",
+    style = "Normal",
+})
 -- fix strike through position
 -- might not work at all until this is set -> https://wezfurlong.org/wezterm/faq.html#how-do-i-enable-undercurl-curly-underlines
 config.strikethrough_position = "0.6cell"
