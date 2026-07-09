@@ -1,6 +1,6 @@
 [tools]
 # editor
-neovim = "latest"      # "asdf:neovim" = "ref:nightly" 
+neovim = "latest"  # "asdf:neovim" = "ref:nightly"
 tree-sitter = "latest"
 
 # dev experience
@@ -27,3 +27,6 @@ opencode = "latest"
 
 # shell
 "npm:fish-lsp" = "latest"
+
+# utils
+"aqua:peteretelej/tree" = "latest"
