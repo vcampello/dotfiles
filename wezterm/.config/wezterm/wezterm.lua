@@ -21,6 +21,7 @@ elseif utils.is_linux(wez.target_triple) then
     config.font_size = 11
     config.line_height = 1.0
     config.window_decorations = "RESIZE"
+    config.enable_wayland = false -- fix windows decoration issues on wayland
 elseif utils.is_windows(wez.target_triple) then
     -- windows detected
     config.font_size = 10
