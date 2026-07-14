@@ -30,3 +30,6 @@ opencode = "latest"
 
 # utils
 "aqua:peteretelej/tree" = "latest"
+
+[env]
+SEM_NO_TELEMETRY = 1
