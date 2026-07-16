@@ -155,6 +155,7 @@ return {
             "tombi",
             "tsgo",
             "yamlls",
+            "clangd",
         })
     end,
 }
