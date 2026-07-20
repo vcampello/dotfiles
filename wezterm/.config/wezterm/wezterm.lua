@@ -86,8 +86,8 @@ config.colors = {
     foreground = "#cacac2",
     background = "#131314",
 
-    cursor_bg = "#d4a943",
     cursor_border = "#d4a943",
+    cursor_bg = theme.COLORS.white,
     cursor_fg = "#0e0e0e",
 
     selection_bg = "#47464c",
