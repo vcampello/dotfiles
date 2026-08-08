@@ -1,0 +1,34 @@
+// Requires "vim_mode": true (or "helix_mode": true) in settings.json.
+[
+  {
+    "context": "Workspace",
+    "bindings": {
+      // Fuzzy finding 
+      "space space": "file_finder::Toggle",       // <leader><leader> -> files
+      "space f f": "file_finder::Toggle",         // <leader>ff
+      "space f g": "project_search::ToggleFocus", // <leader>fg -> live grep
+      "space f m": "editor::ViewBookmarks",       // <leader>fm -> marks/bookmarks
+      "space slash": "diagnostics::Deploy",       // <leader>/ -> diagnostics
+      "space f q": "diagnostics::Deploy",         // <leader>fq -> closest analog to quickfix
+
+      // Project panel / file tree (was neo-tree)
+      "space o": "project_panel::Toggle",
+
+      // Git (was lazygit.nvim + mini.diff overlay)
+      "space g g": "git_panel::Toggle",
+
+
+      // Misc
+      "g O": "outline::Toggle",
+      "space ctrl-o": ["projects::OpenRecent", { "create_new_window": false }],
+      "space ctrl-O": ["projects::OpenRecent", { "create_new_window": true }]
+    }
+  },
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      // Search-in-selection (was <leader>f in visual mode)
+      "space f": "buffer_search::Deploy"
+    }
+  }
+]
