@@ -1,9 +1,8 @@
 // Requires "vim_mode": true (or "helix_mode": true) in settings.json.
 [
   {
-    "context": "Workspace",
-    "bindings": {
-      // Fuzzy finding 
+   "context": "Editor && vim_mode == normal",   "bindings": {
+      // Fuzzy finding
       "space space": "file_finder::Toggle",       // <leader><leader> -> files
       "space f f": "file_finder::Toggle",         // <leader>ff
       "space f g": "project_search::ToggleFocus", // <leader>fg -> live grep
@@ -25,7 +24,7 @@
     }
   },
   {
-    "context": "Editor && vim_mode == normal",
+    "context": "Editor && vim_mode == visual",
     "bindings": {
       // Search-in-selection (was <leader>f in visual mode)
       "space f": "buffer_search::Deploy"
