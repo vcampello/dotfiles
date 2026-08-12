@@ -63,8 +63,6 @@ keybinds clear-defaults=true {
 
         // tab management
         bind "Alt t" { NewTab; }
-        bind "Alt i" { GoToPreviousTab;  }
-        bind "Alt o" { GoToNextTab;  }
         bind "Alt 1" { GoToTab 1;  }
         bind "Alt 2" { GoToTab 2;  }
         bind "Alt 3" { GoToTab 3;  }
