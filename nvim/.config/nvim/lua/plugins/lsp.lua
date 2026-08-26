@@ -5,7 +5,6 @@ return {
     dependencies = {
         -- required to extend yamlls and jsonls
         "b0o/schemastore.nvim",
-        "SmiteshP/nvim-navic",
         {
             "mrcjkb/rustaceanvim",
             version = "^9", -- Recommended
@@ -49,10 +48,6 @@ return {
                     map("n", "grI", function()
                         vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }))
                     end, "Toggle inlay hints")
-                end
-
-                if client.server_capabilities.documentSymbolProvider then
-                    require("nvim-navic").attach(client, bufnr)
                 end
             end
 

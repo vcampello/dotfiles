@@ -25,9 +25,6 @@ return {
                 lualine_a = {
                     { "tabs", show_modified_status = true },
                 },
-                lualine_b = {
-                    { "navic", color_correction = nil, navic_opts = { click = true } },
-                },
                 lualine_x = {
                     { git_blame.get_current_blame_text, cond = git_blame.is_blame_text_available },
                 },
