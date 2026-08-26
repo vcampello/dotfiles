@@ -6,7 +6,8 @@ return {
             "f-person/git-blame.nvim",
             opts = {
                 display_virtual_text = false, -- we'll use lualine instead
-                message_template = "<date> • <author> • <summary>",
+                -- message_template = "<date> • <author> • <summary>",
+                message_template = "<date> • <sha>",
                 date_format = "%Y-%m-%d at %H:%M:%S",
                 max_commit_summary_length = 100,
                 set_extmark_options = {
@@ -17,17 +18,29 @@ return {
     },
     config = function()
         local git_blame = require("gitblame")
+        local comp = {
+            filename = {
+                "filename",
+                file_status = true, -- Displays file status (readonly status, modified status)
+                path = 4,
+            },
+            git_blame = { git_blame.get_current_blame_text, cond = git_blame.is_blame_text_available },
+        }
 
         require("lualine").setup({
             extensions = { "neo-tree" },
-            winbar = {},
+            options = {
+                globalstatus = true,
+            },
+            winbar = {
+                lualine_c = { comp.filename },
+            },
             tabline = {
                 lualine_a = {
                     { "tabs", show_modified_status = true },
                 },
-                lualine_x = {
-                    { git_blame.get_current_blame_text, cond = git_blame.is_blame_text_available },
-                },
+                lualine_b = {},
+                lualine_x = { comp.git_blame },
                 lualine_y = { "diagnostics", "diff" },
                 lualine_z = { "branch" },
             },
@@ -39,13 +52,7 @@ return {
                         return reg ~= "" and "recording @" or ""
                     end,
                 },
-                lualine_c = {
-                    {
-                        "filename",
-                        file_status = true, -- Displays file status (readonly status, modified status)
-                        path = 1, -- 1: Relative path
-                    },
-                },
+                lualine_c = {},
                 lualine_y = { "lsp_status" },
                 lualine_z = {
                     "location",
@@ -85,13 +92,10 @@ return {
                         end,
                     },
                 },
-                lualine_c = {
-                    {
-                        "filename",
-                        file_status = true, -- Displays file status (readonly status, modified status)
-                        path = 1, -- 1: Relative path
-                    },
-                },
+                lualine_c = {},
+            },
+            inactive_winbar = {
+                lualine_c = { comp.filename },
             },
         })
     end,
