@@ -9,10 +9,10 @@ golangci-lint-langserver = "latest"
 # web
 node = "lts"
 bun = "latest"
-"npm:@typescript/native-preview" = "latest"   # tsgo language server
-"npm:vscode-langservers-extracted" = "latest" # html/json/css/etc language server
-"npm:@biomejs/biome" = "latest"               # ts linter and formatter
-"npm:@fsouza/prettierd" = "latest"            # formatter for many other files (may consider eslint_d too)
+"npm:tsc" = "latest"
+"npm:vscode-langservers-extracted" = "latest"  # html/json/css/etc language server
+"npm:@biomejs/biome" = "latest"  # ts linter and formatter
+"npm:@fsouza/prettierd" = "latest"  # formatter for many other files (may consider eslint_d too)
 
 # rust
 rust = { version = "latest", components = "rust-analyzer" }
@@ -39,7 +39,6 @@ ruff = "latest"
 # shell
 shfmt = "latest"
 shellcheck = "latest"
-
 
 [env]
 # disable go's internal toolchain installer

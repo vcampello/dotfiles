@@ -148,7 +148,7 @@ return {
             "lua_ls",
             "protols",
             "tombi",
-            "tsgo",
+            "tsc",
             "yamlls",
             "clangd",
         })
