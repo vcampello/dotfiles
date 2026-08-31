@@ -7,7 +7,7 @@ return {
             opts = {
                 display_virtual_text = false, -- we'll use lualine instead
                 -- message_template = "<date> • <author> • <summary>",
-                message_template = "<date> • <sha>",
+                message_template = "<sha>  <date>",
                 date_format = "%Y-%m-%d at %H:%M:%S",
                 max_commit_summary_length = 100,
                 set_extmark_options = {
@@ -25,6 +25,15 @@ return {
                 path = 4,
             },
             git_blame = { git_blame.get_current_blame_text, cond = git_blame.is_blame_text_available },
+            ---Get working directory for current tab
+            ---@return string
+            tab_dir = function()
+                local tabnr = vim.api.nvim_get_current_tabpage()
+                local tab_cwd = vim.fn.getcwd(0, tabnr)
+                local dir = vim.fs.basename(tab_cwd)
+
+                return "󰉖  " .. dir
+            end,
         }
 
         require("lualine").setup({
@@ -39,7 +48,11 @@ return {
                 lualine_a = {
                     { "tabs", show_modified_status = true },
                 },
-                lualine_b = {},
+                lualine_b = {
+                    {
+                        comp.tab_dir,
+                    },
+                },
                 lualine_x = { comp.git_blame },
                 lualine_y = { "diagnostics", "diff" },
                 lualine_z = { "branch" },
