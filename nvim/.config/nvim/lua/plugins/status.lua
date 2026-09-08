@@ -48,11 +48,7 @@ return {
                 lualine_a = {
                     { "tabs", show_modified_status = true },
                 },
-                lualine_b = {
-                    {
-                        comp.tab_dir,
-                    },
-                },
+                lualine_c = { { comp.tab_dir } },
                 lualine_x = { comp.git_blame },
                 lualine_y = { "diagnostics", "diff" },
                 lualine_z = { "branch" },
