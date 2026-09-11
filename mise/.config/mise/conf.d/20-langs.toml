@@ -9,7 +9,7 @@ golangci-lint-langserver = "latest"
 # web
 node = "lts"
 bun = "latest"
-"npm:tsc" = "latest"
+"npm:typescript" = "latest"
 "npm:vscode-langservers-extracted" = "latest"  # html/json/css/etc language server
 "npm:@biomejs/biome" = "latest"  # ts linter and formatter
 "npm:@fsouza/prettierd" = "latest"  # formatter for many other files (may consider eslint_d too)
