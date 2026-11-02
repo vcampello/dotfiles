@@ -1,9 +1,16 @@
 return {
-    lazy = false,
-    priority = 999,
-    "mrjones2014/smart-splits.nvim",
+    "smart-splits-nvim/smart-splits.nvim",
+    version = "^3.0.0",
+    -- install a backend
+    dependencies = {
+        {
+            "smart-splits-nvim/backend-zellij-lua",
+            main = "smart-splits-backend-zellij-lua",
+        },
+    },
     config = function()
         local sp = require("smart-splits")
+        sp.setup({ mux = { backend = "smart-splits-backend-zellij-lua" } })
 
         -- Focus
         vim.keymap.set("n", "<C-h>", sp.move_cursor_left, { desc = "Focus on left window" })
